@@ -7,6 +7,7 @@ import SlideSection from '@/src/components/homeNoAuth/slideSection';
 import { GetStaticProps } from 'next';
 import produtService, { ProductType } from '@/src/services/productService';
 import { ReactNode } from 'react';
+import Footer from '@/src/components/common/footer';
 
 interface IndexPageProps{
   children?: ReactNode;
@@ -31,6 +32,7 @@ const HomeNoAuth= ({product}:IndexPageProps)=>{
       </div>
       <CardSection/>
       <SlideSection getproduts={product}/>
+      <Footer/>
     </main>
     </>
   )
