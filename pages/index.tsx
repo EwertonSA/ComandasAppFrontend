@@ -3,8 +3,18 @@ import styles from '../styles/HomeNoAuth.module.scss'
 import HeaderNoAuth from '@/src/components/homeNoAuth/headerNoAuth';
 import PresentationSection from '@/src/components/homeNoAuth/presentationSection';
 import CardSection from '@/src/components/homeNoAuth/cardSection';
+import SlideSection from '@/src/components/homeNoAuth/slideSection';
+import { GetStaticProps } from 'next';
+import produtService, { ProductType } from '@/src/services/productService';
+import { ReactNode } from 'react';
 
-const HomeNoAuth= ()=>{
+interface IndexPageProps{
+  children?: ReactNode;
+  product:ProductType[]
+}
+
+const HomeNoAuth= ({product}:IndexPageProps)=>{
+
   return(
     <>
     <Head>
@@ -20,8 +30,18 @@ const HomeNoAuth= ()=>{
      
       </div>
       <CardSection/>
+      <SlideSection getproduts={product}/>
     </main>
     </>
   )
 }
+export const getStaticProps: GetStaticProps=async()=>{
+  const res= await produtService.getproducts()
+ 
+  return {
+    props:{product:res.data,},
+    revalidate:3600*12,
+  }
+};
+
 export default HomeNoAuth;

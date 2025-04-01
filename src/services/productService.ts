@@ -15,12 +15,16 @@ export type ProductType={
     pedidos?:PedidosType[];
 }
 const produtService={
-getproducts: async()=>{
-    const res=await api.get('/pedidos').catch((err)=>{
-        console.log(err.response.data.message)
-        return err.response
-    })
-    return res
-}
+    getproducts: async () => {
+        try {
+          const res = await api.get('/produtos');
+          console.log("📦 Produtos recebidos no getStaticProps:", res.data);
+          return { data: res.data.produtos || [] };
+        } catch (err: any) {
+         
+          return { data: [] }; 
+        }
+      }
+    
 }
 export default produtService
