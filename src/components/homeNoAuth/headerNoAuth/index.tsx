@@ -5,9 +5,9 @@ import {Container,Button} from "reactstrap"
 const HeaderNoAuth=function (){
     return <>
     <div className={styles.ctaSection}>
-<img src="/favicon.jpg" alt="logoCta" className={styles.imgCta} />
+<img src="/2.jpg" alt="logoCta" className={styles.imgCta} />
 <p>Acesse o melhor aplicativo para restaurantes</p>
-<img src="/favicon.jpg" alt="logoCta" className={styles.imgCta} />
+<img src="/2.jpg" alt="logoCta" className={styles.imgCta} />
     </div>
     <Container className={styles.nav}>
 <img src="/2.jpg" alt="logo" className={styles.imgNav}/>

@@ -1,0 +1,88 @@
+@import "../../../../styles/colors.module.scss";
+
+.imgPresentation{
+    width: 550px;
+}
+.subtitle{
+    font-size: 22px;
+    font-weight: bold;
+    color: $lightGray;
+    line-height: 50px;
+    margin: 20px 0px 40px 0px;
+}
+.title{
+    font-size: 35px;
+    font-weight: bold;
+    line-height: 50px;
+    margin: 20px 0px 40px 0px;
+}
+.btnCta{
+    font-weight: bold;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    padding: 14px 30px;
+    border:2px solid $lightBlue;
+
+.btnImg{
+    width: 11px;
+}
+&:hover{
+    border-color: $darkGray;
+    color:$lightBlue;
+    background-color: transparent;
+}
+}
+.arrowDown{
+    width: 30px;
+    
+}
+@media(max-width:1200px) and (min-width:992px){
+    .title{
+        font-size: 30px;
+    }
+    .subtitle{
+        font-size: 20px;
+        line-height: 30px;
+    }
+}
+@media(max-width:992px){
+    .imgPresentation{
+        display: flex;
+        margin: 50px auto;
+    }
+}
+@media(max-width:690px){
+    .imgPresentation{
+        width: 95%;
+    }
+    .title{
+        font-size: 26px;
+    }
+   
+}
+@media(max-width:520px){
+    .title{
+        font-size: 22px;
+        line-height: 30px;
+    }
+    .subtitle{
+        font-size:16px;
+        line-height: 25px;
+    }
+    .btnCta{
+      padding: 10px 24px;
+    }
+}
+@media(max-width:380px){
+    .title{
+        font-size: 18px;
+        line-height: 25px;
+    }
+    .subtitle{
+        font-size:14px;
+        line-height: 20px;
+    }
+    
+}
