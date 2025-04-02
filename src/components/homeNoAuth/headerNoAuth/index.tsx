@@ -16,7 +16,7 @@ const HeaderNoAuth=function (){
    <Button className={styles.navBtn} outline >Pesquisar</Button>
   
    </Link>
-   <Link href=''>
+   <Link href='/home'>
    <Button outline  className={styles.navBtn}>Cadastre</Button>
    </Link>
 
