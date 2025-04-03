@@ -14,7 +14,7 @@ const Register= ()=>{
     const router=useRouter()
     const [toastOpen,setToastOpen]=useState(false)
     const [toastMessage,setToastMessage]=useState('')
-    const [toastColor,setToastColor]=useState(false)
+    const [toastColor,setToastColor]=useState('')
     const handleRegister=async(event:FormEvent<HTMLFormElement>)=>{
         event.preventDefault();
         
@@ -26,10 +26,6 @@ const Register= ()=>{
         
         const {data,status}=await clienteService.register(params)
         if(status===201){
-            setToastOpen(true);
-            setTimeout(()=>{
-                setToastOpen(false)
-            },1000*3)
             router.push('/comandas?registred:true')
         }else{
             alert(data.message)
@@ -42,7 +38,7 @@ const Register= ()=>{
             <script src="https://jsuites.net/v4/jsuites.js"></script>
         </Head>
         <main className={styles.main}>
-            <HeaderGeneric logoUrl='/' btnUrl='/register' btnContent='Fazer pedidos'/>
+            <HeaderGeneric logoUrl='/' btnUrl='/comandas' btnContent='Fazer pedidos'/>
             <Container className='py-5'>
                 <p className={styles.formTitle}><strong >Bem vindo(a) ao cadastro</strong></p>
                 <Form className={styles.form} onSubmit={handleRegister}>
@@ -84,7 +80,7 @@ const Register= ()=>{
                 </Form>
             </Container>
             <Footer/>
-            <ToastComponent isOpen={toastOpen} color='bg-danger' message={toastMessage}></ToastComponent>
+           
         </main>
     </>
 }
