@@ -10,7 +10,7 @@ interface props{
 }
 const SlideComponent=({product}:props)=>{
     let slideCount=0
-    if(product.length>4){
+    if(product?.length>4){
         slideCount=4
     }else if(product){
         slideCount=product.length
@@ -23,19 +23,19 @@ const SlideComponent=({product}:props)=>{
             perMove:1,
             width:slideCount*300,
             pagination:false,
-            arrows:product.length>4 ? true:false,
-            drag:product.length>4 ? true:false,
+            arrows:product?.length>4 ? true:false,
+            drag:product?.length>4 ? true:false,
             breakpoints:{
                 1200:{
                     perPage:slideCount>=2 ? 2:1,
-                    arrows:product.length>2 ? true:false,
-                    drag:product.length>2 ? true:false,
+                    arrows:product?.length>2 ? true:false,
+                    drag:product?.length>2 ? true:false,
                     width:slideCount>= 2 ? 600:300,
                 },
                 600:{
                     perPage:1,
-                    arrows:product.length>1 ? true:false,
-                    drag:product.length>1 ? true:false,
+                    arrows:product?.length>1 ? true:false,
+                    drag:product?.length>1 ? true:false,
                     width:300
                 },
                 300:{

@@ -7,7 +7,7 @@ const Footer=()=>{
         <>
         <Container className={styles.footer}>
             <img src="/2.jpg" alt="" className={styles.footerLogo} />
-            <a href="http://comandas.com" target='blank'
+            <a href="http://comandassss.com" target='blank'
             className={styles.footerLink}>Products</a>
         </Container>
         </>

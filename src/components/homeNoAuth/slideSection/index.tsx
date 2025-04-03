@@ -14,7 +14,7 @@ const SlideSection=({getproduts}:props)=>{
      <Container className='d-flex flex-column align-items-center'>
         <p className={styles.sectionTitle}>Produtos disponíveis</p>
         <SlideComponent product={getproduts}/>
-       <Link href=''>
+       <Link href='/register'>
        <Button outline color='light' className={styles.slideSection}>Faça seu pedido agora</Button>
        </Link>
      </Container>
