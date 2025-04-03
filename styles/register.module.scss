@@ -1,0 +1,16 @@
+@import "./colors.module.scss";
+.main{
+    background-color: linear-gradient(to bottom,#151515,black);
+}
+.formTitle{
+    font-size: 40px;
+    font-weight: bold;
+    padding-bottom: 40px;
+}
+.form{
+    width: 600px;
+    padding: 50px;
+    border:1px solid $lightBlue;
+    border-radius: 5px;
+   margin: 0 auto;
+}
