@@ -9,16 +9,16 @@ const Register= ()=>{
       <Head>
             <title>Registro</title>
             <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
-            <script src='https://jseuites.net/v4/jsuites'></script>
+            <script src="https://jsuites.net/v4/jsuites.js"></script>
         </Head>
         <main className={styles.main}>
             <HeaderGeneric logoUrl='/' btnUrl='/register' btnContent='Fazer pedidos'/>
             <Container className='py-5'>
-                <p className={styles.formTitle}><strong >Bem vindo ao cadastro</strong></p>
+                <p className={styles.formTitle}><strong >Bem vindo(a) ao cadastro</strong></p>
                 <Form className={styles.form}>
-                    <p  className='text-center'><strong>Faça o registro</strong></p>
+                    <p  className={styles.subtitle}><strong>Faça o registro</strong></p>
                     <FormGroup>
-                        <Label for='firstName'>NOME</Label>
+                        <Label for='firstName' className={styles.label}>Nome</Label>
                         <Input id='firstName'
                         name='firstName'
                         type='text'
@@ -28,18 +28,18 @@ const Register= ()=>{
                         className={styles.inputName}/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for='telefone'>Telefone</Label>
+                        <Label for='telefone' className={styles.label}>Telefone</Label>
                         <Input id='telefone'
                         name='telefone'
                         type='tel'
-                        placeholder='Nome do cliente'
-                        mask='[-]+55 (00) 00000-0000'
+                        placeholder='+55 (xx) 11 9xxxx-xxxx'
+                        data-mask="[-]+55 (00) 00000-0000"
                        
-                        className={styles.inputName}/>
+                        className={styles.input}/>
                     </FormGroup>
                     <FormGroup>
                         
-                        <Label for='mesaId'>Mesa Id</Label>
+                        <Label for='mesaId' className={styles.label}>Mesa Id</Label>
                         <Input id='firstName'
                         name='mesaId'
                         type='number'
@@ -50,15 +50,15 @@ const Register= ()=>{
                         className={styles.input}/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for='comanda'>Comanda</Label>
+                        <Label for='comanda' className={styles.label}>Comanda</Label>
                         <Input id='comanda'
                         name='comanda'
                         type='number'
                         placeholder='Número da comanda'
                         required
-                        className={styles.inputName}/>
+                        className={styles.input}/>
                     </FormGroup>
-                    <Button outline>Cadastrar</Button>
+                    <Button outline className={styles.formBtn}>Cadastrar</Button>
                 </Form>
             </Container>
             <Footer/>
