@@ -2,20 +2,104 @@ import api from "./api";
 
 interface PedidoParams{
 comandaId:string;
-total:string;
+total:number;
 status:string
 }
+interface PedidosProdutosParams{
+  produtoId:string;
+  pedidoId:string;
+  quantidade:number
+}
 const pedidoService={
-  getOrder:async(params:PedidoParams)=>{
+  getPedidos:async()=>{
     try {
-        const res=await api.get('/pedidos',{params})
-        return{status:res.status,data:res.data.response}
+      const res=await api.get('/pedidos')
+      return res.data      
+    } catch (error) {
+      return []
+    }
+
+  },
+  create:async(params:PedidoParams)=>{
+    try {
+        const res=await api.post('/pedidos',params)
+        return res.data
     } catch (error) {
         if(error instanceof Error){
             return{status:500,error:error.message}
         }
         
     }
+  },
+  createPedidosProdutos:async(params:PedidosProdutosParams)=>{
+try {
+  const res=await api.post('/pedidosProdutos',params)
+  return res.data
+} catch (err:any) {
+  return {
+    error: err.response?.data?.message || err.message || "Erro desconhecido",
+    status: err.response?.status || 500
+  };
+}
+  },
+        getProduct:async()=>{
+    try {
+      const res=await api.get("/produtos");
+      console.log(res.data)
+      return{data:res.data.produtos|| [] };
+    } catch (error) {
+      console.error("Erro ao buscar produto",error)
+    }
+
+},
+registerAll: async ({
+  total,
+  status,
+  quantidade,
+  comandaId,
+  produtoId
+}: {
+  total: number;
+  status: string;
+  quantidade: number;
+  comandaId: string;
+  produtoId: string;
+}) => {
+  try {
+    const pedidoRes = await pedidoService.create({ comandaId, total, status });
+    console.log("pedidoRes:", pedidoRes);
+    console.log("Dados recebidos no registerAll:", { total, status, quantidade, comandaId, produtoId });
+
+    if (!pedidoRes || 'error' in pedidoRes || !pedidoRes.id) {
+      return { status: 400, message: "Erro ao registrar o pedido." };
+    }
+
+    const pedidoId = pedidoRes.id;
+    console.log("ID do pedido retornado:", pedidoId);
+    const pedidosProdutos = await pedidoService.createPedidosProdutos({
+      pedidoId,
+      produtoId,
+      quantidade
+    });
+
+    if (!pedidosProdutos || 'error' in pedidosProdutos || !pedidosProdutos.id) {
+      return { status: 400, message: "Erro ao vincular produto ao pedido." };
+    }
+
+    return { status: 200, message: "Pedido com produto cadastrado com sucesso." };
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Erro no registerAll:", {
+        message: error.message,
+        stack: error.stack
+      });
+    } else {
+      console.error("Erro desconhecido no registerAll:", error);
+    }
+
+    return { status: 500, message: "Erro interno no servidor." };
   }
+}
+
 } 
 export default pedidoService

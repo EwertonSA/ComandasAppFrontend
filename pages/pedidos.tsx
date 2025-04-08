@@ -1,78 +1,183 @@
-import HeaderGeneric from "@/src/components/common/headerGeneric"
-import Head from "next/head"
-import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
-import styles from "../styles/register.module.scss"
-import { FormEvent, useEffect, useState } from "react"
-import pedidoService from "@/src/services/pedidoService"
-import { useRouter } from "next/router"
-const Pedidos=()=>{
-    const router=useRouter()
-    const [toastOpen,setToastOpen]=useState(false)
-    const [toastMessage,setToastMessage]=useState('')
-    const [toastColor,setToastColor]=useState('')
-    const comandaSuccess=router.query.registred
-    useEffect(()=>{
-if(comandaSuccess==='true'){
-    setToastColor('bg-success')
-    setToastOpen(true);
-    setTimeout(()=>{
-        setToastOpen(false)
-    },1000*3)
-    setToastMessage("Pedido bem sucedido")
-}
-    },[router.query])
+import HeaderGeneric from "@/src/components/common/headerGeneric";
+import Head from "next/head";
+import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
+import styles from "../styles/register.module.scss";
+import { FormEvent, useEffect, useState } from "react";
+import pedidoService from "@/src/services/pedidoService";
+import { useRouter } from "next/router";
 
-    const handleOrders=async(ev:FormEvent<HTMLFormElement>)=>{
-        const formData= new FormData(ev.currentTarget)
-        const comandaId= formData.get('comandaId')!.toString()
-        const total= formData.get('total')!.toString()
-        const stat= formData.get('status')!.toString()
-        const params={comandaId,total,status:stat}
-        const res= await pedidoService.getOrder(params)
-        if(res?.status===201){
-            router.push('/pedidosProdutos?registred:true')
-        }else{
-            alert("erro")
-        }
-        
+const Pedidos = () => {
+  const router = useRouter();
+
+  // estados do formulário
+  const [produtoId, setProdutoId] = useState("");
+  const [total, setTotal] = useState<number | "">("");
+  const [status, setStatus] = useState("");
+  const [quantidade, setQuantidade] = useState<number | "">("");
+
+  // estados para feedback
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastColor, setToastColor] = useState("");
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    if (router.query.registred?.toString() === "true") {
+      setToastColor("bg-success");
+      setToastOpen(true);
+      setToastMessage("Pedido bem sucedido");
+
+      setTimeout(() => {
+        setToastOpen(false);
+      }, 3000);
     }
-    return<>
-    <Head>
-    <title>Realizar pedidos</title>
-    <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
-    </Head>
-    <main>
-        <HeaderGeneric logoUrl="/comandas" btnUrl="/pedidosProdutos" btnContent="Pedir" />
+  }, [router.query]);
+
+  const handleOrders = async (ev: FormEvent<HTMLFormElement>) => {
+    ev.preventDefault();
+
+    try {
+      if (!router.isReady) {
+        alert("Aguarde o carregamento da página");
+        return;
+      }
+
+      const comandaId = router.query.comandaId?.toString();
+      if (!comandaId) {
+        alert("Comanda inexistente");
+        return;
+      }
+
+      const res = await pedidoService.registerAll({
+        total: Number(total),
+        comandaId,
+        status,
+        quantidade: Number(quantidade),
+        produtoId
+      });
+
+      if (res?.status === 200) {
+        setToastColor("bg-success");
+        setToastMessage("Produto cadastrado com sucesso!");
+        setToastOpen(true);
+
+        // limpa campos
+        setProdutoId("");
+        setTotal("");
+        setStatus("");
+        setQuantidade("");
+
+        setTimeout(() => {
+          setToastOpen(false);
+        }, 3000);
+      } else {
+        alert("Erro: " + res?.message);
+      }
+    } catch (err) {
+      console.error("Erro capturado no handleOrders:", err);
+      alert("Erro inesperado ao enviar o pedido.");
+    }
+  };
+
+  return (
+    <>
+      <Head>
+        <title>Realizar pedidos</title>
+        <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
+      </Head>
+      <main>
+        <HeaderGeneric
+          logoUrl="/comandas"
+          btnUrl="/pedidosProdutos"
+          btnContent="Pedir"
+        />
         <Container className="py-5">
-        <p className={styles.FormTitle}>Fazer pedidos</p>
-        <Form  className={styles.form} onSubmit={handleOrders}>
-            <p className="text-center"><strong>Pedido</strong></p>
+          <p className={styles.FormTitle}>Fazer pedidos</p>
+
+          {toastOpen && (
+            <div className={`text-white p-2 rounded ${toastColor}`}>
+              {toastMessage}
+            </div>
+          )}
+
+          <Form className={styles.form} onSubmit={handleOrders}>
+            <p className="text-center">
+              <strong>Pedido</strong>
+            </p>
+
             <FormGroup>
-                <Label for='comandaId' className={styles.label}>Comanda Id</Label>
-                <Input
-                id="comandaId"
-                placeholder="Número da comanda"
-                name="comandaId"
+              <Label for="produtoId" className={styles.label}>
+                Produto ID
+              </Label>
+              <Input
+                name="produtoId"
+                id="produtoId"
                 type="number"
-                maxLength={20}
-                required className={styles.input}/>
-                
+                placeholder="produtoId"
+                required
+                className={styles.input}
+                value={produtoId}
+                onChange={(e) => setProdutoId(e.target.value)}
+              />
             </FormGroup>
+
             <FormGroup>
-                <Label className={styles.label} for='total'>Total</Label>
-                <Input id="total" name="total" type="number" placeholder="Valor total" required className={styles.input}/>
+              <Label className={styles.label} for="total">
+                Total
+              </Label>
+              <Input
+                id="total"
+                name="total"
+                type="number"
+                placeholder="Valor total"
+                required
+                className={styles.input}
+                value={total}
+                onChange={(e) => setTotal(Number(e.target.value))}
+              />
             </FormGroup>
+
             <FormGroup>
-                <Label className={styles.label} for="status">
-                    Status
-                </Label>
-                <Input id="status" name="status" type="text" placeholder="andamento/entregue" required className={styles.input}/>
+              <Label className={styles.label} for="status">
+                Status
+              </Label>
+              <Input
+                id="status"
+                name="status"
+                type="text"
+                placeholder="andamento/entregue"
+                required
+                className={styles.input}
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              />
             </FormGroup>
-            <Button outline className={styles.formBtn} type="submit">Cadastrar</Button>
-        </Form>
-    </Container>
-    </main>
-   
+
+            <FormGroup>
+              <Label for="quantidade" className={styles.label}>
+                Quantidade
+              </Label>
+              <Input
+                name="quantidade"
+                id="quantidade"
+                type="number"
+                placeholder="quantidade"
+                required
+                className={styles.input}
+                value={quantidade}
+                onChange={(e) => setQuantidade(Number(e.target.value))}
+              />
+            </FormGroup>
+
+            <Button outline className={styles.formBtn} type="submit">
+              Cadastrar
+            </Button>
+          </Form>
+        </Container>
+      </main>
     </>
-}
-export default Pedidos
+  );
+};
+
+export default Pedidos;
