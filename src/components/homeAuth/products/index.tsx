@@ -9,7 +9,7 @@ import Link from "next/link";
 
 
 const Product=()=>{
-    const {data,error}=useSWR("/produtos",produtService.getProduct);
+    const {data,error}=useSWR("/produtos",produtService.getproducts);
     if(error) return error;
     if(!data) return(
         <>

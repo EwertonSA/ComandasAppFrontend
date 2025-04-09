@@ -4,9 +4,12 @@ import styles from './styles.module.scss';
 import Modal from 'react-modal';
 import { useState } from "react";
 import { useRouter } from "next/router";
-
+interface props{
+    logoUrl:string;
+    btnContent:string;
+}
 Modal.setAppElement("#__next")
-const HeaderAuth=()=>{
+const HeaderAuth=({logoUrl,btnContent}:props)=>{
     const router=useRouter();
     const [modalOpen, setModalOpen]= useState(false)
 
@@ -22,23 +25,17 @@ const HeaderAuth=()=>{
     return(
         <>
         <Container className={styles.nav}>
-            <Link href='/home'>
+            <Link href={logoUrl}>
             <img src="/2.jpg" alt="" className={styles.imgLogoNav} />
             </Link>
             <div className="d-flex align-items-center">
-                <Form>
-                    <Input 
-                    name="search"
-                    type="search"
-                    placeholder="pesquisar" className={styles.input}/>
-                </Form>
-                <img src="/iconSearch.svg" alt="" className={styles.searchImg} />
-                <p className={styles.user} onClick={handleOpenModal}>AB</p>
+               
+                <p className={styles.user} onClick={handleOpenModal}>{btnContent}</p>
             </div>
           <Modal isOpen={modalOpen} onRequestClose={handleCloseModal} 
           shouldCloseOnEsc={true} className={styles.modal} 
           overlayClassName={styles.overlay}> 
-          <Link href='/produtos'>
+          <Link href='/home'>
           <p className={styles.modalLink}>Produtos</p>
           </Link>
           <Link href='/pedidos'>
@@ -48,7 +45,6 @@ const HeaderAuth=()=>{
           <p className={styles.modalLink}>Total</p>
           </Link>
           <p className={styles.modalLink} onClick={handlelogout}>Sair</p>
-        
           </Modal >
         </Container>
         </>

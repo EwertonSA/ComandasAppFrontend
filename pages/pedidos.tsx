@@ -5,6 +5,7 @@ import styles from "../styles/register.module.scss";
 import { FormEvent, useEffect, useState } from "react";
 import pedidoService from "@/src/services/pedidoService";
 import { useRouter } from "next/router";
+import HeaderAuth from "@/src/components/common/headerAuth";
 
 const Pedidos = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ const Pedidos = () => {
     if (router.query.registred?.toString() === "true") {
       setToastColor("bg-success");
       setToastOpen(true);
-      setToastMessage("Pedido bem sucedido");
+      setToastMessage("Cadastro bem sucedido");
 
       setTimeout(() => {
         setToastOpen(false);
@@ -60,15 +61,8 @@ const Pedidos = () => {
         setToastMessage("Produto cadastrado com sucesso!");
         setToastOpen(true);
 
-        // limpa campos
-        setProdutoId("");
-       
-        setQuantidade("");
-
-        setTimeout(() => {
-          setToastOpen(false);
           router.push('/clienteInfo')
-        }, 1000);
+       
       } else {
         alert("Erro: " + res?.message);
       }
@@ -85,10 +79,10 @@ const Pedidos = () => {
         <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
       </Head>
       <main>
-        <HeaderGeneric
-          logoUrl="/comandas"
-          btnUrl="/pedidosProdutos"
-          btnContent="Pedir"
+        <HeaderAuth
+          logoUrl="/register"
+        
+          btnContent="Abas"
         />
         <Container className="py-5">
           <p className={styles.FormTitle}>Fazer pedidos</p>
@@ -108,16 +102,13 @@ const Pedidos = () => {
               <Label for="produtoId" className={styles.label}>
                 Produto ID
               </Label>
-              <Input
-                name="produtoId"
-                id="produtoId"
-                type="number"
-                placeholder="produtoId"
-                required
-                className={styles.input}
-                value={produtoId}
-                onChange={(e) => setProdutoId(e.target.value)}
-              />
+              <Form>
+                    <Input 
+                    name="search"
+                    type="search"
+                    placeholder="pesquisar" className={styles.input}/>
+                </Form>
+                <img src="/iconSearch.svg" alt="" className={styles.searchImg} />
             </FormGroup>
 
 

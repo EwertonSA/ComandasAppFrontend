@@ -11,7 +11,9 @@ const HomeAuth=()=>{
             <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
         </Head>
         <main>
-            <HeaderAuth/>
+            <HeaderAuth logoUrl="/register"
+        
+        btnContent="Abas"/>
           <Product/>
         </main>
         </>

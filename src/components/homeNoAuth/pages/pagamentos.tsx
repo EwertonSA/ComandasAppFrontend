@@ -25,13 +25,12 @@ useEffect(()=>{
         const comanda=await clienteService.getPedidosComanda(comandaId as string)
         console.log("Resposta da comanda:", comanda);
         if (comanda && comanda.pedidos && comanda.pedidos.length > 0) {
-            // Exemplo com primeiro pedido:
             const pedido = comanda.pedidos[0];
             console.log("Pedido selecionado:", pedido);
       
             setPedidoId(pedido.id.toString());
             setValor(pedido.total.toString());
-            setFormaPagamento(pedido.formaPagamento || ''); // Se não existir, usa string vazia
+            setFormaPagamento(pedido.formaPagamento || '');
         
           } else {
             setValor('0');

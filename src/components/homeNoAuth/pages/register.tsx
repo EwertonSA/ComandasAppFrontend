@@ -1,6 +1,6 @@
 import Head from "next/head"
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
-import styles from '../styles/register.module.scss'
+import styles from '../../../../styles/register.module.scss'
 import { FormEvent, useState } from "react"
 import clienteService from "@/src/services/clienteService"
 import { useRouter } from "next/router"
@@ -8,7 +8,7 @@ const Register=()=>{
     const router = useRouter();
   const [toastMessage, setToastMessage] = useState("");
   const [toastIsOpen, setToastIsOpen] = useState(false);
-  const [toastColor, setToastColor] = useState("br-success");
+  const [toastColor, setToastColor] = useState("bg-success");
 
   const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();

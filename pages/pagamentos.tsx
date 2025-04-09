@@ -9,7 +9,7 @@ return<>
             <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
         </Head>
 <main>
-<HeaderGeneric logoUrl="" btnUrl="" btnContent=""/>
+<HeaderGeneric logoUrl="/clienteInfo" btnUrl="" btnContent=""/>
 <Pagamentos/>
 </main>
 </>
