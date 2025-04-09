@@ -1,36 +1,17 @@
-import clienteService from "@/src/services/clienteService";
-import useSWR from "swr";
-import { Container } from "reactstrap";
+import HeaderGeneric from "@/src/components/common/headerGeneric"
+import ClienteInfo from "@/src/components/homeNoAuth/pages/swr/clienteInfo"
+import Head from "next/head"
 
-const ClienteInfo = () => {
-  const { data, error } = useSWR("/clientes", () => clienteService.getClientesInfo());
-
-  if (error) return <p>Erro ao carregar dados dos clientes.</p>;
-  if (!data) return <p>Carregando...</p>;
-
-  return (
-    <>
-      {data.map((cliente: any, index: number) => (
-        <Container key={index}>
-          <div style={{ color: "white", borderBottom: "1px solid gray", marginBottom: "1rem" }}>
-            <p><strong>Nome:</strong> {cliente.nome}</p>
-            <p><strong>Telefone:</strong> {cliente.telefone}</p>
-            <p><strong>Mesa ID:</strong> {cliente.mesaId}</p>
-
-            {cliente.comandas ? (
-              <>
-                <p><strong>Comanda ID:</strong> {cliente.comandas.id}</p>
-                <p><strong>Mesa (comanda):</strong> {cliente.comandas.mesaId}</p>
-                <p><strong>Cliente (comanda):</strong> {cliente.comandas.clienteId}</p>
-              </>
-            ) : (
-              <p style={{ color: 'gray' }}>Sem comanda registrada</p>
-            )}
-          </div>
-        </Container>
-      ))}
-    </>
-  );
-};
-
-export default ClienteInfo;
+const ClienteInf=()=>{
+  return <>
+  <Head>
+  <title>Home</title>
+  <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
+  </Head>
+  <main>
+    <HeaderGeneric logoUrl="/teste" btnUrl="/pagamentos" btnContent="Pagamento"/>
+    <ClienteInfo/>
+  </main>
+  </>
+}
+export default ClienteInf

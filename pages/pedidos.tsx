@@ -11,8 +11,7 @@ const Pedidos = () => {
 
   // estados do formulário
   const [produtoId, setProdutoId] = useState("");
-  const [total, setTotal] = useState<number | "">("");
-  const [status, setStatus] = useState("");
+
   const [quantidade, setQuantidade] = useState<number | "">("");
 
   // estados para feedback
@@ -50,9 +49,8 @@ const Pedidos = () => {
       }
 
       const res = await pedidoService.registerAll({
-        total: Number(total),
+        total:0,
         comandaId,
-        status,
         quantidade: Number(quantidade),
         produtoId
       });
@@ -64,13 +62,13 @@ const Pedidos = () => {
 
         // limpa campos
         setProdutoId("");
-        setTotal("");
-        setStatus("");
+       
         setQuantidade("");
 
         setTimeout(() => {
           setToastOpen(false);
-        }, 3000);
+          router.push('/clienteInfo')
+        }, 1000);
       } else {
         alert("Erro: " + res?.message);
       }
@@ -122,37 +120,6 @@ const Pedidos = () => {
               />
             </FormGroup>
 
-            <FormGroup>
-              <Label className={styles.label} for="total">
-                Total
-              </Label>
-              <Input
-                id="total"
-                name="total"
-                type="number"
-                placeholder="Valor total"
-                required
-                className={styles.input}
-                value={total}
-                onChange={(e) => setTotal(Number(e.target.value))}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label className={styles.label} for="status">
-                Status
-              </Label>
-              <Input
-                id="status"
-                name="status"
-                type="text"
-                placeholder="andamento/entregue"
-                required
-                className={styles.input}
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-              />
-            </FormGroup>
 
             <FormGroup>
               <Label for="quantidade" className={styles.label}>

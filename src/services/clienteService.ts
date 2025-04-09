@@ -15,8 +15,12 @@ interface MesasParams {
   numero: number;
   capacidade: number;
 }
-
-
+interface PagamentosParams{
+pedidoId:string
+valor:string
+formaPagamento:string
+status:string
+}
 const clienteService = {
   getClientes:async()=>{
     try {
@@ -35,10 +39,19 @@ const clienteService = {
       const clientesComComandas = await Promise.all(
         clientes.map(async (cliente: any) => {
           const detalhesRes = await api.get(`/clientes/${cliente.id}`);
-          return {
-            ...cliente,
-            comandas: detalhesRes.data.comandas || null
-          };
+          const comanda=detalhesRes.data.comandas || null
+          let pedidos=[]
+          if(comanda?.id){
+            const comandaRes=await api.get(`/comandas/${comanda.id}`)
+            pedidos=comandaRes.data.pedidos || []
+          }
+         return{
+          ...cliente,
+          comandas:{
+            ...comanda,
+            pedidos:pedidos
+          }
+         }
         })
       );
   
@@ -58,6 +71,16 @@ const clienteService = {
       return []
     }
   },
+  getPedidosComanda:async(comandaId:string)=>{
+try {
+  const res=await api.get(`/comandas/${comandaId}`)
+  console.log("Resposta da API:", res.data);
+  return res.data
+} catch (error:any) {
+  console.error("Erro ao buscar pedidos da comanda:", error);
+  return []
+}
+  },
   register: async (params: RegisterParams) => {
     try {
       console.log("🔍 Enviando cliente:", params);
@@ -76,10 +99,10 @@ const clienteService = {
       const res = await api.post("/comandas", params);
       return res.data;
     } catch (err: any) {
-      return {
+      return{
         error: err.response?.data?.message || err.message || "Erro desconhecido",
         status: err.response?.status || 500
-      };
+      }; 
     }
   },
 
@@ -131,6 +154,17 @@ registrarTudo:async ({
     } catch (error) {
       console.error("Erro no registrarTudo:", error);
       return { status: 500, message: "Erro interno no servidor." };
+    }
+  },
+  pagamento:async(params:PagamentosParams)=>{
+    try {
+      const res=await api.post('/pagamentos',params)
+      return res.data.pagamentos
+    } catch (err:any) {
+      return {
+        error: err.response?.data?.message || err.message || "Erro desconhecido",
+        status: err.response?.status || 500
+      }; 
     }
   }
   

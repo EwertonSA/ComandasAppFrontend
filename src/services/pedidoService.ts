@@ -2,7 +2,9 @@ import api from "./api";
 
 interface PedidoParams{
 comandaId:string;
-total:number;
+total:0
+
+
 status:string
 }
 interface PedidosProdutosParams{
@@ -54,28 +56,24 @@ try {
 },
 registerAll: async ({
   total,
-  status,
   quantidade,
   comandaId,
   produtoId
 }: {
-  total: number;
-  status: string;
+  total:any
   quantidade: number;
   comandaId: string;
   produtoId: string;
 }) => {
   try {
-    const pedidoRes = await pedidoService.create({ comandaId, total, status });
-    console.log("pedidoRes:", pedidoRes);
-    console.log("Dados recebidos no registerAll:", { total, status, quantidade, comandaId, produtoId });
+    const status = "andamento"; // fixa o status aqui
+    const pedidoRes = await pedidoService.create({ comandaId,total, status });
 
     if (!pedidoRes || 'error' in pedidoRes || !pedidoRes.id) {
       return { status: 400, message: "Erro ao registrar o pedido." };
     }
 
     const pedidoId = pedidoRes.id;
-    console.log("ID do pedido retornado:", pedidoId);
     const pedidosProdutos = await pedidoService.createPedidosProdutos({
       pedidoId,
       produtoId,
@@ -100,6 +98,8 @@ registerAll: async ({
     return { status: 500, message: "Erro interno no servidor." };
   }
 }
+
+
 
 } 
 export default pedidoService
