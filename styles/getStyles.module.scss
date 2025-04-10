@@ -1,0 +1,27 @@
+@import "../styles/colors.module.scss";
+.container{
+    width: 180px;
+    height: 200px;
+    border: 1px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    text-overflow: clip;
+    overflow: hidden;
+    margin: 12px;
+    transition: 0.4s;
+    margin: 50px 0px 0px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+    &:hover{
+        border:2px solid;
+            border-color: $lightBlue;
+           
+            
+        
+    }
+   
+}

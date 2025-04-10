@@ -1,3 +1,4 @@
+import HeaderAuth from "@/src/components/common/headerAuth"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
 import Pagamentos from "@/src/components/homeNoAuth/pages/pagamentos"
 import Head from "next/head"
@@ -9,7 +10,9 @@ return<>
             <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
         </Head>
 <main>
-<HeaderGeneric logoUrl="/clienteInfo" btnUrl="" btnContent=""/>
+<HeaderAuth logoUrl="/clienteInfo"
+           
+           btnContent="Abas"/>
 <Pagamentos/>
 </main>
 </>

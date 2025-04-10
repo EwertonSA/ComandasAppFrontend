@@ -1,3 +1,4 @@
+import HeaderAuth from "@/src/components/common/headerAuth"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
 import ClienteInfo from "@/src/components/homeNoAuth/pages/swr/clienteInfo"
 import Head from "next/head"
@@ -9,7 +10,9 @@ const ClienteInf=()=>{
   <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
   </Head>
   <main>
-    <HeaderGeneric logoUrl="/register" btnUrl="/pagamentos" btnContent="Pagamento"/>
+  <HeaderAuth logoUrl="/register"
+           
+           btnContent="Abas"/>
     <ClienteInfo/>
   </main>
   </>

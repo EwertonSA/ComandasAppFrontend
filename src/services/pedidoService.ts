@@ -16,7 +16,7 @@ const pedidoService={
   getPedidos:async()=>{
     try {
       const res=await api.get('/pedidos')
-      return res.data      
+      return res.data     
     } catch (error) {
       return []
     }
@@ -53,6 +53,14 @@ try {
       console.error("Erro ao buscar produto",error)
     }
 
+},
+pagamentos:async()=>{
+try {
+  const res=await api.get('/pagamentos')
+  return res.data
+} catch (error) {
+  return []
+}
 },
 registerAll: async ({
   total,

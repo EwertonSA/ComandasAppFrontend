@@ -1,4 +1,7 @@
 import HeaderAuth from "@/src/components/common/headerAuth"
+import GetPagamentos from "@/src/components/homeAuth/pagamentos"
+import Pagamentos from "@/src/components/homeAuth/pagamentos"
+import GetPedidos from "@/src/components/homeAuth/pedidos"
 import Product from "@/src/components/homeAuth/products"
 import Head from "next/head"
 
@@ -15,6 +18,8 @@ const HomeAuth=()=>{
         
         btnContent="Abas"/>
           <Product/>
+          <GetPedidos/>
+          <GetPagamentos/>
         </main>
         </>
     )

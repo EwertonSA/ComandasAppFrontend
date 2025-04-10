@@ -11,7 +11,7 @@ import Footer from '@/src/components/common/footer';
 import Aos from 'aos';
 import 'aos/dist/aos.css'
 
-interface IndexPageProps{
+export interface IndexPageProps{
   children?: ReactNode;
   product:ProductType[]
 }
