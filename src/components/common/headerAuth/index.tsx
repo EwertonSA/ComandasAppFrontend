@@ -38,11 +38,11 @@ const HeaderAuth=({logoUrl,btnContent}:props)=>{
           <Link href='/home'>
           <p className={styles.modalLink}>Produtos</p>
           </Link>
-          <Link href='/pedidos'>
-          <p className={styles.modalLink}>Pedidos</p>
+          <Link href='/clienteInfo'>
+          <p className={styles.modalLink}>Comandas</p>
           </Link>
-          <Link href="/pagamentos">
-          <p className={styles.modalLink}>Total</p>
+          <Link href="/register">
+          <p className={styles.modalLink}>Registrar</p>
           </Link>
           <p className={styles.modalLink} onClick={handlelogout}>Sair</p>
           </Modal >

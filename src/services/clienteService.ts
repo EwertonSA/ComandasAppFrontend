@@ -15,7 +15,7 @@ interface MesasParams {
   numero: number;
   capacidade: number;
 }
-interface PagamentosParams{
+export interface PagamentosParams{
 pedidoId:string
 valor:string
 formaPagamento:string
