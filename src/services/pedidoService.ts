@@ -22,6 +22,14 @@ const pedidoService={
     }
 
   },
+  getOrdersById: async (id: number | string) => {
+    console.log("Fazendo requisição para pedidos com id:", id);
+    const response = await api.get(`/pedidos/${id}`);
+    console.log("Resposta da API:", response.data);
+    return response.data;
+  },
+  
+  
   create:async(params:PedidoParams)=>{
     try {
         const res=await api.post('/pedidos',params)

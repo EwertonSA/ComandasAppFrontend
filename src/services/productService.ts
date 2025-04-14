@@ -1,19 +1,27 @@
 import api from "./api";
-export type PedidosType={
-    id:number,
-    comandaId:number,
-    total:number,
-    status:string
-}
+export type PedidosType = {
+  id: number;
+  comandaId: number;
+  total: number;
+  status: string;
+};
 
-export type ProductType={
-    id:number,
-    nome:string,
-    descricao:string,
-    preco:number,
-    categoria:string
-    pedidos?:PedidosType[];
-}
+export type ProductType = {
+  id: string;
+  nome: string;
+  descricao: string;
+  preco: number | string; 
+  categoria: string;
+  pedidos?: PedidosType[];
+};
+
+export type ProductSearchResponse = {
+  produtos: ProductType[];
+  page: number;
+  perPAge: number;
+  total: number;
+};
+
 const produtService={
     getproducts: async () => {
         try {
@@ -25,6 +33,26 @@ const produtService={
           return { data: [] }; 
         }
       },
-
+      findByName: async (
+        nome: string,
+        page: number = 1,
+        perPAge: number = 10
+      ): Promise<ProductSearchResponse> => {
+        try {
+          const res = await api.get(`/pedidos/search`, {
+            params: { nome, page, perPAge },
+          });
+          console.log("🔍 Produtos filtrados:", res.data);
+          return res.data;
+        } catch (error) {
+          console.error("Erro ao buscar produtos por nome:", error);
+          return {
+            produtos: [],
+            page,
+            perPAge,
+            total: 0,
+          };
+        }
+      },
 }
 export default produtService

@@ -4,18 +4,19 @@ import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 import styles from "../../../../styles/register.module.scss";
 import { FormEvent, useEffect, useState } from "react";
 import pedidoService from "@/src/services/pedidoService";
-import { useRouter } from "next/router";
+
 import HeaderAuth from "@/src/components/common/headerAuth";
+import { useRouter } from "next/router";
+import produtService, { ProductType } from "@/src/services/productService";
 
 const Pedidos = () => {
   const router = useRouter();
 
-  // estados do formulário
-  const [produtoId, setProdutoId] = useState("");
+  const [suggestions, setSuggestions] = useState<ProductType[]>([]);
+  const [produtoId, setProdutoId] = useState<string>("");
+const [quantidade, setQuantidade] = useState<number>(1);
 
-  const [quantidade, setQuantidade] = useState<number | "">("");
-
-  // estados para feedback
+  const [entrada, setEntrada] = useState(""); 
   const [toastOpen, setToastOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastColor, setToastColor] = useState("");
@@ -27,10 +28,8 @@ const Pedidos = () => {
       setToastColor("bg-success");
       setToastOpen(true);
       setToastMessage("Cadastro bem sucedido");
-
-      setTimeout(() => {
-        setToastOpen(false);
-      }, 3000);
+      setEntrada("");
+      setTimeout(() => setToastOpen(false), 3000);
     }
   }, [router.query]);
 
@@ -49,23 +48,41 @@ const Pedidos = () => {
         return;
       }
 
-      const res = await pedidoService.registerAll({
-        total:0,
+      // 1. Separar nome e quantidade
+      const [nome, qtdStr] = entrada.split("*");
+      const quantidade = Number(qtdStr);
+
+      if (!nome || isNaN(quantidade)) {
+        alert("Entrada inválida. Use o formato 'nome*quantidade'");
+        return;
+      }
+
+      // 2. Buscar produto pelo nome
+      const res = await produtService.findByName(nome,1,1); // busca apenas 1
+      const produto = res?.produtos?.[0];
+
+      if (!produto) {
+        alert("Produto não encontrado");
+        return;
+      }
+
+      // 3. Enviar pedido com produto.id e quantidade
+      const pedidoRes = await pedidoService.registerAll({
+        total: 0,
         comandaId,
-        quantidade: Number(quantidade),
-        produtoId
+        produtoId: produto.id,
+        quantidade
       });
 
-      if (res?.status === 200) {
+      if (pedidoRes?.status === 200) {
         setToastColor("bg-success");
         setToastMessage("Produto cadastrado com sucesso!");
         setToastOpen(true);
-
-          router.push('/clienteInfo')
-       
+        router.push("/clienteInfo");
       } else {
-        alert("Erro: " + res?.message);
+        alert("Erro ao cadastrar: " + pedidoRes?.message);
       }
+
     } catch (err) {
       console.error("Erro capturado no handleOrders:", err);
       alert("Erro inesperado ao enviar o pedido.");
@@ -94,28 +111,52 @@ const Pedidos = () => {
             </p>
 
             <FormGroup>
-              <Label for="produtoId" className={styles.label}>
-                Produto ID
-              </Label>
-            <Input id="produtoId" name="produtoId" type="number" className={styles.input} required placeholder="pedidoId" value={produtoId} onChange={(ev)=>setProdutoId(ev.target.value)}/>
-            </FormGroup>
+  <Label for="entrada" className={styles.label}>Produto*Quantidade:</Label>
+  <Input
+    id="entrada"
+    type="text"
+    placeholder="Ex: cafe*3"
+    value={entrada}
+    onChange={async (e) => {
+      const value = e.target.value;
+      setEntrada(value);
 
+      const nome = value.split("*")[0];
+      if (nome.length >= 2) {
+        const result = await produtService.findByName(nome, 1, 5);
+        setSuggestions(result.produtos);
+      } else {
+        setSuggestions([]);
+      }
+    }}
+    autoComplete="off"
+    className={styles.input}
+  />
 
-            <FormGroup>
-              <Label for="quantidade" className={styles.label}>
-                Quantidade
-              </Label>
-              <Input
-                name="quantidade"
-                id="quantidade"
-                type="number"
-                placeholder="quantidade"
-                required
-                className={styles.input}
-                value={quantidade}
-                onChange={(e) => setQuantidade(Number(e.target.value))}
-              />
-            </FormGroup>
+  {/* Lista de sugestões */}
+  {suggestions.length > 0 && (
+    <ul className={styles.suggestions}>
+      {suggestions.map((produto) => (
+        <li
+          key={produto.id}
+          onClick={() => {
+            // Extrai a quantidade digitada (se tiver)
+            const partes = entrada.split("*");
+            const qtd = partes[1] ? Number(partes[1]) : 1;
+
+            setProdutoId(produto.id.toString());
+            setQuantidade(qtd);
+            setEntrada(`${produto.nome}*${qtd}`);
+            setSuggestions([]);
+          }}
+        >
+          {produto.nome} - R$ {produto.preco}
+        </li>
+      ))}
+    </ul>
+  )}
+</FormGroup>
+
 
             <Button outline className={styles.formBtn} type="submit">
               Cadastrar

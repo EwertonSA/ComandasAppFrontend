@@ -55,6 +55,29 @@ background-color: transparent;
     color: $lightGray;
     border-color:$lightBlue;
 }}
+.suggestions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ddd;
+    max-height: 150px;
+    max-width: 500px;
+    overflow-y: auto;
+    background: white;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+  }
+  
+  .suggestions li {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .suggestions li:hover {
+    background-color: #f0f0f0;
+  }
+  
 @media(max-width:767px){
 .form{
     width: 95%;
@@ -66,11 +89,18 @@ background-color: transparent;
 .subtitle{
     font-size: 18px;
 }
+.suggestions{
+    max-width: 365px;
+}
 }
 @media(max-width:550px){
     .form{
         padding: 50px 10px;
     }
+    .suggestions{
+        max-width: 300px;
+    }
+    
 }
 @media(max-width:404px){
     .formTitle{
@@ -79,5 +109,8 @@ background-color: transparent;
     }
     .subtitle{
         font-size: 16px;
+    }
+    .suggestions{
+        max-width: 220px;
     }
 }
