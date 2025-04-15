@@ -15,7 +15,7 @@ const ClienteInfo = () => {
   const handleNewOrder = (comandaId: number) => {
     // Alteração no redirecionamento para incluir o comandaId corretamente na URL
     router.push({
-      pathname: "/pedidos/[id]",
+      pathname: "/pedidos",
       query: {
         comandaId: comandaId,
         registred: "true",
@@ -38,7 +38,7 @@ const ClienteInfo = () => {
                 <p><strong>Mesa:</strong> {cliente.comandas.mesaId}</p>
                 <p><strong>Cliente:</strong> {cliente.comandas.clienteId}</p>
                 
-                {/* Ajuste no link de "Ver Pedidos" */}
+              
                 <Link href={`/comandas/${cliente.comandas.id}`}>
                   <Button>Ver Pedidos</Button>
                 </Link>
@@ -51,7 +51,7 @@ const ClienteInfo = () => {
               Novo pedido
             </Button>
 
-            <Link href={`/pagamentos?id=${cliente.comandas.id}`}>
+            <Link href={`/pagamentos?comandaId=${cliente.comandas.id}`}>
               <Button>Pagamento</Button>
             </Link>
           </div>

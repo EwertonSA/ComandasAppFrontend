@@ -1,57 +1,55 @@
-import clienteService from "@/src/services/clienteService"
-import Head from "next/head"
-import { useRouter } from "next/router"
-import { FormEvent, useEffect, useState } from "react"
-import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
-import styles from "../../../../styles/register.module.scss"
+import clienteService from "@/src/services/clienteService";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { FormEvent, useEffect, useState } from "react";
+import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
+import styles from "../../../../styles/register.module.scss";
 
-const Pagamentos=()=>{
-    const router=useRouter()
-    const [color,setColor]=useState('')
-    const[toastIsOpen,setToastIsOpen]=useState(false)
-    const[errorMessage,setErrorMesasage]=useState("")
-    
+const Pagamentos = () => {
+  const router = useRouter();
+  const [color, setColor] = useState("");
+  const [toastIsOpen, setToastIsOpen] = useState(false);
+  const [errorMessage, setErrorMesasage] = useState("");
 
-const [pedidoId,setPedidoId]=useState('')
-const [valor,setValor]=useState('')
-const[formaPagamento,setFormaPagamento]=useState('')
+  const [comandaId, setComandaId] = useState("");
+  const [valor, setValor] = useState("");
+  const [formaPagamento, setFormaPagamento] = useState("");
 
-useEffect(()=>{
-    const comandaId=router.query.id
-    console.log("ID recebido via query:", comandaId)
-    if(!comandaId) return 
+  useEffect(() => {
+    const comandaId = router.query.comandaId;
+    if (!comandaId) return;
 
-    const fetchPagamento=async()=>{
-        const comanda=await clienteService.getPedidosComanda(comandaId as string)
-        console.log("Resposta da comanda:", comanda);
-        if (comanda && comanda.pedidos && comanda.pedidos.length > 0) {
-            const pedido = comanda.pedidos[0];
-            console.log("Pedido selecionado:", pedido);
-      
-            setPedidoId(pedido.id.toString());
-            setValor(pedido.total.toString());
-            setFormaPagamento(pedido.formaPagamento || '');
-        
-          } else {
-            setValor('0');
-          }
-        
-    }
-fetchPagamento()
-},[router.query.id])
+    const fetchPagamento = async () => {
+      const comanda = await clienteService.getPedidosComanda(comandaId as string);
+      if (comanda && comanda.pedidos && comanda.pedidos.length > 0) {
+        const totalCoamnda = comanda.pedidos.reduce((acc: number, pedido: any) => {
+          const valorPedido = Number(pedido.total || 0);
+          return acc + valorPedido;
+        }, 0);
 
-const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
+        setComandaId(comanda.id.toString());
+        setValor(totalCoamnda.toFixed(2));
+        setFormaPagamento(comanda.pedidos[0].formaPagamento || '');
+      } else {
+        setValor("0");
+      }
+    };
+
+    fetchPagamento();
+  }, [router.query.comandaId]);
+
+  const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-  
+
     const res = await clienteService.pagamento({
-      pedidoId,
-      valor, 
+      comandaId,
+      valor,
       formaPagamento,
       status: "Pago"
     });
-  
+
     if (res === 200) {
-      router.push('/clienteInfo');
+      router.push("/clienteInfo");
       setToastIsOpen(true);
       setErrorMesasage("Pagamento realizado");
       setColor("bg-success");
@@ -62,38 +60,67 @@ const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
       setColor("bg-danger");
       setTimeout(() => {
         setToastIsOpen(false);
-        router.push('/clienteInfo')
+        router.push("/clienteInfo");
       }, 1000);
     }
   };
-  
-return<>
-<Head>
-<title>Registro</title>
-<link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
-</Head>
-<main>
-    <Container className="py-5">
-        <p>Bem-vindo ao pagamento</p>
-        <Form className={styles.form} onSubmit={handleSubmit}>
+
+  return (
+    <>
+      <Head>
+        <title>Registro</title>
+        <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
+      </Head>
+      <main>
+        <Container className="py-5">
+          <p>Bem-vindo ao pagamento</p>
+          <Form className={styles.form} onSubmit={handleSubmit}>
             <p>Faça o pagamento</p>
             <FormGroup>
-            <Label for="pedidoId" className={styles.label}>PedidoId</Label>
-            <Input id="pedidoId" name="pedidoId" type="number" placeholder="pedidoId" required className={styles.input} value={pedidoId} onChange={(ev)=>setPedidoId(ev.target.value)}/>
+              <Label for="comandaId" className={styles.label}>PedidoId</Label>
+              <Input
+                id="comandaId"
+                name="comandaId"
+                type="number"
+                placeholder="comandaId"
+                required
+                className={styles.input}
+                value={comandaId}
+                disabled
+              />
             </FormGroup>
             <FormGroup>
-                <Label for='valor' className={styles.label}>Valor</Label>
-                <Input id="valor" name="valor" type="number" placeholder="Valor" required className={styles.input} value={valor} onChange={(ev)=>setValor(ev.target.value)}/>
+              <Label for="valor" className={styles.label}>Valor</Label>
+              <Input
+                id="valor"
+                name="valor"
+                type="number"
+                placeholder="Valor"
+                required
+                className={styles.input}
+                value={valor}
+                readOnly
+              />
             </FormGroup>
             <FormGroup>
-                <Label for='formaPagamento' className={styles.label}>formaPagamento</Label>
-                <Input id="formaPagamento" name="formaPagamento" type="text" placeholder="formaPagamento" required className={styles.input} value={formaPagamento} onChange={(ev)=>setFormaPagamento(ev.target.value)}/>
-            </FormGroup>  
+              <Label for="formaPagamento" className={styles.label}>Forma de Pagamento</Label>
+              <Input
+                id="formaPagamento"
+                name="formaPagamento"
+                type="text"
+                placeholder="formaPagamento"
+                required
+                className={styles.input}
+                value={formaPagamento}
+                onChange={(ev) => setFormaPagamento(ev.target.value)}
+              />
+            </FormGroup>
             <Button className={styles.formBtn} type="submit">Enviar</Button>
-        </Form>
-    </Container>
-</main>
+          </Form>
+        </Container>
+      </main>
+    </>
+  );
+};
 
-</>
-}
-export default Pagamentos
+export default Pagamentos;

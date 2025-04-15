@@ -5,7 +5,7 @@ import styles from "../../../../styles/getStyles.module.scss"
 import Link from "next/link"
 const GetPagamentos=()=>{
     const {data,error}=useSWR('/pagamentos',pedidoService.pagamentos)
-    if(error) error
+    if(error) return error
     if(!data){
         return <p>Loading...</p>
     }
@@ -16,11 +16,11 @@ const GetPagamentos=()=>{
        <Container className="d-flex flex-wrap justify-content-center py-5 pb-3">
         <h1 className={styles.title}>Pagamentos</h1>
     {
-        data.pagamentos.map((pagamento:{id:number,pedidoId: number, valor: number, formaPagamento: string, status: string})=>(
-            <div>
-                <div key={pagamento.id}  className={styles.container}>
+        data.pagamentos.map((pagamento:{id:number,comandaId: number, valor: number, formaPagamento: string, status: string})=>(
+            <div  key={pagamento.id} >
+                <div className={styles.container}>
                  
-                        <p>{pagamento.pedidoId}</p>
+                        <p>{pagamento.comandaId}</p>
                         <p>{pagamento.valor}</p>
                         <p>{pagamento.formaPagamento}</p>
                         <p>{pagamento.status}</p>

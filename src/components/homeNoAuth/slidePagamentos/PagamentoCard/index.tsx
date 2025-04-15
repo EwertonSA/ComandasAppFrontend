@@ -6,7 +6,7 @@ interface props{
 const PagamentosCard=({pagamentos}:props)=>{
 return(
     <div className={styles.slide}>
-        <p className={styles.slideTitle}>{pagamentos.pedidoId}</p>
+        <p className={styles.slideTitle}>{pagamentos.comandaId}</p>
         <p className={styles.slideDescription}>{pagamentos.valor}</p>
         <p className={styles.slideDescription}>{pagamentos.status}</p>
         <p className={styles.slideDescription}>{pagamentos.formaPagamento}</p>

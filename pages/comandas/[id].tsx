@@ -3,51 +3,82 @@ import { useEffect, useState } from "react";
 import clienteService from "@/src/services/clienteService";
 import HeaderAuth from "@/src/components/common/headerAuth";
 import styles from '../../styles/getStyles.module.scss'
+import pedidoService from "@/src/services/pedidoService";
+import { Button } from "reactstrap";
+import Link from "next/link";
 
 const Comanda = () => {
   const router = useRouter();
-  const { id } = router.query; // Pegando o comandaId da URL
+  const { id } = router.query; 
   const [pedidos, setPedidos] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (id) {
-      // Requisitando os pedidos da comanda através da API
-      clienteService.getPedidosComanda(id as string)
-        .then((data) => {
-          setPedidos(data.pedidos || []);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setError("Erro ao carregar pedidos.");
-          setLoading(false);
-        });
-    }
-  }, [id]);
+ useEffect(()=>{
+const fetchPedidos=async()=>{
+  try {
+    const res=await clienteService.getPedidosComanda(id as string);
+    const details=await Promise.all(
+      (res.pedidos|| []).map(async(pedido:any)=>{
+const detail=await pedidoService.getOrdersById(pedido.id)
+return detail
+  })
+    )
+    setPedidos(details)
+  } catch (error) {
+    console.error(error)
+    setError("Erro ao carregar pedido")
+  }finally{
+    setLoading(false)
+  }
+}
+if(id){
+  fetchPedidos()
+}
+ },[id])
 
   if (loading) return <p>Carregando pedidos...</p>;
   if (error) return <p>{error}</p>;
 
   return (
     <div>
-      <HeaderAuth logoUrl="/clienteInfo" btnContent="Clientes"/>
-      <h1>Pedidos da Comanda {id}</h1>
-      <div  className={styles.container}>
-      {pedidos.length > 0 ? (
-        <ul>
-          {pedidos.map((pedido) => (
-            <li key={pedido.id}>
-              <p><strong>ID:</strong> {pedido.id}</p>
+      <HeaderAuth logoUrl="/clienteInfo" btnContent="Abas"/>
+      <p className={styles.title}>Pedidos da Comanda {id}</p>
+      <div  className='d-flex  flex-wrap align-items-center justify-content-center'>
+    {pedidos.length>0?(
+      pedidos.map((pedido:any)=>(
+        <div key={pedido.id} className={styles.container}>
+          <p><strong>ID:</strong> {pedido.id}</p>
               <p><strong>Total:</strong> {pedido.total}</p>
               <p><strong>Status:</strong> {pedido.status}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Não há pedidos para essa comanda.</p>
-      )}
+              <p className={styles.title}>
+                Produtos:
+                </p>
+                <ul>
+                  {pedido.pedidosProdutos.map((item:any)=>(
+                    <li key={item.produto.id}>
+                      {item.produto.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
+                    </li>
+                    
+                  ))}
+     
+                </ul>
+              
+
+        </div>
+        
+      ))
+    ):(
+      <p>Não há pedidos nessa comanda.</p>
+    )}
+    
       </div>
+      <Link href={`/pagamentos?comandaId=${id}`} className={styles.btn}>
+    
+    <Button >
+      Pagamento
+    </Button>
+    </Link>
     </div>
   );
 };

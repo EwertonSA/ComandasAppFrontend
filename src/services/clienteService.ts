@@ -16,7 +16,7 @@ interface MesasParams {
   capacidade: number;
 }
 export interface PagamentosParams{
-pedidoId:string
+comandaId:string
 valor:string
 formaPagamento:string
 status:string
@@ -74,11 +74,11 @@ const clienteService = {
   getPedidosComanda:async(comandaId:string)=>{
 try {
   const res=await api.get(`/comandas/${comandaId}`)
-  console.log("Resposta da API:", res.data);
+ 
   return res.data
 } catch (error:any) {
-  console.error("Erro ao buscar pedidos da comanda:", error);
-  return []
+  console.error("Erro ao buscar dados da comanda:", error);
+  return null; 
 }
   },
   register: async (params: RegisterParams) => {
@@ -117,26 +117,26 @@ try {
       };
     }
   },
+  getMesas: async () => {
+    try {
+      const response = await api.get("/mesas"); // use a URL correta
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao buscar mesas:", error);
+      return { error: true };
+    }
+  },
 
-registrarTudo:async ({
-    numero,
-    capacidade,
+  registrarTudo: async ({
+    mesaId,
     nome,
     telefone,
   }: {
-    numero: number;
-    capacidade: number;
+    mesaId: string;
     nome: string;
     telefone: string;
   }) => {
     try {
-      const mesaRes = await clienteService.registerMesa({ numero, capacidade });
-      if ("error" in mesaRes || !mesaRes.id) {
-        return { status: 400, message: "Erro ao registrar mesa." };
-      }
-  
-      const mesaId = mesaRes.id.toString();
-  
       const clienteRes = await clienteService.register({ nome, telefone, mesaId });
       if ("error" in clienteRes || !clienteRes.id) {
         return { status: 400, message: "Erro ao registrar cliente." };
@@ -148,18 +148,21 @@ registrarTudo:async ({
       if ("error" in comandaRes || !comandaRes.id) {
         return { status: 400, message: "Erro ao criar comanda." };
       }
-      const comandaId=comandaRes.id.toString()
   
-      return { status: 200, message: "Tudo registrado com sucesso!",comandaId };
+      const comandaId = comandaRes.id.toString();
+  
+      return { status: 200, message: "Tudo registrado com sucesso!", comandaId };
     } catch (error) {
       console.error("Erro no registrarTudo:", error);
       return { status: 500, message: "Erro interno no servidor." };
     }
-  },
+  }
+  ,
   pagamento:async(params:PagamentosParams)=>{
     try {
+      console.log("Dados enviados ao back:", params);
       const res=await api.post('/pagamentos',params)
-      return res.data.pagamentos
+      return res.data
     } catch (err:any) {
       return {
         error: err.response?.data?.message || err.message || "Erro desconhecido",
