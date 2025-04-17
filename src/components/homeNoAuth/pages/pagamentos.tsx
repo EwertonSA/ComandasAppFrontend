@@ -73,7 +73,7 @@ const Pagamentos = () => {
       </Head>
       <main>
         <Container className="py-5">
-          <p>Bem-vindo ao pagamento</p>
+          <p className={styles.formTitle}>Bem-vindo ao pagamento</p>
           <Form className={styles.form} onSubmit={handleSubmit}>
             <p>Faça o pagamento</p>
             <FormGroup>

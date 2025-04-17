@@ -66,6 +66,11 @@ try {
     }
 
 },
+updateStatus: async (id: string, status: string) => {
+  const res = await api.put(`/pedidos/${id}`, { status });
+  return res.data;
+},
+
 pagamentos:async()=>{
 try {
   const res=await api.get('/pagamentos')

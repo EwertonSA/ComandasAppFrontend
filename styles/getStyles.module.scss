@@ -1,15 +1,24 @@
 @import "../styles/colors.module.scss";
+.div{
+    min-height: 90vh;
+}
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+   
+}
 .container{
-    width: 280px;
-    height: 320px;
+    width: 320px;
+    height: 380px;
     border: 1px solid white;
     border-radius: 8px;
     cursor: pointer;
     text-overflow: clip;
     overflow: hidden;
-
     transition: 0.4s;
-    margin: 50px 0px 0px 30px;
+    margin: 30px 20px 20px 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,5 +42,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding:50px;
+    padding:10px 30px;
+    margin: 5px;
+    
+
+}
+.btn2{
+    @extend .btn;
+    padding: 10px 35px;
+    
 }

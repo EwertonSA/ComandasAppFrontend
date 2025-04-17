@@ -9,6 +9,7 @@ export interface RegisterParams {
 interface ComandasParams {
   mesaId: string;
   clienteId: string;
+
 }
 
 interface MesasParams {
@@ -35,32 +36,40 @@ const clienteService = {
     try {
       const res = await api.get('/clientes');
       const clientes = res.data.clientes;
-  
+      console.log("Resposta da API:", res);
       const clientesComComandas = await Promise.all(
         clientes.map(async (cliente: any) => {
           const detalhesRes = await api.get(`/clientes/${cliente.id}`);
-          const comanda=detalhesRes.data.comandas || null
-          let pedidos=[]
-          if(comanda?.id){
-            const comandaRes=await api.get(`/comandas/${comanda.id}`)
-            pedidos=comandaRes.data.pedidos || []
+          const comandaBase = detalhesRes.data.comandas || null;
+          let comandaDetalhada = null;
+  
+          if (comandaBase?.id) {
+            const comandaRes = await api.get(`/comandas/${comandaBase.id}`);
+            comandaDetalhada = {
+              ...comandaRes.data,
+              pedidos: comandaRes.data.pedidos || [],
+            };
           }
-         return{
-          ...cliente,
-          comandas:{
-            ...comanda,
-            pedidos:pedidos
-          }
-         }
+  
+          return {
+            ...cliente,
+            comandas: comandaDetalhada,
+          };
         })
       );
   
-      return clientesComComandas;
+      const clientesFiltrados = clientesComComandas.filter((cliente) => {
+        return !cliente.comandas || cliente.comandas.status.toLowerCase() !== "pago";
+      });
+  
+      return clientesFiltrados;
+  
     } catch (err: any) {
       console.error("Erro ao buscar info dos clientes:", err);
       return [];
     }
   },
+  
   
   
   getComanda:async()=>{

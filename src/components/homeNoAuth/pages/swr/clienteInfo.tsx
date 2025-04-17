@@ -8,12 +8,12 @@ import { useRouter } from "next/router";
 const ClienteInfo = () => {
   const router = useRouter();
   const { data, error } = useSWR("/clientes", () => clienteService.getClientesInfo());
-
+  console.log("Clientes com Comandas: ", data);
   if (error) return <p>Erro ao carregar dados dos clientes.</p>;
   if (!data) return <p>Carregando...</p>;
 
   const handleNewOrder = (comandaId: number) => {
-    // Alteração no redirecionamento para incluir o comandaId corretamente na URL
+
     router.push({
       pathname: "/pedidos",
       query: {
@@ -22,41 +22,45 @@ const ClienteInfo = () => {
       },
     });
   };
+ 
 
   return (
-    <div className="d-flex flex-wrap justify-content-center">
+    <div className={styles.div}>
+      <div className={styles.main}>
       {data.map((cliente: any, index: number) => (
         <Container key={index} className={styles.container}>
           <div>
             <p><strong>Nome:</strong> {cliente.nome}</p>
             <p><strong>Telefone:</strong> {cliente.telefone}</p>
             <p><strong>Mesa ID:</strong> {cliente.mesaId}</p>
+            
 
             {cliente.comandas ? (
               <>
                 <p><strong>Comanda ID:</strong> {cliente.comandas.id}</p>
                 <p><strong>Mesa:</strong> {cliente.comandas.mesaId}</p>
                 <p><strong>Cliente:</strong> {cliente.comandas.clienteId}</p>
+                <p><strong>Status:</strong>{cliente.comandas.status}</p>
                 
               
-                <Link href={`/comandas/${cliente.comandas.id}`}>
-                  <Button>Ver Pedidos</Button>
+                <Link href={`/comandas/${cliente.comandas.id}`} className={styles.btn}>
+                  Ver produtos
                 </Link>
               </>
             ) : (
               <p style={{ color: 'gray' }}>Sem comanda registrada</p>
             )}
-
-            <Button onClick={() => handleNewOrder(cliente.comandas.id)}>
-              Novo pedido
-            </Button>
-
+            <div className="d-flex flex-column justiffy-content-center align-items-center">
+            <Button outline className={styles.btn} onClick={() => handleNewOrder(cliente.comandas.id)}>Novo pedido</Button>
             <Link href={`/pagamentos?comandaId=${cliente.comandas.id}`}>
-              <Button>Pagamento</Button>
+              <Button outline className={styles.btn2}> Pagamento </Button>
             </Link>
+            </div>
+            
           </div>
         </Container>
       ))}
+    </div>
     </div>
   );
 };

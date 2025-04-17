@@ -26,12 +26,15 @@ const HomeAuth=({product,pedidos}:ProdProps)=>{
             <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
         </Head>
         <main>
-            <HeaderAuth logoUrl="/register"
+          <div>
+          <HeaderAuth logoUrl="/register"
         
         btnContent="Abas"/>
             <SlideSection getproduts={product}/>
           <SlidePedidos />
           <SlidePagamentos/>
+          </div>
+            
         </main>
         </>
     )

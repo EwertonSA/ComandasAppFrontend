@@ -1,3 +1,4 @@
+import Footer from "@/src/components/common/footer"
 import HeaderAuth from "@/src/components/common/headerAuth"
 import Pedidos from "@/src/components/homeNoAuth/pages/pedidos"
 import Head from "next/head"
@@ -14,6 +15,7 @@ const Pedido=()=>{
            
         btnContent="Abas"/>
          <Pedidos/>
+         <Footer/>
   </main>
   </>
 }

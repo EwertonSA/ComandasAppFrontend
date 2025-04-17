@@ -60,7 +60,7 @@ const Register = () => {
         <script src="https://jsuites.net/v4/jsuites.js"></script>
       </Head>
       <main>
-        <Container py-5>
+        <Container >
           <p className={styles.formTitle}>
             <strong>Bem vindo(a) ao cadastro</strong>
           </p>

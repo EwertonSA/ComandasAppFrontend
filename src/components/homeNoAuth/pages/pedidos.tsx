@@ -97,7 +97,7 @@ const [quantidade, setQuantidade] = useState<number>(1);
       </Head>
       <main>
         <Container className="py-5">
-          <p className={styles.FormTitle}>Fazer pedidos</p>
+          <p className={styles.formTitle}>Fazer pedidos</p>
 
           {toastOpen && (
             <div className={`text-white p-2 rounded ${toastColor}`}>

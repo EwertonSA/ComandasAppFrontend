@@ -1,3 +1,4 @@
+import Footer from "@/src/components/common/footer"
 import HeaderAuth from "@/src/components/common/headerAuth"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
 import Register from "@/src/components/homeNoAuth/pages/register"
@@ -17,6 +18,7 @@ return <>
           btnContent="Abas"
         />
     <Register/>
+    <Footer/>
 </main>
 </>
 }

@@ -9,7 +9,7 @@ interface props{
 const SlideCard=({product}:props)=>{
     return <>
     <div className={styles.slide}>
-        <img src="" alt={product.nome} className={styles.slideImg}/>
+        <img src="/drinks.jpg" alt={product.nome} className={styles.slideImg}/>
         <p className={styles.slideTitle}>{product.nome}</p>
         <p className={styles.slideDescription}>{product.descricao}</p>
         
