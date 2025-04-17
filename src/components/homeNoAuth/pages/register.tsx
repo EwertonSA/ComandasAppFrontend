@@ -1,11 +1,6 @@
 import Head from "next/head";
 import {
-  Button,
-  Container,
-  Form,
-  FormGroup,
-  Input,
-  Label,
+  Button,Container,Form,FormGroup,Input,Label,
 } from "reactstrap";
 import styles from "../../../../styles/register.module.scss";
 import { FormEvent, useEffect, useState } from "react";

@@ -21,7 +21,7 @@ const fetchPedidos=async()=>{
     const details=await Promise.all(
       (res.pedidos|| []).map(async(pedido:any)=>{
 const detail=await pedidoService.getOrdersById(pedido.id)
-return detail
+return {...detail,id: pedido.id,}
   })
     )
     setPedidos(details)
@@ -55,9 +55,9 @@ if(id){
                 Produtos:
                 </p>
                 <ul>
-                  {pedido.pedidosProdutos.map((item:any)=>(
+                  {pedido.pedidosProdutos?.map((item:any)=>(
                     <li key={item.produto.id}>
-                      {item.produto.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
+                      {item.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
                     </li>
                     
                   ))}
