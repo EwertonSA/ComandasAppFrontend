@@ -23,7 +23,8 @@ const Pagamentos = () => {
       const comanda = await clienteService.getPedidosComanda(comandaId as string);
       if (comanda && comanda.pedidos && comanda.pedidos.length > 0) {
         const totalCoamnda = comanda.pedidos.reduce((acc: number, pedido: any) => {
-          const valorPedido = Number(pedido.total || 0);
+          const isEntregue=pedido.status?.toLowerCase()==="entregue"
+          const valorPedido =isEntregue? Number(pedido.total || 0):0;
           return acc + valorPedido;
         }, 0);
 

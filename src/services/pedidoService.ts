@@ -123,7 +123,24 @@ registerAll: async ({
     return { status: 500, message: "Erro interno no servidor." };
   }
 }
+,
+delete:async(id:number,status:string)=>{
+  try {
+    const res=await api.delete(`/pedidos/${id}`)
+    return res.data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Erro:", {
+        message: error.message,
+        stack: error.stack
+      });
+    } else {
+      console.error("Erro desconhecido :", error);
+    }
 
+    return { status: 500, message: "Erro interno no servidor." };
+  }
+}
 
 
 } 
