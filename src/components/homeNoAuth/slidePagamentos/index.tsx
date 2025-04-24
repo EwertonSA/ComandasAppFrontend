@@ -9,12 +9,18 @@ import Link from "next/link";
 import Footer from "../../common/footer";
 const SlidePagamentos=()=>{
     const {data,error}=useSWR('/pagamentos',pedidoService.pagamentos)
-    if(error) return error
-    if(!data) return <p>Loading....</p>
+    const {data:totalData,error:totalError}=useSWR('/pagamentos/total',pedidoService.total)
+    if(error  || totalError) return error
+    if(!data || totalData === undefined) return <p>Loading....</p>
     return(
        <Container className="d-flex flex-column align-items-center">
         <p className={styles.sectionTitle}>Pagamentos pendentes</p>
+      
         <SlideComponent items={data.pagamentos} renderItem={(pagamento:PagamentosParams)=> <PagamentosCard pagamentos={pagamento}/>}/>
+        <p className={styles.total}>
+            Total de hoje: {Number(totalData).toFixed(2)}
+            
+        </p>
         <Link href='/pagamentos'>
         <Button outline>
             Faça seu pagamento

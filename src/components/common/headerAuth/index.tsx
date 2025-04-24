@@ -36,7 +36,7 @@ const HeaderAuth=({logoUrl,btnContent}:props)=>{
           shouldCloseOnEsc={true} className={styles.modal} 
           overlayClassName={styles.overlay}> 
           <Link href='/home'>
-          <p className={styles.modalLink}>Produtos</p>
+          <p className={styles.modalLink}>Página inicial</p>
           </Link>
           <Link href='/clienteInfo'>
           <p className={styles.modalLink}>Comandas</p>

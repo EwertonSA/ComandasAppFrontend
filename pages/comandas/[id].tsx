@@ -111,7 +111,7 @@ const Comanda = () => {
                 </div>
               ))
             ):(
-              <p>Nnehum pedido pendente</p>
+              <p className={styles.div}>Nnehum pedido pendente</p>
             )
           ):(
            pedidosEntregues.length>0?(
@@ -142,12 +142,12 @@ const Comanda = () => {
         
        </div>
 
-       
+       <p className={styles.title}>Valor total: R$ {totalDelivered} </p>
 
         <Link href={`/pagamentos?comandaId=${id}`} className={styles.btn}>
           <Button>Pagamento</Button>
         </Link>
-        <p className={styles.title}>Valor total: R$ {totalDelivered} </p>
+      
         <Footer />
       </main>
    

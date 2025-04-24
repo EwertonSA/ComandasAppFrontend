@@ -141,7 +141,23 @@ delete:async(id:number,status:string)=>{
     return { status: 500, message: "Erro interno no servidor." };
   }
 }
+,total:async()=>{
+  try {
+    const res=await api.get('/pagamentos/total')
+    return res.data
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Erro:", {
+        message: error.message,
+        stack: error.stack
+      });
+    } else {
+      console.error("Erro desconhecido :", error);
+    }
 
+    return { status: 500, message: "Erro interno no servidor." };
+  }
+}
 
 } 
 export default pedidoService

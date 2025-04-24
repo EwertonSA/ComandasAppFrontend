@@ -36,7 +36,7 @@ const clienteService = {
     try {
       const res = await api.get('/clientes');
       const clientes = res.data.clientes;
-      console.log("Resposta da API:", res);
+      
       const clientesComComandas = await Promise.all(
         clientes.map(async (cliente: any) => {
           const detalhesRes = await api.get(`/clientes/${cliente.id}`);
@@ -58,11 +58,7 @@ const clienteService = {
         })
       );
   
-      const clientesFiltrados = clientesComComandas.filter((cliente) => {
-        return !cliente.comandas || cliente.comandas.status.toLowerCase() !== "pago";
-      });
-  
-      return clientesFiltrados;
+    return clientesComComandas
   
     } catch (err: any) {
       console.error("Erro ao buscar info dos clientes:", err);
