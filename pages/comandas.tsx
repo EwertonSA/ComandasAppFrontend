@@ -6,7 +6,7 @@ import Footer from "@/src/components/common/footer"
 import { useRouter } from "next/router"
 import { FormEvent, useEffect, useState } from "react"
 import ToastComponent from "@/src/components/common/toast"
-import clienteService from "@/src/services/clienteService"
+import { comandaService } from "@/src/services/comandaService"
 
     
 const Comandas =()=>{
@@ -31,7 +31,7 @@ const Comandas =()=>{
         const mesaId= formData.get('mesaId')!.toString()
         const clienteId= formData.get('clienteId')!.toString()
         const params={mesaId,clienteId}
-        const {status}=await clienteService.registerComanda(params)
+        const {status}=await comandaService.registerComanda(params)
         if(status===200){
             router.push('/pedidos')
         }else{

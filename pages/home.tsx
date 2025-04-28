@@ -10,7 +10,8 @@ import pedidoService from "@/src/services/pedidoService"
 import produtService, { PedidosType, ProductType } from "@/src/services/productService"
 import { GetStaticProps } from "next"
 import Head from "next/head"
-import { ReactNode } from "react"
+import { useRouter } from "next/router"
+import { ReactNode, useEffect, useState } from "react"
 
 export interface ProdProps{
   children?: ReactNode;
@@ -19,6 +20,20 @@ export interface ProdProps{
 }
 
 const HomeAuth=({product,pedidos}:ProdProps)=>{
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    if (!sessionStorage.getItem("")) {
+      router.push("/login");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+  
+  if (loading) {
+    return <p>Loading...</p>;
+  }
     return(
         <>
         <Head>

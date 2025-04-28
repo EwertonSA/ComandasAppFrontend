@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 import styles from "../../../../styles/register.module.scss";
+import { pagamentoService } from "@/src/services/pagamentoService";
+import { comandaService } from "@/src/services/comandaService";
 
 const Pagamentos = () => {
   const router = useRouter();
@@ -20,7 +22,7 @@ const Pagamentos = () => {
     if (!comandaId) return;
 
     const fetchPagamento = async () => {
-      const comanda = await clienteService.getPedidosComanda(comandaId as string);
+      const comanda = await comandaService.getPedidosComanda(comandaId as string);
       if (comanda && comanda.pedidos && comanda.pedidos.length > 0) {
         const totalCoamnda = comanda.pedidos.reduce((acc: number, pedido: any) => {
           const isEntregue=pedido.status?.toLowerCase()==="entregue"
@@ -42,7 +44,7 @@ const Pagamentos = () => {
   const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
 
-    const res = await clienteService.pagamento({
+    const res = await pagamentoService.pagamento({
       comandaId,
       valor,
       formaPagamento,

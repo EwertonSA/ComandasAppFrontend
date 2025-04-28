@@ -1,17 +1,15 @@
 import api from "./api";
+import { pedidosProdutosService } from "./pedidosProdutosService";
 
-interface PedidoParams{
+export interface PedidoParams{
+  id?:string
 comandaId:string;
 total:0
 
 
 status:string
 }
-interface PedidosProdutosParams{
-  produtoId:string;
-  pedidoId:string;
-  quantidade:number
-}
+
 const pedidoService={
   getPedidos:async()=>{
     try {
@@ -45,40 +43,14 @@ try {
         
     }
   },
-  createPedidosProdutos:async(params:PedidosProdutosParams)=>{
-try {
-  const res=await api.post('/pedidosProdutos',params)
-  return res.data
-} catch (err:any) {
-  return {
-    error: err.response?.data?.message || err.message || "Erro desconhecido",
-    status: err.response?.status || 500
-  };
-}
-  },
-        getProduct:async()=>{
-    try {
-      const res=await api.get("/produtos");
-      console.log(res.data)
-      return{data:res.data.produtos|| [] };
-    } catch (error) {
-      console.error("Erro ao buscar produto",error)
-    }
 
-},
+      
 updateStatus: async (id: string, status: string) => {
   const res = await api.put(`/pedidos/${id}`, { status });
   return res.data;
 },
 
-pagamentos:async()=>{
-try {
-  const res=await api.get('/pagamentos')
-  return res.data
-} catch (error) {
-  return []
-}
-},
+
 registerAll: async ({
   total,
   quantidade,
@@ -99,7 +71,7 @@ registerAll: async ({
     }
 
     const pedidoId = pedidoRes.id;
-    const pedidosProdutos = await pedidoService.createPedidosProdutos({
+    const pedidosProdutos = await pedidosProdutosService.createPedidosProdutos({
       pedidoId,
       produtoId,
       quantidade
@@ -127,23 +99,6 @@ registerAll: async ({
 delete:async(id:number,status:string)=>{
   try {
     const res=await api.delete(`/pedidos/${id}`)
-    return res.data
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error("Erro:", {
-        message: error.message,
-        stack: error.stack
-      });
-    } else {
-      console.error("Erro desconhecido :", error);
-    }
-
-    return { status: 500, message: "Erro interno no servidor." };
-  }
-}
-,total:async()=>{
-  try {
-    const res=await api.get('/pagamentos/total')
     return res.data
   } catch (error) {
     if (error instanceof Error) {

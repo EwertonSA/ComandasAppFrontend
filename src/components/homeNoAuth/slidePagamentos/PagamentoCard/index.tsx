@@ -1,4 +1,5 @@
-import { PagamentosParams } from "@/src/services/clienteService";
+
+import { PagamentosParams } from '@/src/services/pagamentoService'
 import styles from '../../../common/slideCard/styles.module.scss'
 interface props{
     pagamentos:PagamentosParams

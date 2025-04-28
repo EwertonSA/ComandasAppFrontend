@@ -1,39 +1,29 @@
-import pedidoService from "@/src/services/pedidoService"
-import { Button, Container } from "reactstrap"
-import useSWR from "swr"
-import styles from "../../../../styles/getStyles.module.scss"
-import Link from "next/link"
-const GetPagamentos=()=>{
-    const {data,error}=useSWR('/pagamentos',pedidoService.pagamentos)
-    if(error) return error
-    if(!data){
-        return <p>Loading...</p>
-    }
-    if (data.pagamentos.length === 0) {
-        return <p>Nenhum pagamento encontrado.</p>;
-      }
-    return( <>
-       <Container className="d-flex flex-wrap justify-content-center py-5 pb-3">
-        <h1 className={styles.title}>Pagamentos</h1>
-    {
-        data.pagamentos.map((pagamento:{id:number,comandaId: number, valor: number, formaPagamento: string, status: string})=>(
-            <div  key={pagamento.id} >
-                <div className={styles.container}>
-                 
-                        <p>{pagamento.comandaId}</p>
-                        <p>{pagamento.valor}</p>
-                        <p>{pagamento.formaPagamento}</p>
-                        <p>{pagamento.status}</p>
-                        <Link href='/clienteInfo'>
-           <Button outline color="success">Ver pagamento
-              
-              </Button></Link>
-                   
-                </div>
-            </div>
-        ))
-    }
-     </Container>
-    </>)
-}
-export default GetPagamentos
+import { Container } from "reactstrap";
+
+import styles from "../../../../styles/getStyles.module.scss";
+import { usePagamentos } from "@/src/hooks/useComandas";
+import PagamentoCard from "@/src/component/pagamentoCard";
+import { PagamentosParams } from "@/src/services/pagamentoService";
+
+interface PagamentosResponse {
+    pagamentos: PagamentosParams[];
+  }
+const GetPagamentos = () => {
+  const { pagamentos, error } = usePagamentos();
+
+  if (error) return <p>Erro ao carregar pagamentos.</p>;
+
+  if (pagamentos.length === 0) return <p>Nenhum pagamento encontrado.</p>;
+
+  return (
+    <Container className="d-flex flex-wrap justify-content-center py-5 pb-3">
+      <h1 className={styles.title}>Pagamentos</h1>
+
+      {pagamentos.map((pagamento) => (
+        <PagamentoCard key={pagamento.id} pagamento={pagamento} />
+      ))}
+    </Container>
+  );
+};
+
+export default GetPagamentos;

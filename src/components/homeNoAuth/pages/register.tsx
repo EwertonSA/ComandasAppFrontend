@@ -6,6 +6,8 @@ import styles from "../../../../styles/register.module.scss";
 import { FormEvent, useEffect, useState } from "react";
 import clienteService from "@/src/services/clienteService";
 import { useRouter } from "next/router";
+import { mesaService } from "@/src/services/mesaService";
+import { comandaService } from "@/src/services/comandaService";
 
 const Register = () => {
   const router = useRouter();
@@ -17,7 +19,7 @@ const Register = () => {
 
   useEffect(() => {
     const fetchMesas = async () => {
-      const res = await clienteService.getMesas();
+      const res = await mesaService.getMesas();
       if (Array.isArray(res)) {
         setMesas(res);
       } else {
@@ -37,7 +39,7 @@ const Register = () => {
     const nome = formData.get("nome")?.toString().trim() || "";
     const telefone = formData.get("telefone")?.toString().trim() || "";
 
-    const { status, message, comandaId } = await clienteService.registrarTudo({
+    const { status, message, comandaId } = await comandaService.registrarTudo({
       mesaId,
       nome,
       telefone,

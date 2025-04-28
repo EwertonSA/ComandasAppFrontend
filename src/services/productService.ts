@@ -33,6 +33,16 @@ const produtService={
           return { data: [] }; 
         }
       },
+      getProduct:async()=>{
+        try {
+          const res=await api.get("/produtos");
+          console.log(res.data)
+          return{data:res.data.produtos|| [] };
+        } catch (error) {
+          console.error("Erro ao buscar produto",error)
+        }
+    
+    },
       findByName: async (
         nome: string,
         page: number = 1,

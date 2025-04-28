@@ -3,13 +3,14 @@ import { Button, Container } from "reactstrap";
 import useSWR from "swr";
 import styles from '../slideSection/styles.module.scss'
 import SlideComponent from "../../common/slideComponent";
-import { PagamentosParams } from "@/src/services/clienteService";
+
 import PagamentosCard from "./PagamentoCard";
 import Link from "next/link";
 import Footer from "../../common/footer";
+import { pagamentoService, PagamentosParams } from "@/src/services/pagamentoService";
 const SlidePagamentos=()=>{
-    const {data,error}=useSWR('/pagamentos',pedidoService.pagamentos)
-    const {data:totalData,error:totalError}=useSWR('/pagamentos/total',pedidoService.total)
+    const {data,error}=useSWR('/pagamentos',pagamentoService.pagamentos)
+    const {data:totalData,error:totalError}=useSWR('/pagamentos/total',pagamentoService.total)
     if(error  || totalError) return error
     if(!data || totalData === undefined) return <p>Loading....</p>
     return(

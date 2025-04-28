@@ -5,6 +5,7 @@ import { Button, Container } from "reactstrap"
 import useSWR from "swr"
 import styles from "../../../../styles/getStyles.module.scss"
 import Link from "next/link"
+import PedidoCard from "../../homeNoAuth/slidePedido/pedido"
 const GetPedidos=()=>{
     const {data,error}=useSWR('/pedidos',pedidoService.getPedidos)
     if(error) error
@@ -17,18 +18,8 @@ const GetPedidos=()=>{
     <h1>Pedidos</h1>
 {    data.pedidos.map((pedido:PedidosType)=>(
       <div  >
-    
-          <div key={pedido.id} className={styles.container} >
-          
-            <p className={styles.data}>{pedido.id}</p>
-            <p className={styles.data}>{pedido.comandaId}</p>
-            <p className={styles.data}>{pedido.total}</p>
-            <p className={styles.data}>{pedido.status}</p>
-           <Link href='/clienteInfo'>
-           <Button outline color="success">Ver pedido
-              
-              </Button></Link>
-        </div>
+    <PedidoCard pedido={pedido}/>
+         
        
       </div>
     ))}
