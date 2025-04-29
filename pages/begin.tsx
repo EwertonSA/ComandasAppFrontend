@@ -29,6 +29,7 @@ const Begin=()=>{
         }
     
         if (password != confirmPassword) {
+            setToastColor("bg-success")
           setToastIsOpen(true)
           setTimeout(() => {
             setToastIsOpen(false)
@@ -36,22 +37,25 @@ const Begin=()=>{
           }, 1000);
             return
         }
-    
         const params = { name, phone, email, password, role: 'user' as const }
-    
-        const response = await authService.register(params)
-        console.log("Resposta do servidor:", response)
-    
-        if (response.status === 200|| response.status === 201) {
-         router.push('/login?registred=true')
-        } else {
+        try {
+            const response = await authService.register(params)
+            console.log("Resposta do servidor:", response)
+        
+            if (response.status === 200 || response.status === 201) {
+              router.push('/login?registred=true')
+            } else {
+              throw new Error("Erro inesperado ao registrar.")
+            }
+          } catch (err: any) {
+            console.error("Erro ao registrar:", err)
+            setToastMessage("Erro ao cadastrar. Verifique os dados.")
+            setToastColor("bg-danger")
             setToastIsOpen(true)
-            setTimeout(() => {
-              setToastIsOpen(false)
-              setToastMessage(response.data.message)
-            }, 1000);
+            setTimeout(() => setToastIsOpen(false), 3000)
+          }
         }
-    }
+    
     
     return(
         <>
@@ -92,7 +96,7 @@ placeholder="(xx) 9xxxx-xxxx?"
     </FormGroup>
     <FormGroup
     >
-<Label for='password' className={styles.label}>CONFIRMAR SENHA:</Label>
+<Label for='password' className={styles.label}>SENHA:</Label>
 <Input name='password' type='password' id='' placeholder="Digite sua senha?" required maxLength={20} className={styles.input} />
 
     </FormGroup>
