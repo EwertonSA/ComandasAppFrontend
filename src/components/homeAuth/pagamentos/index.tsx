@@ -1,7 +1,7 @@
 import { Container } from "reactstrap";
 
 import styles from "../../../../styles/getStyles.module.scss";
-import { usePagamentos } from "@/src/hooks/useComandas";
+import { usePagamentos } from "@/src/hooks/usePagamentos";
 import PagamentoCard from "@/src/component/pagamentoCard";
 import { PagamentosParams } from "@/src/services/pagamentoService";
 

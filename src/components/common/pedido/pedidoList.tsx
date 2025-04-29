@@ -1,4 +1,3 @@
-// src/components/PedidosList.tsx
 import { Button } from "reactstrap";
 import styles from "../../../../styles/getStyles.module.scss"
 
