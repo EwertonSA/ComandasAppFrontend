@@ -1,7 +1,7 @@
 import api from "./api"
 
 export interface PagamentosParams{
-  id: number;
+  id?: number;
     comandaId:string
     valor:string
     formaPagamento:string
@@ -9,9 +9,14 @@ export interface PagamentosParams{
     }
 export const pagamentoService={
     pagamento:async(params:PagamentosParams)=>{
+      const token=sessionStorage.getItem("comandas-token")
         try {
           console.log("Dados enviados ao back:", params);
-          const res=await api.post('/pagamentos',params)
+          const res=await api.post('/pagamentos',params,{
+            headers: {
+              Authorization: `Bearer ${token}`
+          },
+          })
           return res.data
         } catch (err:any) {
           return {
@@ -22,7 +27,12 @@ export const pagamentoService={
       },
       pagamentos:async()=>{
         try {
-          const res=await api.get('/pagamentos')
+          const token=sessionStorage.getItem("comandas-token")
+          const res=await api.get('/pagamentos',{
+            headers: {
+              Authorization: `Bearer ${token}`
+          },
+          })
           return res.data
         } catch (error) {
           return []
@@ -31,7 +41,12 @@ export const pagamentoService={
         
         total:async()=>{
             try {
-              const res=await api.get('/pagamentos/total')
+              const token=sessionStorage.getItem("comandas-token")
+              const res=await api.get('/pagamentos/total',{
+                headers: {
+                  Authorization: `Bearer ${token}`
+              },
+              })
               return res.data
             } catch (error) {
               if (error instanceof Error) {

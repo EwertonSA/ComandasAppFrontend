@@ -9,7 +9,12 @@ interface PedidosProdutosParams{
 export const pedidosProdutosService={
     createPedidosProdutos:async(params:PedidosProdutosParams)=>{
         try {
-          const res=await api.post('/pedidosProdutos',params)
+          const token=sessionStorage.getItem("comandas-token")
+          const res=await api.post('/pedidosProdutos',params,{
+            headers: {
+              Authorization: `Bearer ${token}`
+          },
+          })
           return res.data
         } catch (err:any) {
           return {

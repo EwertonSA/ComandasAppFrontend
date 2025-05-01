@@ -1,7 +1,8 @@
+import Clientes from "@/src/component/pages/clientes/clientes"
 import Footer from "@/src/components/common/footer"
 import HeaderAuth from "@/src/components/common/headerAuth"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
-import ClienteInfo from "@/src/components/homeNoAuth/pages/swr/clienteInfo"
+import ClienteInfo from "@/src/component/pages/clientes/clienteInfo"
 import Head from "next/head"
 
 
@@ -16,6 +17,7 @@ const ClienteInf=()=>{
            
            btnContent="Abas"/>
     <ClienteInfo/>
+    <Clientes/>
     <Footer/>
   </main>
   </>

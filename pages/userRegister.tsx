@@ -1,12 +1,12 @@
 import Footer from "@/src/components/common/footer"
 import HeaderAuth from "@/src/components/common/headerAuth"
-
+import HeaderGeneric from "@/src/components/common/headerGeneric"
+import Register from "@/src/component/pages/clientes/clienteForm"
 import Head from "next/head"
+import Begin from "@/src/component/pages/login/register"
 
-import Comanda from "@/src/component/pages/comandas"
 
-
-const ComandaInfo=()=>{
+const RegisterUser=()=>{
 return <>
 <Head>
 <title>Registro de usuário</title>
@@ -18,9 +18,9 @@ return <>
         
           btnContent="Abas"
         />
-<Comanda/>
+<Register/>
     <Footer/>
 </main>
 </>
 }
-export default ComandaInfo
+export default RegisterUser

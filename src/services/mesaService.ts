@@ -6,8 +6,13 @@ interface MesasParams {
   }
 export const mesaService={
     registerMesa: async (params: MesasParams) => {
+      const token=sessionStorage.getItem('comandas-token')
         try {
-          const res = await api.post("/mesas", params);
+          const res = await api.post("/mesas", params,{
+            headers: {
+              Authorization: `Bearer ${token}`
+          },
+          });
           return res.data;
         } catch (err: any) {
           return {
@@ -18,7 +23,12 @@ export const mesaService={
       },
       getMesas: async () => {
         try {
-          const response = await api.get("/mesas"); // use a URL correta
+          const token=sessionStorage.getItem('comandas-token')
+          const response = await api.get("/mesas",{
+            headers: {
+              Authorization: `Bearer ${token}`
+          },
+          }); // use a URL correta
           return response.data;
         } catch (error) {
           console.error("Erro ao buscar mesas:", error);

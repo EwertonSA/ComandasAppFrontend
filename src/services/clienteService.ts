@@ -9,8 +9,13 @@ export interface RegisterParams {
 const clienteService = {
   getClientes:async()=>{
     try {
-      const res=await api.get('/clientes')
-      console.log("res.data do getClientes:", res.data.clientes);
+      const token=sessionStorage.getItem("comandas-token")
+      const res=await api.get('/clientes',{
+        headers: {
+          Authorization: `Bearer ${token}`
+      },
+      })
+   
       return res.data.clientes
     }  catch (err: any) {
       return []
@@ -18,17 +23,30 @@ const clienteService = {
   },
   getClientesInfo: async () => {
     try {
-      const res = await api.get('/clientes');
+      const token=sessionStorage.getItem("comandas-token")
+      const res = await api.get('/clientes',{
+        headers: {
+          Authorization: `Bearer ${token}`
+      },
+      });
       const clientes = res.data.clientes;
       
       const clientesComComandas = await Promise.all(
         clientes.map(async (cliente: any) => {
-          const detalhesRes = await api.get(`/clientes/${cliente.id}`);
+          const detalhesRes = await api.get(`/clientes/${cliente.id}`,{
+            headers: {
+              Authorization: `Bearer ${token}`
+          },
+          });
           const comandaBase = detalhesRes.data.comandas || null;
           let comandaDetalhada = null;
   
           if (comandaBase?.id) {
-            const comandaRes = await api.get(`/comandas/${comandaBase.id}`);
+            const comandaRes = await api.get(`/comandas/${comandaBase.id}`,{
+              headers: {
+                Authorization: `Bearer ${token}`
+            },
+            });
             comandaDetalhada = {
               ...comandaRes.data,
               pedidos: comandaRes.data.pedidos || [],
@@ -50,9 +68,14 @@ const clienteService = {
     }
   },
   register: async (params: RegisterParams) => {
+    const token=sessionStorage.getItem("comandas-token")
     try {
-      console.log("🔍 Enviando cliente:", params);
-      const res = await api.post('/clientes', params);
+    
+      const res = await api.post('/clientes', params,{
+        headers: {
+          Authorization: `Bearer ${token}`
+      },
+      });
       return res.data;
     } catch (err: any) {
       return {

@@ -1,12 +1,8 @@
 import HeaderAuth from "@/src/components/common/headerAuth"
-import GetPagamentos from "@/src/components/homeAuth/pagamentos"
-import Pagamentos from "@/src/components/homeAuth/pagamentos"
-import GetPedidos from "@/src/components/homeAuth/pedidos"
-import Product from "@/src/components/homeAuth/products"
-import SlidePagamentos from "@/src/components/homeNoAuth/slidePagamentos"
-import SlidePedidos from "@/src/components/homeNoAuth/slidePedido"
-import SlideSection from "@/src/components/homeNoAuth/slideSection"
-import pedidoService from "@/src/services/pedidoService"
+
+import SlidePagamentos from "@/src/component/slides/slidePagamentos"
+import SlidePedidos from "@/src/component/slides/slidePedido"
+import SlideSection from "@/src/component/slides/slideSection"
 import produtService, { PedidosType, ProductType } from "@/src/services/productService"
 import { GetStaticProps } from "next"
 import Head from "next/head"
@@ -24,7 +20,7 @@ const HomeAuth=({product,pedidos}:ProdProps)=>{
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    if (!sessionStorage.getItem("")) {
+    if (!sessionStorage.getItem("comandas-token")) {
       router.push("/login");
     } else {
       setLoading(false);
@@ -55,12 +51,12 @@ const HomeAuth=({product,pedidos}:ProdProps)=>{
     )
 }
 export const getStaticProps: GetStaticProps=async()=>{
-    const res= await produtService.getproducts()
-    const pedidoRes=await pedidoService.getPedidos()
+    const res= await produtService.getProduct()
+  
    
     return {
       props:{product:res.data || [],
-        pedidos:pedidoRes.data  || [],
+        pedidos:res.data || [],
       },
       revalidate:3600*12,
     }

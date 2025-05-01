@@ -1,7 +1,7 @@
 import Footer from "@/src/components/common/footer"
 import HeaderAuth from "@/src/components/common/headerAuth"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
-import Pagamentos from "@/src/components/homeNoAuth/pages/pagamentos"
+import Pagamentos from "@/src/component/pages/pagamentos/pagamentoForm"
 import Head from "next/head"
 
 const Pagamento=()=>{

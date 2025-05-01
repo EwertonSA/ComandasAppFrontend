@@ -3,7 +3,7 @@ import styles from '../styles/HomeNoAuth.module.scss'
 import HeaderNoAuth from '@/src/components/homeNoAuth/headerNoAuth';
 import PresentationSection from '@/src/components/homeNoAuth/presentationSection';
 import CardSection from '@/src/components/homeNoAuth/cardSection';
-import SlideSection from '@/src/components/homeNoAuth/slideSection';
+import SlideSection from '@/src/component/slides/slideSection';
 import { GetStaticProps } from 'next';
 import produtService, { ProductType } from '@/src/services/productService';
 import { ReactNode, useEffect } from 'react';
@@ -47,7 +47,7 @@ Aos.init()
   )
 }
 export const getStaticProps: GetStaticProps=async()=>{
-  const res= await produtService.getproducts()
+  const res= await produtService.getProduct()
  
   return {
     props:{product:res.data,},

@@ -8,16 +8,26 @@ interface ComandasParams {
 export const comandaService={
       
   getComanda:async()=>{
+    const token=sessionStorage.getItem('comandas-token')
     try {
-    const res=await api.get('/comandas')
+    const res=await api.get('/comandas',{
+      headers: {
+        Authorization: `Bearer ${token}`
+    },
+    })
     return res.data.comandas  
     } catch (error:any) {
       return []
     }
   },
   getPedidosComanda:async(comandaId:string)=>{
+    const token=sessionStorage.getItem('comandas-token')
     try {
-      const res=await api.get(`/comandas/${comandaId}`)
+      const res=await api.get(`/comandas/${comandaId}`,{
+        headers: {
+          Authorization: `Bearer ${token}`
+      },
+      })
      
       return res.data
     } catch (error:any) {
@@ -26,8 +36,13 @@ export const comandaService={
     }
       },
       registerComanda: async (params: ComandasParams) => {
+        const token=sessionStorage.getItem('comandas-token')
         try {
-          const res = await api.post("/comandas", params);
+          const res = await api.post("/comandas", params,{
+            headers: {
+              Authorization: `Bearer ${token}`
+          },
+          });
           return res.data;
         } catch (err: any) {
           return{

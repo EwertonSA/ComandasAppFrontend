@@ -28,7 +28,7 @@ interface PedidosListProps {
 
 const PedidosList = ({ pedidos, tipo, onEntregar, onCancelar }: PedidosListProps) => {
   if (pedidos.length === 0) {
-    return <p>Nenhum pedido {tipo === "pendentes" ? "pendente" : "entregue"}</p>;
+    return <p className={styles.subtitle}>Nenhum pedido {tipo === "pendentes" ? "pendente" : "entregue"}</p>;
   }
 
   return (

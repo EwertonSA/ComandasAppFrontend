@@ -12,8 +12,13 @@ status:string
 
 const pedidoService={
   getPedidos:async()=>{
+    const token=sessionStorage.getItem("comandas-token")
     try {
-      const res=await api.get('/pedidos')
+      const res=await api.get('/pedidos',{
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      })
       return res.data     
     } catch (error) {
       return []
@@ -21,8 +26,13 @@ const pedidoService={
 
   },
   getOrdersById: async (id: number | string) => {
+    const token=sessionStorage.getItem("comandas-token")
 try {
-  const response = await api.get(`/pedidos/${id}`);
+  const response = await api.get(`/pedidos/${id}`,{
+    headers: {
+      Authorization: `Bearer ${token}`
+  },
+  });
    
     return response.data;
   
@@ -33,8 +43,13 @@ try {
   
   
   create:async(params:PedidoParams)=>{
+    const token=sessionStorage.getItem("comandas-token")
     try {
-        const res=await api.post('/pedidos',params)
+        const res=await api.post('/pedidos',params,{
+          headers: {
+            Authorization: `Bearer ${token}`
+        },
+        })
         return res.data
     } catch (error) {
         if(error instanceof Error){
@@ -46,7 +61,12 @@ try {
 
       
 updateStatus: async (id: string, status: string) => {
-  const res = await api.put(`/pedidos/${id}`, { status });
+  const token=sessionStorage.getItem("comandas-token")
+  const res = await api.put(`/pedidos/${id}`, { status },{
+    headers: {
+      Authorization: `Bearer ${token}`
+  },
+  });
   return res.data;
 },
 
@@ -97,8 +117,13 @@ registerAll: async ({
 }
 ,
 delete:async(id:number,status:string)=>{
+  const token=sessionStorage.getItem("comandas-token")
   try {
-    const res=await api.delete(`/pedidos/${id}`)
+    const res=await api.delete(`/pedidos/${id}`,{
+      headers: {
+        Authorization: `Bearer ${token}`
+    },
+    })
     return res.data
   } catch (error) {
     if (error instanceof Error) {

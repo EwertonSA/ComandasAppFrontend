@@ -23,23 +23,21 @@ export type ProductSearchResponse = {
 };
 
 const produtService={
-    getproducts: async () => {
-        try {
-          const res = await api.get('/produtos');
-          console.log("📦 Produtos recebidos no getStaticProps:", res.data);
-          return { data: res.data.produtos || [] };
-        } catch (err: any) {
-         
-          return { data: [] }; 
-        }
-      },
+   
       getProduct:async()=>{
+      
         try {
-          const res=await api.get("/produtos");
+         const token=sessionStorage.getItem("comandas-token")
+          const res=await api.get("/produtos",{
+            headers:{
+              Authorization:`Bearer ${token}`
+            }
+          });
           console.log(res.data)
           return{data:res.data.produtos|| [] };
         } catch (error) {
           console.error("Erro ao buscar produto",error)
+          return {data:[]}
         }
     
     },
@@ -48,9 +46,14 @@ const produtService={
         page: number = 1,
         perPAge: number = 10
       ): Promise<ProductSearchResponse> => {
+        const token=sessionStorage.getItem("comandas-token")
         try {
           const res = await api.get(`/pedidos/search`, {
-            params: { nome, page, perPAge },
+           
+                headers: {
+                  Authorization: `Bearer ${token}`,
+              
+              } ,params: { nome, page, perPAge }
           });
           console.log("🔍 Produtos filtrados:", res.data);
           return res.data;
