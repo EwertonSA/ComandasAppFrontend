@@ -7,7 +7,7 @@ import UseClienteForm from "../../hooks/clientes/useClienteForm";
 import ToastComponent from "@/src/components/common/toast";
 import ClienteForm from "../../render/forms/clienteForm";
 
-const Register = () => {
+const RegisterCliente = () => {
   const {
     mesas,
     mesaSelecionada,
@@ -17,7 +17,7 @@ const Register = () => {
     toastIsOpen,
     toastColor,
   } = UseClienteForm();
-  return (
+  return (  
     <>
       <Head>
         <title>Registro</title>
@@ -37,4 +37,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterCliente;

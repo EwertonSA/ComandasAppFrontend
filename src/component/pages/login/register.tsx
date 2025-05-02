@@ -43,7 +43,7 @@ const Register=()=>{
             console.log("Resposta do servidor:", response)
         
             if (response.status === 200 || response.status === 201) {
-              router.push('/login?registred=true')
+              router.push('/userLogin?registred=true')
             } else {
               throw new Error("Erro inesperado ao registrar.")
             }

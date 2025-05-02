@@ -14,7 +14,7 @@ return <>
 <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
 </Head>
 <main>
-<HeaderGeneric btnContent="registrar" btnUrl="/register" logoUrl="/" />
+<HeaderGeneric btnContent="registrar" btnUrl="/userRegister" logoUrl="/" />
 <Login/>
 <Footer/>
 </main>

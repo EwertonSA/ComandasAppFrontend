@@ -13,9 +13,10 @@ const HeaderAuth=({logoUrl,btnContent}:props)=>{
     const router=useRouter();
     const [modalOpen, setModalOpen]= useState(false)
 
-    const handlelogout=()=>{
-        router.push('/')
-    }
+    const handleLogout = () => {
+        sessionStorage.clear();
+      router.push("/");
+    };
     const handleOpenModal=()=>{
         setModalOpen(true)
     }
@@ -44,7 +45,7 @@ const HeaderAuth=({logoUrl,btnContent}:props)=>{
           <Link href="/register">
           <p className={styles.modalLink}>Registrar</p>
           </Link>
-          <p className={styles.modalLink} onClick={handlelogout}>Sair</p>
+          <p className={styles.modalLink} onClick={handleLogout}>Sair</p>
           </Modal >
         </Container>
         </>

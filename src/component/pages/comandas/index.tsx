@@ -1,15 +1,13 @@
 import { useRouter } from "next/router";
 import {  useMemo, useState } from "react";
-import HeaderAuth from "@/src/components/common/headerAuth";
 import styles from '../../../../styles/getStyles.module.scss'
 import pedidoService from "@/src/services/pedidoService";
 import { Button } from "reactstrap";
 import Link from "next/link";
-import Footer from "@/src/components/common/footer";
 import { comandaService } from "@/src/services/comandaService";
 import useSWR from "swr";
 import TabsSwitcher from "@/src/components/common/switch/switchComponent";
-import PedidosList from "@/src/components/common/pedido/pedidoList";
+import PedidosList from "@/src/component/render/cards/pedidoList";
 
 const fetchPedidos = async (id: string) => {
   const res = await comandaService.getPedidosComanda(id);

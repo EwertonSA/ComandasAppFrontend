@@ -1,9 +1,9 @@
+import Register from "@/src/component/pages/login/register"
 import Footer from "@/src/components/common/footer"
 import HeaderAuth from "@/src/components/common/headerAuth"
-import HeaderGeneric from "@/src/components/common/headerGeneric"
-import Register from "@/src/component/pages/clientes/clienteForm"
+
 import Head from "next/head"
-import Begin from "@/src/component/pages/login/register"
+
 
 
 const RegisterUser=()=>{
