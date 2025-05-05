@@ -34,12 +34,10 @@ const PedidosList = ({ pedidos, tipo, onEntregar, onCancelar }: PedidosListProps
   return (
     <div className="d-flex flex-wrap justify-content-center align-items-center gap-2 mt-4">
       {pedidos.map((pedido) => (
+        
         <div key={pedido.id} className={styles.container}>
-          <p><strong>ID:</strong> {pedido.id}</p>
-          <p><strong>Total:</strong> {pedido.total}</p>
-          <p><strong>Status:</strong> {pedido.status}</p>
-          <p className={styles.title}>Produtos:</p>
-          <ul>
+             <p className={styles.title}>Produtos:</p>
+            <ul>
             {pedido.pedidosProdutos?.map((item) => (
               <li key={item.produto.id}>
                 {item.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
@@ -47,13 +45,18 @@ const PedidosList = ({ pedidos, tipo, onEntregar, onCancelar }: PedidosListProps
             ))}
           </ul>
 
+          <p><strong>ID:</strong> {pedido.id}</p>
+          <p><strong>Total:</strong> {pedido.total}</p>
+          <p><strong>Status:</strong> {pedido.status}</p>
+       
+        
           {tipo === "pendentes" ? (
             <>
-              <Button color="success" onClick={() => onEntregar?.(pedido)}>Entregar</Button>
+              <Button color="success" onClick={() => onEntregar?.(pedido)} className="mt-3">Entregar</Button>
               <Button color="danger" className="m-3" onClick={() => onCancelar?.(pedido)}>Cancelar pedido</Button>
             </>
           ) : (
-            <Button color="success" disabled>Entregue</Button>
+            <Button color="success" disabled className="mt-3">Entregue</Button>
           )}
         </div>
       ))}

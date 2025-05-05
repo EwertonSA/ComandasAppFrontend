@@ -13,6 +13,7 @@ export type ProductType = {
   preco: number | string; 
   categoria: string;
   pedidos?: PedidosType[];
+  thumbnailUrl:string
 };
 
 export type ProductSearchResponse = {

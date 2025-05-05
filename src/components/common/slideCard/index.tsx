@@ -7,9 +7,14 @@ interface props{
 
 
 const SlideCard=({product}:props)=>{
+    const defaultImage = "/images/default-thumbnail.jpg"; 
+    const imageUrl = product.thumbnailUrl 
+        ? `${process.env.NEXT_PUBLIC_BASEURL}/${product.thumbnailUrl}` 
+        : defaultImage;
+
     return <>
     <div className={styles.slide}>
-        <img src="/drinks.jpg" alt={product.nome} className={styles.slideImg}/>
+        <img src={imageUrl} alt={product.nome} className={styles.slideImg}/>
         <p className={styles.slideTitle}>{product.nome}</p>
         <p className={styles.slideDescription}>{product.descricao}</p>
         
