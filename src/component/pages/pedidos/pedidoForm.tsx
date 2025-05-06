@@ -54,7 +54,18 @@ const Pedidos = () => {
                 <ul className={styles.suggestions}>
                   {suggestions.map((produto) => (
                     <li key={produto.id} onClick={() => handleSuggestionClick(produto)}>
-                      {produto.nome} - R$ {produto.preco}
+                      <img
+          src={
+            produto.thumbnailUrl
+              ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`
+              : "/images/default-thumbnail.jpg"
+          }
+          alt={produto.nome}
+          width={40}
+          height={40}
+          style={{ objectFit: "cover", marginRight: "8px", borderRadius: "4px" }}
+        />
+               {produto.nome} - R$ {produto.preco}
                     </li>
                   ))}
                 </ul>

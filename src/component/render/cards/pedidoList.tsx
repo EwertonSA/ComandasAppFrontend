@@ -5,6 +5,7 @@ interface Produto {
   id: number;
   nome: string;
   preco: number;
+  thumbnailUrl:string
 }
 
 interface PedidoProduto {
@@ -34,22 +35,28 @@ const PedidosList = ({ pedidos, tipo, onEntregar, onCancelar }: PedidosListProps
   return (
     <div className="d-flex flex-wrap justify-content-center align-items-center gap-2 mt-4">
       {pedidos.map((pedido) => (
-        
         <div key={pedido.id} className={styles.container}>
-             <p className={styles.title}>Produtos:</p>
-            <ul>
-            {pedido.pedidosProdutos?.map((item) => (
-              <li key={item.produto.id}>
-                {item.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
-              </li>
-            ))}
+          <p className={styles.title}>Produtos:</p>
+          <ul>
+            {pedido.pedidosProdutos?.map((item) => {
+              const defaultImage = "/images/default-thumbnail.jpg";
+              const imageUrl = item.produto.thumbnailUrl
+                ? `${process.env.NEXT_PUBLIC_BASEURL}/${item.produto.thumbnailUrl}`
+                : defaultImage;
+
+              return (
+                <div key={item.produto.id}>
+                  <img src={imageUrl} alt={item.produto.nome}  className={styles.slide} /><br/>
+                  {item.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
+                </div>
+              );
+            })}
           </ul>
 
           <p><strong>ID:</strong> {pedido.id}</p>
           <p><strong>Total:</strong> {pedido.total}</p>
           <p><strong>Status:</strong> {pedido.status}</p>
-       
-        
+
           {tipo === "pendentes" ? (
             <>
               <Button color="success" onClick={() => onEntregar?.(pedido)} className="mt-3">Entregar</Button>
@@ -63,5 +70,6 @@ const PedidosList = ({ pedidos, tipo, onEntregar, onCancelar }: PedidosListProps
     </div>
   );
 };
+
 
 export default PedidosList;

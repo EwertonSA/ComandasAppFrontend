@@ -8,9 +8,21 @@ password:string
 role:'user'
 
 }
+interface ClienteLogin{
+  name:string
+  phone:string 
+  email:string
+  role:'cliente'
+  
+  }
 interface LoginParams{
   email:string
   password:string
+}
+interface clienteParams{
+  name:string
+  phone:string
+  email:string
 }
 const authService={
     register: async (params: RegisterLogin) => {
@@ -30,6 +42,18 @@ const authService={
       },
       login:async(params:LoginParams)=>{
         const res=await api.post('/auth/login',params).catch((error)=>{
+          if(error.response.status === 400 || error.response.status === 401){
+            return error.response
+          }
+          return error;
+        })
+        if(res.status === 200){
+          sessionStorage.setItem("comandas-token",res.data.token)
+        }
+        return res
+      },
+      clienteRegistro:async(params:ClienteLogin)=>{
+        const res=await api.post('/auth/register',params).catch((error)=>{
           if(error.response.status === 400 || error.response.status === 401){
             return error.response
           }
