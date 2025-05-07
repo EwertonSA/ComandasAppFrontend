@@ -12,7 +12,7 @@ const indexPage=()=>{
     </Head>
     <main >
  <HeaderGeneric btnContent="registrar" btnUrl="/userRegister" logoUrl="/"/>
-< ClienteLogin/>
+<ClienteLogin/>
       <Footer/>
     </main>
     </>

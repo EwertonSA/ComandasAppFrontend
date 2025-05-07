@@ -57,6 +57,7 @@ const produtService={
               } ,params: { nome, page, perPAge }
           });
           console.log("🔍 Produtos filtrados:", res.data);
+          
           return res.data;
         } catch (error) {
           console.error("Erro ao buscar produtos por nome:", error);
@@ -68,5 +69,40 @@ const produtService={
           };
         }
       },
+      getByCategories: async (categoria: string) => {
+        const token = sessionStorage.getItem("comandas-token");
+      
+        if (!token) {
+          console.error("❌ Token inválido");
+          return []; // <- Adiciona retorno para evitar seguir sem token
+        }
+      
+        try {
+          const res = await api.get(`/produtos/${categoria}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+      
+          // Verifica se a resposta realmente é um array
+          if (Array.isArray(res.data)) {
+            return res.data;
+          }
+      
+          // Se for um objeto com a chave da categoria, retorna o array correspondente
+          if (res.data && res.data[categoria]) {
+            return res.data[categoria];
+          }
+      
+          console.warn("⚠️ Resposta inesperada da API:", res.data);
+          return [];
+      
+        } catch (error: any) {
+          console.error("Erro ao buscar produto:", error?.response?.data || error.message);
+          return [];
+        }
+      }
+      
+      
 }
 export default produtService
