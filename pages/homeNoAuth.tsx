@@ -1,15 +1,15 @@
 import Footer from "@/src/components/common/footer"
-import HeaderAuth from "@/src/components/common/headerAuth"
-import Pedidos from "@/src/component/pages/pedidos/pedidoForm"
+
 import Head from "next/head"
 import SlideSection from "@/src/component/slides/slideSection"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import produtService, { ProductType } from "@/src/services/productService"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
-import ProductFilter from "@/src/component/pages/produtos/productFilter"
-import ProdutosPorCategoria from "@/src/component/pages/produtos/productCategory"
-import Produtos from "@/src/component/pages/produtos/productCategory"
+
+import ProdutosCategoria from "@/src/component/pages/produtos/productCategory"
+
+import SearchHomeNoAuth from "@/src/component/render/forms/searchHomeNoauth"
 
 const Pedido=()=>{
   const router = useRouter();
@@ -41,13 +41,18 @@ const Pedido=()=>{
             <title>Home</title>
             <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
         </Head>
-        <main>
+        <main >
           
            
         <HeaderGeneric btnContent="registrar" btnUrl="/userRegister" logoUrl="/"/>
+       <div className="d-flex flex-column align-items-center justify-content-center">
+       <SearchHomeNoAuth/>
          <SlideSection getproduts={products}/>
-       
-         <Produtos/>
+     
+         <ProdutosCategoria/>
+       </div>
+        
+      
          <Footer/>
   </main>
   </>

@@ -5,7 +5,15 @@ export type PedidosType = {
   total: number;
   status: string;
 };
-
+export interface ProdutoProps{
+produto:{  id: string;
+  nome: string;
+  descricao: string;
+  preco: number | string; 
+  categoria: string;
+  thumbnailUrl:string
+}
+}
 export type ProductType = {
   id: string;
   nome: string;

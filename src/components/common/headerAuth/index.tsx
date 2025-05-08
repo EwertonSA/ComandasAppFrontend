@@ -47,6 +47,7 @@ const HeaderAuth=({logoUrl,btnContent}:props)=>{
           </Link>
           <p className={styles.modalLink} onClick={handleLogout}>Sair</p>
           </Modal >
+          
         </Container>
         </>
     )

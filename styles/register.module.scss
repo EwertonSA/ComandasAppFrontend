@@ -55,6 +55,14 @@ background-color: transparent;
     color: $lightGray;
     border-color:$lightBlue;
 }}
+.searchCardImg{
+    width: 30px;
+    margin: 10px;
+}
+.input{
+    width: 100vh;
+}
+
 .suggestions {
     list-style: none;
     margin: 0;
@@ -67,6 +75,7 @@ background-color: transparent;
     position: absolute;
     width: 100%;
     z-index: 999;
+    top: 25%;
   }
   
   .suggestions li {
