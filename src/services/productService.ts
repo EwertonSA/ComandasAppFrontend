@@ -86,7 +86,7 @@ const produtService={
         }
       
         try {
-          const res = await api.get(`/produtos/${categoria}`, {
+          const res = await api.get(`/produtos/categoria/${categoria}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -108,6 +108,20 @@ const produtService={
         } catch (error: any) {
           console.error("Erro ao buscar produto:", error?.response?.data || error.message);
           return [];
+        }
+      },getProductById:async(id:string)=>{
+        const token= sessionStorage.getItem("comandas-token")
+        try {
+          const res= await api.get(`/produtos/${id}`,{
+            headers:{
+              Authorization: `Bearer ${token}`
+            }
+          })
+       
+          return res.data
+        } catch (error:any) {
+          console.log(error.response.data.messsage)
+          return []
         }
       }
       

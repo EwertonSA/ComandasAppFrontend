@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 import { ProductType } from "@/src/services/productService";
 
-interface props{
+export interface props{
     product: ProductType
 }
 

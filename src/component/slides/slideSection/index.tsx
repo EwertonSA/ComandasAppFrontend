@@ -10,7 +10,7 @@ interface props {
 }
 
 const SlideSection = ({ getproduts }: props) => {
-  console.log("🛠️ Produtos no SlideSection:", getproduts); // Debug
+
 
   return (
     <Container className="d-flex flex-column align-items-center">

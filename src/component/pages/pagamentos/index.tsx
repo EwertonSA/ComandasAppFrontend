@@ -2,9 +2,10 @@ import { Container } from "reactstrap";
 
 import styles from "../../../../styles/getStyles.module.scss";
 
-import PagamentoCard from "@/src/component/cards/pagamentoCard";
+
 import { PagamentosParams } from "@/src/services/pagamentoService";
 import { usePagamentos } from "@/src/component/hooks/usePagamentos";
+import PagamentoCard from "../../render/cards/pagamentoCard";
 
 interface PagamentosResponse {
     pagamentos: PagamentosParams[];

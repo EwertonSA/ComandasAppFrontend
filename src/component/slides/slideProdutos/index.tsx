@@ -1,8 +1,9 @@
-import { ProductType } from "@/src/services/productService";
+import { ProductType, ProdutoProps } from "@/src/services/productService";
 import { Container } from "reactstrap";
 import styles from "../slideSection/styles.module.scss";
 import SlideComponent from "@/src/components/common/slideComponent";
 import SlideCard from "@/src/components/common/slideCard";
+import Link from "next/link";
 
 
 interface SlideCategoriasProps {
@@ -19,12 +20,20 @@ const SlideCategorias = ({ produtosPorCategoria }: SlideCategoriasProps) => {
   return (
     <Container className="d-flex flex-column align-items-center">
       {categorias.map((categoria) => (
+        
         <section className="text-center" key={categoria}>
           <p className={styles.sectionTitle}>{categoria}</p>
+         
           <SlideComponent
-            items={produtosPorCategoria[categoria]}
-            renderItem={(product) => <SlideCard product={product} />}
-          />
+  items={produtosPorCategoria[categoria]}
+  renderItem={(product) => (
+    <Link href={`/produtos/${product.id}`} key={product.id}>
+      <SlideCard product={product} />
+    </Link>
+  )}
+/>
+          
+    
         </section>
       ))}
     </Container>

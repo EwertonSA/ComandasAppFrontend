@@ -1,5 +1,6 @@
+import { pagamentoService, PagamentosParams } from "@/src/services/pagamentoService";
 import useSWR from "swr"
-import { pagamentoService, PagamentosParams } from "../services/pagamentoService"
+
 interface PagamentosResponse {
   pagamentos: PagamentosParams[];
 }

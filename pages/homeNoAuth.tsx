@@ -44,7 +44,7 @@ const Pedido=()=>{
         <main >
           
            
-        <HeaderGeneric btnContent="registrar" btnUrl="/userRegister" logoUrl="/"/>
+        <HeaderGeneric btnContent="registrar" btnUrl="/userRegister" logoUrl="/homeNoAuth"/>
        <div className="d-flex flex-column align-items-center justify-content-center">
        <SearchHomeNoAuth/>
          <SlideSection getproduts={products}/>

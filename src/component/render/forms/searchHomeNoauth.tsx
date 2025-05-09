@@ -19,7 +19,7 @@ const SearchHomeNoAuth=()=>{
         <>
         <div>
             <Container >
-                <p></p>
+                <p className={styles.formTitle}>Nossos produtos</p>
                 {toastOpen && (
             <div className={`text-white p-2 rounded ${toastColor}`}>
               {toastMessage}

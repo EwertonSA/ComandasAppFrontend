@@ -21,7 +21,7 @@ const SlideProdutosPorCategoria = () => {
     fetchProdutos();
   }, []);
 
-  return <SlideCategorias produtosPorCategoria={produtosPorCategoria} />;
+  return <SlideCategorias produtosPorCategoria={produtosPorCategoria}  />;
 };
 
 export default SlideProdutosPorCategoria;
