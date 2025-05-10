@@ -4,6 +4,7 @@ import styles from "../slideSection/styles.module.scss";
 import SlideComponent from "@/src/components/common/slideComponent";
 import SlideCard from "@/src/components/common/slideCard";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 
 interface SlideCategoriasProps {
@@ -11,6 +12,7 @@ interface SlideCategoriasProps {
 }
 
 const SlideCategorias = ({ produtosPorCategoria }: SlideCategoriasProps) => {
+  const router=useRouter()
   if (!produtosPorCategoria) {
     return <p>Carregando produtos...</p>; // ou um spinner
   }
@@ -27,7 +29,7 @@ const SlideCategorias = ({ produtosPorCategoria }: SlideCategoriasProps) => {
           <SlideComponent
   items={produtosPorCategoria[categoria]}
   renderItem={(product) => (
-    <Link href={`/produtos/${product.id}`} key={product.id}>
+    <Link href={`/produtos/${product.id}?comandaId=${router.query.comandaId}`} key={product.id}>
       <SlideCard product={product} />
     </Link>
   )}

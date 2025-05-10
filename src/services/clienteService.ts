@@ -2,7 +2,6 @@ import api from "./api";
 
 export interface RegisterParams {
   nome: string;
-  telefone: string;
   mesaId: string;
 }
 

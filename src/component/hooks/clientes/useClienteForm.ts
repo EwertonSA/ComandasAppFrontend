@@ -34,12 +34,12 @@ const UseClienteForm = () => {
 
     const mesaId = mesaSelecionada;
     const nome = formData.get("nome")?.toString().trim() || "";
-    const telefone = formData.get("telefone")?.toString().trim() || ""
+   
     
     const { status, message, comandaId } = await comandaService.registrarTudo({
         mesaId,
         nome,
-        telefone,
+   
       });
   
       if (status === 200) {

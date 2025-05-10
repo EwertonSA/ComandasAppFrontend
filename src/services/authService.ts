@@ -56,6 +56,7 @@ const authService={
     try {
       const res=await api.post("auth/autoLogin",params)
       if(res.status ===200 || res.status ===201 ){
+        sessionStorage.setItem("cliente-token",res.data.token)
         return{ ...res.data, status:res.status} 
       } 
     

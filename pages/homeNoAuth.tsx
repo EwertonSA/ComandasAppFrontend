@@ -1,15 +1,12 @@
-import Footer from "@/src/components/common/footer"
-
-import Head from "next/head"
-import SlideSection from "@/src/component/slides/slideSection"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import produtService, { ProductType } from "@/src/services/productService"
-import HeaderGeneric from "@/src/components/common/headerGeneric"
-
-import ProdutosCategoria from "@/src/component/pages/produtos/productCategory"
-
-import SearchHomeNoAuth from "@/src/component/render/forms/searchHomeNoauth"
+import Head from "next/head";
+import HeaderGeneric from "@/src/components/common/headerGeneric";
+import SearchHomeNoAuth from "@/src/component/render/forms/searchHomeNoauth";
+import SlideSection from "@/src/component/slides/slideSection";
+import SlideProdutosPorCategoria from "@/src/component/pages/produtos/productCategory";
+import Footer from "@/src/components/common/footer";
 
 const Pedido=()=>{
   const router = useRouter();
@@ -17,24 +14,28 @@ const Pedido=()=>{
   const [products, setProducts] = useState<ProductType[]>([]);
 
   useEffect(() => {
- 
+    const token = sessionStorage.getItem("cliente-token");
+    if (!token) {
+      router.push("/indexLogin");
+    }},[router])
 
     const fetchProducts = async () => {
       try {
-        const res = await produtService.getProduct(); // sessionStorage será acessado aqui
-        setProducts(res.data); // já é o array de produtos
+        const res = await produtService.getProduct(); 
+        setProducts(res.data);
       } catch (error) {
         console.error("Erro ao carregar produtos:", error);
       } finally {
         setLoading(false);
       }
-    };
+    
+useEffect(()=>{
+  fetchProducts();
+}, [])
+    
+}
 
-    fetchProducts();
-  }, []);
-
-  if (loading) return <p>Carregando...</p>;
-
+  
   return <>
  
   <Head>
@@ -49,7 +50,7 @@ const Pedido=()=>{
        <SearchHomeNoAuth/>
          <SlideSection getproduts={products}/>
      
-         <ProdutosCategoria/>
+         <SlideProdutosPorCategoria/>
        </div>
         
       

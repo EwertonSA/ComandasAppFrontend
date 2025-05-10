@@ -54,14 +54,14 @@ export const comandaService={
       registrarTudo: async ({
         mesaId,
         nome,
-        telefone,
+     
       }: {
         mesaId: string;
         nome: string;
-        telefone: string;
+       
       }) => {
         try {
-          const clienteRes = await clienteService.register({ nome, telefone, mesaId });
+          const clienteRes = await clienteService.register({ nome,mesaId });
           if ("error" in clienteRes || !clienteRes.id) {
             return { status: 400, message: "Erro ao registrar cliente." };
           }

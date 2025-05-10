@@ -5,12 +5,24 @@ import useSWR from "swr"
 import { useRouter } from "next/router"
 import { Button, Container, Form, Input } from "reactstrap"
 import React, { useState } from "react"
+import { usePedidosForm } from "../../hooks/pedidos/usePedidoForm"
 
 const ProductId=()=>{
     const router=useRouter()
     const {id}=router.query
     const [quantity,setquantity]=useState(1)
     const {data,error}=useSWR(id?id:null,produtService.getProductById)
+     const {
+        entrada,
+        setEntrada,
+        suggestions,
+        toastOpen,
+        toastColor,
+        toastMessage,
+        handleOrders,
+        handleEntradaChange,
+        handleSuggestionClick
+      } = usePedidosForm(()=>router.push("/pagina"))
     
   if (error) return <p>Erro ao carregar produto</p>
     if(!data){
@@ -26,8 +38,6 @@ const ProductId=()=>{
 const value=parseInt(e.target.value)
 setquantity(isNaN(value)|| value < 1 ? 1 : value)
     }
-console.log("dados:",data)
-console.log("URL da imagem:", imgUrl)
 
 return(
     <main className={styles.main} style={{
@@ -44,8 +54,13 @@ return(
     <p className={styles.subTitle}>{data.descricao}</p>
     <p className={styles.subTitle}>{data.preco}</p>
     <p className={styles.subTitle}>{data.categoria}</p>
-    <Form>
-    <Input id="quantidade" type="number" className={styles.input} value={quantity} onChange={handleChange} />
+    <Form onSubmit={(e) => {
+  e.preventDefault();
+  const entradaFormatada = `${data.nome}*${quantity}`;
+  setEntrada(entradaFormatada);
+  handleOrders(e);
+}}>
+    <Input id="quantidade" type="number" name="quantidade" className={styles.input} value={quantity} onChange={handleChange} />
   <div className="d-flex flex-row m-3 gap-2 align-items-center justify-content-center"> <Button onClick={handleIncrease} color="success">+</Button>
   <Button onClick={handleDecrease} color="danger">-</Button></div> 
   <Button type="submit">Pedir</Button>

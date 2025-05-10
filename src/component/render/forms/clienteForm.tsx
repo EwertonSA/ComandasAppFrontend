@@ -53,17 +53,7 @@ import {
             className={styles.inputName}
           />
         </FormGroup>
-        <FormGroup>
-          <Label for="telefone" className={styles.label}>Telefone</Label>
-          <Input
-            id="telefone"
-            name="telefone"
-            type="tel"
-            placeholder="+55 (xx) 11 9xxxx-xxxx"
-            data-mask="[-]+55 (00) 00000-0000"
-            className={styles.input}
-          />
-        </FormGroup>
+   
         <Button type="submit" outline className={styles.formBtn}>
           Enviar
         </Button>
