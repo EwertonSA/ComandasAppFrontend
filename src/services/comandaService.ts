@@ -21,7 +21,7 @@ export const comandaService={
     }
   },
   getPedidosComanda:async(comandaId:string)=>{
-    const token=sessionStorage.getItem('comandas-token')
+    const token=sessionStorage.getItem('comandas-token')??sessionStorage.getItem('cliente-token')
     try {
       const res=await api.get(`/comandas/${comandaId}`,{
         headers: {
@@ -36,7 +36,7 @@ export const comandaService={
     }
       },
       registerComanda: async (params: ComandasParams) => {
-        const token=sessionStorage.getItem('comandas-token')
+        const token=sessionStorage.getItem('comandas-token')??sessionStorage.getItem('cliente-token')
         try {
           const res = await api.post("/comandas", params,{
             headers: {

@@ -26,7 +26,7 @@ const pedidoService={
 
   },
   getOrdersById: async (id: number | string) => {
-    const token=sessionStorage.getItem("comandas-token")
+    const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
 try {
   const response = await api.get(`/pedidos/${id}`,{
     headers: {
@@ -43,7 +43,7 @@ try {
   
   
   create:async(params:PedidoParams)=>{
-    const token=sessionStorage.getItem("comandas-token")
+    const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
     try {
         const res=await api.post('/pedidos',params,{
           headers: {

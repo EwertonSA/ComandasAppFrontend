@@ -37,6 +37,54 @@
     display: flex;
     align-items: center;
 }
+.modal{
+    position:absolute;
+    width: 150px;
+    height: 130px;
+    top: 85px;
+    right:10%;
+    background-color: #303030;
+    a{
+        text-decoration: none;
+    }
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 8px 6px 4px #0000007c;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 24px;
+    &:hover{
+    border-color: $lightBlue;
+    }
+}
+.overlayModal{
+    position:fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+}
+.modalLink{
+    color: white;
+    margin: 5px 0px;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover{
+        color: $lightBlue;
+    }
+  
+}
+@media(max-width:768px){
+    .nav{
+        justify-content: center;
+        gap: 20px;
+    }
+    .modal{
+        top: 160px;
+    }
+}
 @media(max-width:575px){
     .headerContainer{
         padding: 20px 16px;

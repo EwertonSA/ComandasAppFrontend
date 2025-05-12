@@ -1,11 +1,11 @@
-// src/hooks/usePedidos.ts
+
 
 import { useEffect, useState, FormEvent } from "react";
 import { useRouter } from "next/router";
 import produtService, { ProductType } from "@/src/services/productService";
 import pedidoService from "@/src/services/pedidoService";
 
-export const usePedidosForm = (onSuccess?: () => void) => {
+export const usePedidosForm = (onSuccess?: (comandaId:string) => void) => {
   const router = useRouter();
 
   const [entrada, setEntrada] = useState("");
@@ -29,9 +29,13 @@ export const usePedidosForm = (onSuccess?: () => void) => {
     }
   }, [router.query]);
 
-  const handleOrders = async (ev: FormEvent<HTMLFormElement>) => {
+  const handleOrders = async (ev: FormEvent<HTMLFormElement>, overrideProdutoId?: string,
+  overrideQuantidade?: number) => {
     ev.preventDefault();
-  
+  console.log("handleOrders chamado com:", {
+  overrideProdutoId,
+  overrideQuantidade
+});
     try {
       if (!router.isReady) {
         alert("Aguarde o carregamento da página");
@@ -45,11 +49,11 @@ export const usePedidosForm = (onSuccess?: () => void) => {
       }
   
       // SE o produtoId já estiver preenchido (veio da página específica)
-      let finalProdutoId = produtoId;
-      let finalQuantidade = quantidade;
-  
+      let finalProdutoId =overrideProdutoId ?? produtoId;
+      let finalQuantidade =overrideQuantidade ?? quantidade;
+      
       // SE for uma entrada manual no campo "nome*quantidade"
-      if (!finalProdutoId) {
+      if (!finalProdutoId  || finalProdutoId.trim() === "") {
         const [nome, qtdStr] = entrada.split("*");
         const parsedQuantidade = Number(qtdStr);
   
@@ -82,7 +86,7 @@ export const usePedidosForm = (onSuccess?: () => void) => {
         setToastMessage("Produto cadastrado com sucesso!");
         setToastOpen(true);
         if (onSuccess) {
-          onSuccess();
+          onSuccess(comandaId);
          }else{ router.push("/clienteInfo");}
       } else {
         alert("Erro ao cadastrar: " + pedidoRes?.message);
@@ -119,6 +123,7 @@ export const usePedidosForm = (onSuccess?: () => void) => {
     setEntrada,
     quantidade,
     produtoId,
+    setQuantidade,
     suggestions,
     toastOpen,
     toastColor,

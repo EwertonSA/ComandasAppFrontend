@@ -9,14 +9,17 @@ import useSWR from "swr";
 import TabsSwitcher from "@/src/components/common/switch/switchComponent";
 import PedidosList from "@/src/component/render/cards/pedidoList";
 
-const fetchPedidos = async (id: string) => {
+export const fetchPedidos = async (id: string) => {
   const res = await comandaService.getPedidosComanda(id);
   const details = await Promise.all(
     (res.pedidos || []).map(async (pedido: any) => {
       const detail = await pedidoService.getOrdersById(pedido.id);
+      
       return { ...detail, id: pedido.id };
+      
     })
   );
+  
   return details;
 };
 

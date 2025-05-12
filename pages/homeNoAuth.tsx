@@ -8,7 +8,7 @@ import SlideSection from "@/src/component/slides/slideSection";
 import SlideProdutosPorCategoria from "@/src/component/pages/produtos/productCategory";
 import Footer from "@/src/components/common/footer";
 
-const Pedido=()=>{
+const HomeNoAuth=()=>{
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<ProductType[]>([]);
@@ -48,7 +48,7 @@ useEffect(()=>{
         <HeaderGeneric btnContent="registrar" btnUrl="/userRegister" logoUrl="/homeNoAuth"/>
        <div className="d-flex flex-column align-items-center justify-content-center">
        <SearchHomeNoAuth/>
-         <SlideSection getproduts={products}/>
+      
      
          <SlideProdutosPorCategoria/>
        </div>
@@ -58,4 +58,4 @@ useEffect(()=>{
   </main>
   </>
 }
-export default Pedido
+export default HomeNoAuth

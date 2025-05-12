@@ -9,7 +9,7 @@ export interface PagamentosParams{
     }
 export const pagamentoService={
     pagamento:async(params:PagamentosParams)=>{
-      const token=sessionStorage.getItem("comandas-token")
+      const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
         try {
           console.log("Dados enviados ao back:", params);
           const res=await api.post('/pagamentos',params,{

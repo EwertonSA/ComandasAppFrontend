@@ -67,7 +67,7 @@ const clienteService = {
     }
   },
   register: async (params: RegisterParams) => {
-    const token=sessionStorage.getItem("comandas-token")
+    const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
     try {
     
       const res = await api.post('/clientes', params,{

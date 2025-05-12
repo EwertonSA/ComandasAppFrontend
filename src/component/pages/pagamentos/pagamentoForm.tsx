@@ -6,8 +6,10 @@ import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 import styles from "../../../../styles/register.module.scss";
 import { pagamentoService } from "@/src/services/pagamentoService";
 import { comandaService } from "@/src/services/comandaService";
-
-const Pagamentos = () => {
+type PagamentosProps = {
+  redirectTo?: string; // nova prop opcional
+};
+const Pagamentos = ({redirectTo='clienteInfo'}:PagamentosProps) => {
   const router = useRouter();
   const [color, setColor] = useState("");
   const [toastIsOpen, setToastIsOpen] = useState(false);
@@ -52,7 +54,7 @@ const Pagamentos = () => {
     });
 
     if (res === 200) {
-      router.push("/clienteInfo");
+      router.push(redirectTo);
       setToastIsOpen(true);
       setErrorMesasage("Pagamento realizado");
       setColor("bg-success");
@@ -63,7 +65,7 @@ const Pagamentos = () => {
       setColor("bg-danger");
       setTimeout(() => {
         setToastIsOpen(false);
-        router.push("/clienteInfo");
+        router.push(redirectTo);
       }, 1000);
     }
   };

@@ -4,7 +4,7 @@ import HeaderGeneric from "@/src/components/common/headerGeneric"
 import Pagamentos from "@/src/component/pages/pagamentos/pagamentoForm"
 import Head from "next/head"
 
-const Pagamento=()=>{
+const PagamentoCliente=(comandaId:string)=>{
 return<>
  <Head>
             <title>Home</title>
@@ -14,10 +14,10 @@ return<>
 <HeaderAuth logoUrl="/clienteInfo"
            
            btnContent="Abas"/>
-<Pagamentos />
+<Pagamentos redirectTo={`homeNoAuth?comandaId=${comandaId}`}/>
 <Footer/>
 </main>
 
 </>
 }
-export default Pagamento
+export default PagamentoCliente

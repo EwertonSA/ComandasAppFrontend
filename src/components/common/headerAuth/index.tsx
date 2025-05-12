@@ -4,6 +4,7 @@ import styles from './styles.module.scss';
 import Modal from 'react-modal';
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { handleCloseModal, handleLogout, handleOpenModal } from "../Modal";
 interface props{
     logoUrl:string;
     btnContent:string;
@@ -12,17 +13,8 @@ Modal.setAppElement("#__next")
 const HeaderAuth=({logoUrl,btnContent}:props)=>{
     const router=useRouter();
     const [modalOpen, setModalOpen]= useState(false)
-
-    const handleLogout = () => {
-        sessionStorage.clear();
-      router.push("/");
-    };
-    const handleOpenModal=()=>{
-        setModalOpen(true)
-    }
-    const handleCloseModal=()=>{
-        setModalOpen(false)
-    }
+    
+  
     return(
         <>
         <Container className={styles.nav}>
@@ -31,9 +23,9 @@ const HeaderAuth=({logoUrl,btnContent}:props)=>{
             </Link>
             <div className="d-flex align-items-center">
                
-                <p className={styles.user} onClick={handleOpenModal}>{btnContent}</p>
+                <p className={styles.user} onClick={()=>handleOpenModal(setModalOpen)}>{btnContent}</p>
             </div>
-          <Modal isOpen={modalOpen} onRequestClose={handleCloseModal} 
+          <Modal isOpen={modalOpen} onRequestClose={()=>handleCloseModal(setModalOpen)} 
           shouldCloseOnEsc={true} className={styles.modal} 
           overlayClassName={styles.overlay}> 
           <Link href='/home'>
@@ -45,7 +37,7 @@ const HeaderAuth=({logoUrl,btnContent}:props)=>{
           <Link href="/register">
           <p className={styles.modalLink}>Registrar</p>
           </Link>
-          <p className={styles.modalLink} onClick={handleLogout}>Sair</p>
+          <p className={styles.modalLink} onClick={()=>handleLogout(router)}>Sair</p>
           </Modal >
           
         </Container>

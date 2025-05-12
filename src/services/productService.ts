@@ -55,7 +55,7 @@ const produtService={
         page: number = 1,
         perPAge: number = 10
       ): Promise<ProductSearchResponse> => {
-        const token=sessionStorage.getItem("comandas-token")
+        const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
         try {
           const res = await api.get(`/pedidos/search`, {
            
@@ -78,7 +78,7 @@ const produtService={
         }
       },
       getByCategories: async (categoria: string) => {
-        const token = sessionStorage.getItem("comandas-token");
+        const token = sessionStorage.getItem("cliente-token");
       
         if (!token) {
           console.error("❌ Token inválido");
@@ -110,7 +110,7 @@ const produtService={
           return [];
         }
       },getProductById:async(id:string)=>{
-        const token= sessionStorage.getItem("comandas-token")
+        const token= sessionStorage.getItem("cliente-token")
         try {
           const res= await api.get(`/produtos/${id}`,{
             headers:{
