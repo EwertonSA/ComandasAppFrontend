@@ -63,11 +63,8 @@ return(
   const finalQuantity = quantity <= 0 ? 1 : quantity;
   const entradaFormatada = `${data.nome}*${finalQuantity}`;
   
-  // Essa linha pode até continuar para exibir entrada em outro lugar
-  setEntrada(entradaFormatada);
 
-  // Mas aqui passamos os dados diretamente
-  handleOrders(e, data.id, finalQuantity);
+  handleOrders(e, data.id, finalQuantity,entradaFormatada);
 }}>
     <Input id="quantidade" type="number" name="quantidade" className={styles.input} value={quantity} onChange={handleChange} />
   <div className="d-flex flex-row m-3 gap-2 align-items-center justify-content-center"> <Button onClick={handleIncrease} color="success">+</Button>

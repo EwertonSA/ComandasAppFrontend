@@ -13,7 +13,7 @@ interface PedidoProduto {
   produto: Produto;
 }
 
-interface Pedido {
+export interface Pedido {
   id: number;
   total: number;
   status: string;

@@ -30,7 +30,7 @@ export const usePedidosForm = (onSuccess?: (comandaId:string) => void) => {
   }, [router.query]);
 
   const handleOrders = async (ev: FormEvent<HTMLFormElement>, overrideProdutoId?: string,
-  overrideQuantidade?: number) => {
+  overrideQuantidade?: number,entradaOverride?:string) => {
     ev.preventDefault();
   console.log("handleOrders chamado com:", {
   overrideProdutoId,
@@ -54,9 +54,9 @@ export const usePedidosForm = (onSuccess?: (comandaId:string) => void) => {
       
       // SE for uma entrada manual no campo "nome*quantidade"
       if (!finalProdutoId  || finalProdutoId.trim() === "") {
-        const [nome, qtdStr] = entrada.split("*");
-        const parsedQuantidade = Number(qtdStr);
-  
+        const entradaFinal = entradaOverride ?? entrada;
+      const [nome, qtdStr] = entradaFinal.split("*");
+      const parsedQuantidade = Number(qtdStr);
         if (!nome || isNaN(parsedQuantidade)) {
           alert("Entrada inválida. Use o formato 'nome*quantidade'");
           return;

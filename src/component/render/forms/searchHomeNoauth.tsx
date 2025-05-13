@@ -1,7 +1,10 @@
-import { Container, Form, FormGroup, Input, Label } from "reactstrap"
+import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
 import { usePedidosForm } from "../../hooks/pedidos/usePedidoForm"
 import styles from "../../../../styles/register.module.scss";
+import Link from "next/link";
+import { useRouter } from "next/router";
 const SearchHomeNoAuth=()=>{
+  
     const {
         entrada,
         setEntrada,
@@ -14,7 +17,7 @@ const SearchHomeNoAuth=()=>{
         handleSuggestionClick
       } = usePedidosForm();
     
- 
+ const router=useRouter()
       return(
         <>
         <div>
@@ -25,7 +28,7 @@ const SearchHomeNoAuth=()=>{
               {toastMessage}
             </div>
           )}
-    <Form >
+    <Form onSubmit={(e)=>handleOrders}>
         <FormGroup>
             <Label for='entrada'  className={styles.title}>Pesquisar</Label>
           
@@ -37,11 +40,13 @@ const SearchHomeNoAuth=()=>{
                 onChange={(e) => handleEntradaChange(e.target.value)}
                 autoComplete="off"
                 className={styles.input}/>
-        <img src="/iconSearch.svg" alt="" className={styles.searchCardImg} />
+        <Button outline type="submit"><img src="/iconSearch.svg" alt="" className={styles.searchCardImg} /></Button>
                    {suggestions.length > 0 && (
+                
                 <ul className={styles.suggestions}>
                   {suggestions.map((produto) => (
                     <li key={produto.id} onClick={() => handleSuggestionClick(produto)}>
+                      <Link href={`/produtos/${produto.id}?comandaId=${router.query.comandaId}`}>
                       <img
           src={
             produto.thumbnailUrl
@@ -54,9 +59,11 @@ const SearchHomeNoAuth=()=>{
           style={{ objectFit: "cover", marginRight: "8px", borderRadius: "4px" }}
         />
                {produto.nome} - R$ {produto.preco}
+                 </Link>
                     </li>
                   ))}
                 </ul>
+              
               )}
       
               </div>

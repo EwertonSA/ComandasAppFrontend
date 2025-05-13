@@ -1,64 +1,53 @@
-import { comandaService } from "@/src/services/comandaService"
-import { Container } from "reactstrap"
-import useSWR from "swr"
-import styles from "../../../../styles/getStyles.module.scss"
-import PedidosList from "../../render/cards/pedidoList"
-import { fetchPedidos } from "."
-import { useMemo } from "react"
-interface CardProps{
-    id:string
-}
-const Card=({id}:CardProps)=>{
-    const {data,error}=useSWR(id?`${id}`:null,()=>fetchPedidos(id))
-  
-  const pedidosEntregues = useMemo(() => {
-  if (!Array.isArray(data)) return [];
-  return data.filter(p => p.status.toLowerCase() === 'entregue');
-}, [data]);
 
-const totalDelivered = useMemo(() => {
-  return pedidosEntregues.reduce((acc, pedido) => {
-    return acc + Number(pedido.total || 0);
-  }, 0).toFixed(2);
-}, [pedidosEntregues]);
-  if(!data) return <p> Loading...</p>
-    if(error) return <p>Erro ao chamar!</p>
+import { Button, Container } from "reactstrap"
+
+import styles from "../../../../styles/getStyles.module.scss"
+import  { Pedido } from "../../render/cards/pedidoList"
+
+import Link from "next/link"
+import { useRouter } from "next/router"
+
+import CardLocal from "../../render/cards/carrinho"
+import TabsSwitcher from "@/src/components/common/switch/switchComponent"
+import { usePedidosComanda } from "../../hooks/pedidos/usePedidosComanda"
+
+interface CardProps{
+    id:string,
+    repetir:(pedido:Pedido)=>void,
+    cancelar:(pedido:Pedido)=>void
+}
+
+
+const Card=({id,cancelar,repetir}:CardProps )=>{
+  
+  const router=useRouter()
+  const comandaId=router.query.comandaId as string
+  const {
+    pedidos,error,mutate,abaAtiva,setAbaAtiva,pedidosPendentes,pedidosEntregues,handleCancel,delivered,totalDelivered}=usePedidosComanda(id)
+ 
+
 return(
     <>
       <p className={styles.title}>Pedidos da comanda #{id}</p>
     <Container className={styles.main}>
+      <TabsSwitcher abaAtiva={abaAtiva} setAbaAtiva={setAbaAtiva}  options={[
+    { label: "Pedidos pendentes", value: "pendentes", color: "warning" },
+    { label: "Pedidos entregues", value: "entregues", color: "success" },
+  ]}/>
+{abaAtiva === "pendentes"?(
+ <CardLocal tipo="pendentes"  cancelar={handleCancel} pedidos={pedidosPendentes} />
+
+):(
+  <CardLocal pedidos={pedidosEntregues} tipo="entregues" cancelar={handleCancel}/>
+)}  
   
-  {data.map((pedido) => (
-        <div key={pedido.id} className={styles.container}>
-          <p className={styles.title}>Produtos:</p>
-          <ul>
-            {pedido.pedidosProdutos?.map((item:any) => {
-              const defaultImage = "/images/default-thumbnail.jpg";
-              const imageUrl = item.produto.thumbnailUrl
-                ? `${process.env.NEXT_PUBLIC_BASEURL}/${item.produto.thumbnailUrl}`
-                : defaultImage;
-
-              return (
-                <div key={item.produto.id}>
-                  <img src={imageUrl} alt={item.produto.nome}  className={styles.slide} /><br/>
-                  {item.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
-                </div>
-              );
-            })}
-          </ul>
-
-          <p><strong>ID:</strong> {pedido.id}</p>
-          <p><strong>Total:</strong> {pedido.total}</p>
-          <p><strong>Status:</strong> {pedido.status}</p>
-
-        
-          
-            
-        </div>
-      ))}
      
     </Container>
-      <p className={styles.title}>Valor total entregue: R$ {totalDelivered}</p>
+    <div className="d-flex flex-column align-items-center justify-content-center m-3">
+           <p className={styles.title}>Valor total entregue: R$ {totalDelivered}</p>
+      <Link href={`/pagamentoCliente?comandaId=${comandaId}`}><Button className={styles.btn}>Finalizar</Button></Link>
+    </div>
+ 
     </>
 )
 }

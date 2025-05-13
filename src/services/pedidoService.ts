@@ -19,7 +19,19 @@ const pedidoService={
           Authorization:`Bearer ${token}`
         }
       })
-      return res.data     
+      const pedidos=res.data.pedidos
+      const allOrders=await Promise.all(
+        pedidos.map(async(pedido:any)=>{
+          const pedidoRes= await api.get(`pedidos/${pedido.id}`,{
+             headers:{
+          Authorization:`Bearer ${token}`
+        }
+          })  
+          return pedidoRes.data,allOrders
+        })
+      )
+      return res.data
+      
     } catch (error) {
       return []
     }
@@ -117,7 +129,7 @@ registerAll: async ({
 }
 ,
 delete:async(id:number,status:string)=>{
-  const token=sessionStorage.getItem("comandas-token")
+  const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
   try {
     const res=await api.delete(`/pedidos/${id}`,{
       headers: {
