@@ -13,12 +13,11 @@ import { usePedidosComanda } from "../../hooks/pedidos/usePedidosComanda"
 
 interface CardProps{
     id:string,
-    repetir:(pedido:Pedido)=>void,
-    cancelar:(pedido:Pedido)=>void
+  
 }
 
 
-const Card=({id,cancelar,repetir}:CardProps )=>{
+const Card=({id}:CardProps )=>{
   
   const router=useRouter()
   const comandaId=router.query.comandaId as string

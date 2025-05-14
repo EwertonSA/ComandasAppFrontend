@@ -15,7 +15,7 @@ const SlidePagamentos=()=>{
     if(!data || totalData === undefined) return <p>Loading....</p>
     return(
        <Container className="d-flex flex-column align-items-center">
-        <p className={styles.sectionTitle}>Pagamentos pendentes</p>
+        <p className={styles.sectionTitle}>Pagamentos</p>
       
         <SlideComponent items={data.pagamentos} renderItem={(pagamento:PagamentosParams)=> <PagamentosCard pagamentos={pagamento}/>}/>
         <p className={styles.total}>

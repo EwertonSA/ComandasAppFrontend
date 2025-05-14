@@ -27,10 +27,10 @@ const pedidoService={
           Authorization:`Bearer ${token}`
         }
           })  
-          return pedidoRes.data,allOrders
+          return pedidoRes.data
         })
       )
-      return res.data
+      return allOrders
       
     } catch (error) {
       return []

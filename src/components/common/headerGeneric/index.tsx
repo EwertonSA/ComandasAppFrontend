@@ -1,8 +1,9 @@
-import { Button, Container, Modal } from 'reactstrap';
+import { Button, Container} from 'reactstrap';
+import Modal from 'react-modal';
 import styles from './styles.module.scss';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { handleCloseModal, handleLogout, handleOpenModal } from '../Modal';
 
 interface props{
@@ -10,11 +11,16 @@ interface props{
     btnUrl:string;
     btnContent:string;
 }
-const HeaderNoAuth=({logoUrl,btnContent}:props)=>{
+const HeaderGeneric=({logoUrl,btnContent}:props)=>{
         const router=useRouter();
         const [modalOpen, setModalOpen]= useState(false)
         const {comandaId}=router.query
         
+          useEffect(() => {
+    if (typeof window !== 'undefined') {
+      Modal.setAppElement('#__next'); // Next.js monta a app aqui por padrão
+    }
+  }, []);
     return<>
     <div className={styles.header}>
 <Container className={styles.headerContainer}>
@@ -29,16 +35,16 @@ const HeaderNoAuth=({logoUrl,btnContent}:props)=>{
   <Modal isOpen={modalOpen} onRequestClose={()=>handleCloseModal(setModalOpen)} 
           shouldCloseOnEsc={true} className={styles.modal} 
           overlayClassName={styles.overlay}> 
-          <Link href={`/homeNoAuth?comandaId=${comandaId}`}>
-          <p className={styles.modalLink}>Página inicial</p>
+          <Link href={`/homeNoAuth?comandaId=${comandaId}`} legacyBehavior>
+          <a className={styles.modalLink}>Página inicial</a>
+          </Link >
+          <Link href={`/carrinho?comandaId=${comandaId}`} legacyBehavior>
+          <a className={styles.modalLink}>Carrinho</a>
           </Link>
-          <Link href={`/carrinho?comandaId=${comandaId}`}>
-          <p className={styles.modalLink}>Carrinho</p>
+          <Link href={`/pagamentoCliente?comandaId=${comandaId}`} legacyBehavior>
+          <a className={styles.modalLink}>Pagamento</a>
           </Link>
-          <Link href={`/pagamentoCliente?comandaId=${comandaId}`}>
-          <p className={styles.modalLink}>Pagamento</p>
-          </Link>
-          <p className={styles.modalLink} onClick={()=>handleLogout(router)}>Sair</p>
+          <a className={styles.modalLink} onClick={()=>handleLogout(router)}>Sair</a>
           </Modal >
     </div>
     
@@ -46,4 +52,4 @@ const HeaderNoAuth=({logoUrl,btnContent}:props)=>{
     </div>
     </>
 }
-export default HeaderNoAuth
+export default HeaderGeneric

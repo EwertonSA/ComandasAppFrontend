@@ -13,9 +13,9 @@ const SearchHomeNoAuth=()=>{
         toastColor,
         toastMessage,
         handleOrders,
-        handleEntradaChange,
+        handleEntradaChange, 
         handleSuggestionClick
-      } = usePedidosForm();
+      } = usePedidosForm((comandaId)=>router.push(`/homeNoAuth?comandaId=${comandaId}`));
     
  const router=useRouter()
       return(
@@ -28,11 +28,11 @@ const SearchHomeNoAuth=()=>{
               {toastMessage}
             </div>
           )}
-    <Form onSubmit={(e)=>handleOrders}>
+    <Form onSubmit={handleOrders}>
         <FormGroup>
             <Label for='entrada'  className={styles.title}>Pesquisar</Label>
           
-          <div className="d-flex align-items-center justify-content-center"> 
+          <div className="d-flex align-items-center justify-content-center gap-3"> 
              <Input   id="entrada"
                 type="text" 
                 placeholder="Ex: cerveja*3"

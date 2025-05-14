@@ -15,10 +15,11 @@ const SlidePedidos = () => {
 
   return (
  <Container className='d-flex flex-column align-items-center'>
-    <p className={styles.sectionTitle}>Pedidos em andamento</p>
-    
+  <Link href={"/AllOrders"}>
+    <p className={styles.sectionTitle}>Pedidos</p>
+    </Link>
      <SlideComponent
-      items={data.pedidos}
+      items={data}
       renderItem={(pedido: PedidosType) => <PedidoCard pedido={pedido} />}
     />
       <Link href="/register">

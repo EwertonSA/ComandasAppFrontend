@@ -1,4 +1,4 @@
-import HeaderGeneric from "@/src/components/common/headerGeneric"
+
 import Head from "next/head"
 import { FormEvent, useEffect, useState } from "react"
 import styles from "../../../../styles/register.module.scss"
@@ -36,24 +36,26 @@ const ClienteLogin=()=>{
          const nome= formData.get('nome')?.toString()|| ''
           const mesaId= formData.get('mesaId')?.toString()|| ''
         const params={email,password}
-     const resRegistrar=await comandaService.registrarTudo({nome,mesaId})
-     if(resRegistrar.status !== 200){
-        setToastMessage(resRegistrar.message || "Erro ao fazer login");
-        setToastColor("bg-danger");
-        setToastIsOpen(true);
-        setTimeout(() => setToastIsOpen(false), 3000);
-     }
-     const comandaId = resRegistrar.comandaId;
-  
-        const res=await authService.autoLogin(params)
-        if(res.status===200|| res.status === 201){
-            router.push(`/homeNoAuth?comandaId=${comandaId}`)
-        }else{
-            setToastMessage(res.error || "Erro ao fazer login");
-            setToastColor("bg-danger");
-            setToastIsOpen(true);
-            setTimeout(() => setToastIsOpen(false), 3000);
-        }
+   const res = await authService.autoLogin(params);
+if (res.status === 200 || res.status === 201) {
+  const resRegistrar = await comandaService.registrarTudo({ nome, mesaId });
+
+  if (resRegistrar.status !== 200) {
+    setToastMessage(resRegistrar.message || "Erro ao registrar comanda");
+    setToastColor("bg-danger");
+    setToastIsOpen(true);
+    setTimeout(() => setToastIsOpen(false), 3000);
+    return;
+  }
+
+  const comandaId = resRegistrar.comandaId;
+  router.push(`/homeNoAuth?comandaId=${comandaId}`);
+} else {
+  setToastMessage(res.error || "Erro ao fazer login");
+  setToastColor("bg-danger");
+  setToastIsOpen(true);
+  setTimeout(() => setToastIsOpen(false), 3000);
+}
     }
     return(
        <>

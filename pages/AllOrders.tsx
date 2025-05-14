@@ -5,19 +5,14 @@ import HeaderGeneric from "@/src/components/common/headerGeneric"
 import ClienteInfo from "@/src/component/pages/clientes/clienteInfo"
 import Head from "next/head"
 import GetPedidos from "@/src/component/pages/pedidos"
-import Orders from "@/src/component/pages/pedidos/allOrders"
+
 import useSWR from "swr"
 import pedidoService from "@/src/services/pedidoService"
+import Orders from "@/src/component/pages/pedidos/allORders"
 
 
 const AllOrders=()=>{
-       const {data,error}=useSWR('/pedidos',pedidoService.getPedidos)
-    
-  console.log("DATA:", data);
-  console.log("ERROR:", error);
 
-    if(!data) return <p>Loading...</p>
-    if(error)return <p>Erro</p>
   return <>
   <Head>
   <title>Orders</title>
@@ -27,17 +22,7 @@ const AllOrders=()=>{
   <HeaderAuth logoUrl="/register"
            
            btnContent="Abas"/>
- {Array.isArray(data)&&
-    data.map((pedido:any)=>(
-        <div key={pedido.id}>
-           <ul>
-            <li>{pedido.id}</li>
-            <li>{pedido.comandaId}</li>
-            <li>{pedido.total}</li>
-            <li>{pedido.status}</li>
-           </ul>
-        </div>
-    ))}
+<Orders/>
     <Footer/>
   </main>
   </>

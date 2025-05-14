@@ -21,7 +21,7 @@ const SlideSection = ({ getproduts }: props) => {
         renderItem={(product) => <SlideCard product={product} />}
       />
 
-      <Link href="/register">
+      <Link href="/indexLogin">
         <Button outline color="light" className={styles.slideSection}>
           Faça seu pedido agora
         </Button>

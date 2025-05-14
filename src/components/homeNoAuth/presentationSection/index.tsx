@@ -8,7 +8,7 @@ return<>
         <Col md className="d-flex flex-column justify-content-center align-items-start">
         <p className={styles.title}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, quibusdam!</p>
         <p className={styles.subtitle}>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vero obcaecati, quaerat voluptatum totam iusto doloremque!</p>
-      <Link href='/userLogin'>  
+      <Link href='/indexLogin'>  
       <Button className={styles.btnCta} outline>
         <img src="/buttonPlay.svg" alt="" className={styles.btnImg} />
         Acesse Agora
