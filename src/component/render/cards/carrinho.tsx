@@ -22,7 +22,7 @@ return(
   {
   pedidos.map((pedido:any) => (
         <div key={pedido.id} className={styles.container}>
-          <p className={styles.title}>Produtos:</p>
+          <p className={styles.title}>Produtos:</p> 
           <ul>
             {pedido.pedidosProdutos?.map((item:any,index:any) => {
               const defaultImage = "/images/default-thumbnail.jpg";

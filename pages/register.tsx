@@ -3,6 +3,7 @@ import HeaderAuth from "@/src/components/common/headerAuth"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
 import Register from "@/src/component/pages/clientes/clienteForm"
 import Head from "next/head"
+import ToastComponent from "@/src/components/common/toast"
 
 
 const RegisterClient=()=>{
@@ -18,6 +19,7 @@ return <>
           btnContent="Abas"
         />
     <Register/>
+    
     <Footer/>
 </main>
 </>

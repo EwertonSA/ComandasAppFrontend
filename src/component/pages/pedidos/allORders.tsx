@@ -12,7 +12,8 @@ const Orders=()=>{
     if(!data) return <p>Loading...</p>
     if(error)return <p>Erro</p>
 return(
-    <>
+    <main className={styles.main3}> 
+    <p className={styles.title}>Pedidos:</p>
 <table className={styles.table}>
   <thead>
     <tr>
@@ -55,30 +56,8 @@ return(
     )}
   </tbody>
 </table>
-<Container className={styles.main}>
-    
-    {Array.isArray(data) && data.map((pedido:any)=>(
-       pedido.pedidosProdutos.map((item:any)=>{
-        const defaultImage = "/images/default-thumbnail.jpg";
-              const imageUrl = item.produto.thumbnailUrl
-                ? `${process.env.NEXT_PUBLIC_BASEURL}/${item.produto.thumbnailUrl}`
-                : defaultImage;
-                return( 
-        <div key={item.id}  className={styles.container}>
 
-            <img src={imageUrl} alt="" className={styles.slideImg}/>
-            <p>{pedido.id}</p>
-            <p>{pedido.comandaId}</p>
-            <p>{pedido.status}</p>
-          
-            <p>{item.produto.nome}</p>
-            <p>{item.produto.quantidade}</p>
-            <p>{Number(item.produto.preco).toFixed(2)}</p>
-        </div>
-       )})
-    ))}
-</Container>
-    </>
+    </main>
 )
 }
 export default Orders

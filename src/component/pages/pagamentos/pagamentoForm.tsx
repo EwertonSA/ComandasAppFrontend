@@ -7,9 +7,9 @@ import styles from "../../../../styles/register.module.scss";
 import { pagamentoService } from "@/src/services/pagamentoService";
 import { comandaService } from "@/src/services/comandaService";
 type PagamentosProps = {
-  redirectTo?: string; // nova prop opcional
+  redirectTo?: ()=>void; // nova prop opcional
 };
-const Pagamentos = ({redirectTo='clienteInfo'}:PagamentosProps) => {
+const Pagamentos = ({redirectTo}:PagamentosProps) => {
   const router = useRouter();
   const [color, setColor] = useState("");
   const [toastIsOpen, setToastIsOpen] = useState(false);
@@ -54,7 +54,8 @@ const Pagamentos = ({redirectTo='clienteInfo'}:PagamentosProps) => {
     });
 
     if (res === 200) {
-      router.push(redirectTo);
+if(redirectTo) redirectTo()
+
       setToastIsOpen(true);
       setErrorMesasage("Pagamento realizado");
       setColor("bg-success");
@@ -65,7 +66,9 @@ const Pagamentos = ({redirectTo='clienteInfo'}:PagamentosProps) => {
       setColor("bg-danger");
       setTimeout(() => {
         setToastIsOpen(false);
-        router.push(redirectTo);
+      if (redirectTo) {
+  redirectTo(); // chama a função
+}
       }, 1000);
     }
   };

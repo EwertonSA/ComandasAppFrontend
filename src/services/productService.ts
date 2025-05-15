@@ -27,23 +27,24 @@ export type ProductType = {
 export type ProductSearchResponse = {
   produtos: ProductType[];
   page: number;
-  perPAge: number;
+  perPage: number;
   total: number;
 };
 
 const produtService={
    
-      getProduct:async()=>{
+      getProduct:async(page=1,perPage=10)=>{
       
         try {
          const token=sessionStorage.getItem("comandas-token")
           const res=await api.get("/produtos",{
+            params:{page,perPage},
             headers:{
               Authorization:`Bearer ${token}`
             }
           });
           console.log(res.data)
-          return{data:res.data.produtos|| [] };
+          return{data:res.data|| [] };
         } catch (error) {
           console.error("Erro ao buscar produto",error)
           return {data:[]}
@@ -53,7 +54,7 @@ const produtService={
       findByName: async (
         nome: string,
         page: number = 1,
-        perPAge: number = 10
+        perPage: number = 10
       ): Promise<ProductSearchResponse> => {
         const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
         try {
@@ -62,7 +63,7 @@ const produtService={
                 headers: {
                   Authorization: `Bearer ${token}`,
               
-              } ,params: { nome, page, perPAge }
+              } ,params: { nome, page, perPage }
           });
           console.log("🔍 Produtos filtrados:", res.data);
           
@@ -72,7 +73,7 @@ const produtService={
           return {
             produtos: [],
             page,
-            perPAge,
+            perPage,
             total: 0,
           };
         }

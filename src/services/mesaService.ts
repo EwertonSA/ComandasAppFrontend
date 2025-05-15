@@ -21,10 +21,11 @@ export const mesaService={
           };
         }
       },
-      getMesas: async () => {
+      getMesas: async (page=1,perPage=10) => {
         try {
           const token=sessionStorage.getItem('comandas-token')
           const response = await api.get("/mesas",{
+             params:{page,perPage},
             headers: {
               Authorization: `Bearer ${token}`
           },

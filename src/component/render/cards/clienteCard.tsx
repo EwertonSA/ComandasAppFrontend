@@ -25,7 +25,7 @@ const ClienteCard = ({ cliente }: ClienteCardProps) => {
       <div>
        
         {cliente.comandas ? (
-          <>
+          <div key={cliente.comandas.id}>
             <p className={styles.title}><strong>Comanda ID:</strong> {cliente.comandas.id}</p>
             <p><strong>Mesa:</strong> {cliente.comandas.mesaId}</p>
             <p><strong>Cliente:</strong> {cliente.comandas.clienteId}</p>
@@ -37,7 +37,7 @@ const ClienteCard = ({ cliente }: ClienteCardProps) => {
             <Link href={`/comandas/${cliente.comandas.id}`} className={styles.btn}>
               Ver produtos
             </Link>
-          </>
+          </div>
         ) : (
           <p style={{ color: "gray" }}>Sem comanda registrada</p>
         )}

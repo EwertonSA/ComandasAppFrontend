@@ -47,7 +47,7 @@ const SlideComponent = <T,>({ items, renderItem }: SlideComponentProps<T>) => {
           },
         }}
       >
-        {items?.map((item, index) => (
+        {Array.isArray(items)&&items?.map((item, index) => (
           <SplideSlide key={index}>{renderItem(item)}</SplideSlide>
         ))}
       </Splide>

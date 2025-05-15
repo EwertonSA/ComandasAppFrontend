@@ -4,6 +4,8 @@
 }
 .main{
     display: flex;
+   
+    
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
@@ -74,15 +76,24 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+.main3{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: black;
+}
 .slideImg{
     height: 200px;
     width: 280px;
 }
 .table{
     margin: 10px;
-    width: 100%;
+    width: 90%;
     border: 2px solid white;
     border: 1px solid white;
+    background-color: black !important;
+    color: white;
      
 }
 .row{
@@ -96,4 +107,10 @@
 }
 .rowImg{
     width: 50px;
+}
+.total{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px;
 }

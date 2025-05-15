@@ -22,8 +22,9 @@ const RegisterCliente = () => {
       <Head>
         <title>Registro</title>
         <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
-        <script src="https://jsuites.net/v4/jsuites.js"></script>
+     
       </Head>
+         <script src="https://jsuites.net/v4/jsuites.js"></script>
       <main>
         <Container >
           <p className={styles.formTitle}>
@@ -31,7 +32,9 @@ const RegisterCliente = () => {
           </p>
        <ClienteForm handleSubmit={handleSubmit} mesaSelecionada={mesaSelecionada} mesas={mesas} setMesaSelecionada={setMesaSelecionada}/>
         </Container>
-        <ToastComponent color="bg-danger" isOpen={true} message="evitar" />
+       {toastIsOpen && toastMessage && (
+  <ToastComponent color={toastColor} isOpen={toastIsOpen} message={toastMessage} />
+)}
       </main>
     </>
   );

@@ -15,18 +15,19 @@ const UseClienteForm = () => {
   const [toastColor, setToastColor] = useState("bg-success");
 
   useEffect(() => {
-    const fetchMesas = async () => {
-      const res = await mesaService.getMesas();
-      if (Array.isArray(res)) {
-        setMesas(res);
-      } else {
-        setToastColor("bg-danger");
-        setToastIsOpen(true);
-        setToastMessage("Erro ao carregar mesas.");
-      }
-    };
-    fetchMesas();
-  }, []);
+  const fetchMesas = async () => {
+    const res = await mesaService.getMesas();
+    if (res && Array.isArray(res.mesas)) {
+      setMesas(res.mesas);
+    } else {
+      setToastColor("bg-danger");
+      setToastIsOpen(true);
+      setToastMessage("Erro ao carregar mesas.");
+    }
+  };
+  fetchMesas();
+}, []);
+
 
   const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();

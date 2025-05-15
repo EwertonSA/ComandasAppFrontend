@@ -14,7 +14,7 @@ return <>
 </Head>
 <main>
 <HeaderAuth
-          logoUrl="/"
+          logoUrl="/ClienteInfo"
         
           btnContent="Abas"
         />

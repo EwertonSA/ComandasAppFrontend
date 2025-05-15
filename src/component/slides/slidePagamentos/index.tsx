@@ -15,13 +15,15 @@ const SlidePagamentos=()=>{
     if(!data || totalData === undefined) return <p>Loading....</p>
     return(
        <Container className="d-flex flex-column align-items-center">
+         <Link href="/allPayments"  className="text-center">
         <p className={styles.sectionTitle}>Pagamentos</p>
-      
-        <SlideComponent items={data.pagamentos} renderItem={(pagamento:PagamentosParams)=> <PagamentosCard pagamentos={pagamento}/>}/>
+     
+        <SlideComponent items={data.pagamentos} renderItem={(pagamento:PagamentosParams)=> <PagamentosCard pagamentos={pagamento}/>}/> </Link>
         <p className={styles.total}>
             Total de hoje: {Number(totalData).toFixed(2)}
             
         </p>
+       
         <Link href='/pagamentos'>
         <Button outline>
             Faça seu pagamento

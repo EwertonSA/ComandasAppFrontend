@@ -24,7 +24,7 @@ import {
         <FormGroup>
           <Label for="mesa" className={styles.label}>Escolha a Mesa</Label>
           <Input
-            type="number"
+            type="select"
             id="mesaId"
             name="mesaId"
             value={mesaSelecionada}
