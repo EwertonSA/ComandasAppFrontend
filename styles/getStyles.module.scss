@@ -91,8 +91,8 @@
     margin: 10px;
     width: 90%;
     border: 2px solid white;
-    border: 1px solid white;
-    background-color: black !important;
+   
+    background-color: black ;
     color: white;
      
 }
@@ -100,6 +100,12 @@
     border: 1px solid white;
   padding:5px;
   gap: 10px;
+  color: white;
+   
+
+  &:hover{
+color: $lightBlue;
+  }
 }
 .Img{
     width: 50px;
@@ -113,4 +119,12 @@
     font-weight: bold;
     text-align: center;
     margin: 20px;
+}
+.clickableRow{
+    cursor: pointer;
+    transition: 0.3s;
+    
+    &:hover{
+    color: $lightBlue;
+    }
 }

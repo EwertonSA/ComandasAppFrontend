@@ -4,8 +4,10 @@ import useSWR from "swr";
 import { useState } from "react";
 import styles from "../../../../styles/getStyles.module.scss";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const AllProducts = () => {
+  const router=useRouter()
   const [page, setPage] = useState(1); // Estado da página
   const perPage = 10;
 
@@ -42,12 +44,12 @@ const AllProducts = () => {
         <tbody>
           {produtos.map((produto: any) => {
             const defaultImg = "images/deafult-thumbnail.jpg";
-            const imgUlr = produto.thumbnailUrl
+            const imgUlr = produto.thumbnailUrl&& produto.thumbnailUrl.trim() !== ""
               ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`
               : defaultImg;
             return (
-              <Link href={"/produtos"}>
-              <tr key={produto.id}>
+            
+              <tr key={produto.id} onClick={() => router.push(`/produto/${produto.id}`)} className={styles.clickableRow}>
                 <td className={styles.row}>
                   <img src={imgUlr} alt="" className={styles.Img} />
                 </td>
@@ -56,8 +58,9 @@ const AllProducts = () => {
                 <td className={styles.row}>{produto.descricao}</td>
                 <td className={styles.row}>{produto.preco}</td>
                 <td className={styles.row}>{produto.categoria}</td>
+                   
               </tr>
-            </Link>
+         
             );
             
           })}

@@ -1,4 +1,4 @@
-import { props } from "@/src/components/common/slideCard"
+
 import produtService, { ProductType, ProdutoProps } from "@/src/services/productService"
 import styles from "../../../../styles/getStyles.module.scss"
 import useSWR from "swr"
@@ -9,7 +9,7 @@ import { usePedidosForm } from "../../hooks/pedidos/usePedidoForm"
 
 const ProductId=()=>{
     const router=useRouter()
-    const {id}=router.query
+    const {id}=router.query 
     const [quantity,setquantity]=useState(1)
     const {data,error}=useSWR(id?id:null,produtService.getProductById)
      const {

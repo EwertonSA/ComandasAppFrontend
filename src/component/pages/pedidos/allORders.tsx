@@ -2,15 +2,19 @@ import pedidoService from "@/src/services/pedidoService"
 import { Container } from "reactstrap";
 import useSWR from "swr"
 import styles from "../../../../styles/getStyles.module.scss"
+import { useState } from "react";
 
 const Orders=()=>{
-    const {data,error}=useSWR('/pedidos',pedidoService.getPedidos)
+  const [page,setPage]=useState(1)
+  const perPage=10
+    const {data,error}=useSWR(`/pedidos?page=${page}&perPage=${perPage}`,pedidoService.getPedidos)
     
   console.log("DATA:", data);
   console.log("ERROR:", error);
 
     if(!data) return <p>Loading...</p>
     if(error)return <p>Erro</p>
+    
 return(
     <main className={styles.main3}> 
     <p className={styles.title}>Pedidos:</p>

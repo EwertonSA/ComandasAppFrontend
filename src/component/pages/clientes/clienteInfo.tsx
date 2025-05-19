@@ -35,7 +35,7 @@ const ClienteInfo = () => {
       />
       <div className={styles.main}>
         {clientesFiltrados.map((cliente: any, index: number) => (
-          <ClienteCard key={index} cliente={cliente} />
+          <ClienteCard key={cliente.id} cliente={cliente} />
         ))}
       </div>
     </div>

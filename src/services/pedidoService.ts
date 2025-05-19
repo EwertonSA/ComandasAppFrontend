@@ -11,10 +11,11 @@ status:string
 }
 
 const pedidoService={
-  getPedidos:async()=>{
+  getPedidos:async(page=1,perPage=10)=>{
     const token=sessionStorage.getItem("comandas-token")
     try {
       const res=await api.get('/pedidos',{
+        params:{page,perPage},
         headers:{
           Authorization:`Bearer ${token}`
         }
