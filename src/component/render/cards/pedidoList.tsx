@@ -37,7 +37,7 @@ const PedidosList = ({ pedidos, tipo, onEntregar, onCancelar }: PedidosListProps
       {pedidos.map((pedido) => (
         <div key={pedido.id} className={styles.container}>
           <p className={styles.title}>Produtos:</p>
-          <ul>
+          <ul>  
             {pedido.pedidosProdutos?.map((item) => {
               const defaultImage = "/images/default-thumbnail.jpg";
               const imageUrl = item.produto.thumbnailUrl
@@ -45,10 +45,10 @@ const PedidosList = ({ pedidos, tipo, onEntregar, onCancelar }: PedidosListProps
                 : defaultImage;
 
               return (
-                <div key={item.produto.id}>
+                <li key={`${pedido.id}-${item.produto.id}`}>
                   <img src={imageUrl} alt={item.produto.nome}  className={styles.slide} /><br/>
                   {item.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
-                </div>
+                </li>
               );
             })}
           </ul>

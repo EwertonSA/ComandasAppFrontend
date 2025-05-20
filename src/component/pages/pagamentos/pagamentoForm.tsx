@@ -7,7 +7,7 @@ import styles from "../../../../styles/register.module.scss";
 import { pagamentoService } from "@/src/services/pagamentoService";
 import { comandaService } from "@/src/services/comandaService";
 type PagamentosProps = {
-  redirectTo?: ()=>void; // nova prop opcional
+   redirectTo?: () => void | Promise<void>;
 };
 const Pagamentos = ({redirectTo}:PagamentosProps) => {
   const router = useRouter();
@@ -53,7 +53,7 @@ const Pagamentos = ({redirectTo}:PagamentosProps) => {
       status: "Pago"
     });
 
-    if (res === 200) {
+    if (res === 200 ||  res ===201) {
 if(redirectTo) redirectTo()
 
       setToastIsOpen(true);

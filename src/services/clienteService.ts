@@ -3,13 +3,15 @@ import api from "./api";
 export interface RegisterParams {
   nome: string;
   mesaId: string;
+ 
 }
 
 const clienteService = {
-  getClientes:async()=>{
+  getClientes:async(page=1,perPage=10)=>{
     try {
       const token=sessionStorage.getItem("comandas-token")
       const res=await api.get('/clientes',{
+        params:{page,perPage},
         headers: {
           Authorization: `Bearer ${token}`
       },

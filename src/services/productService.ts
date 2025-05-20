@@ -111,7 +111,7 @@ const produtService={
           return [];
         }
       },getProductById:async(id:string)=>{
-        const token= sessionStorage.getItem("cliente-token")
+       const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
         try {
           const res= await api.get(`/produtos/${id}`,{
             headers:{

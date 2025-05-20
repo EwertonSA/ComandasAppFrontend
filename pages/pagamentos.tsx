@@ -3,8 +3,10 @@ import HeaderAuth from "@/src/components/common/headerAuth"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
 import Pagamentos from "@/src/component/pages/pagamentos/pagamentoForm"
 import Head from "next/head"
+import { useRouter } from "next/router"
 
 const Pagamento=()=>{
+    const router=useRouter()
 return<>
  <Head>
             <title>Home</title>
@@ -14,7 +16,7 @@ return<>
 <HeaderAuth logoUrl="/clienteInfo"
            
            btnContent="Abas"/>
-<Pagamentos />
+<Pagamentos redirectTo={()=>{router.push('/clienteInfo')}}/>
 <Footer/>
 </main>
 

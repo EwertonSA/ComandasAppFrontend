@@ -2,24 +2,29 @@ import Clientes from "@/src/component/pages/clientes/clientes"
 import Footer from "@/src/components/common/footer"
 import HeaderAuth from "@/src/components/common/headerAuth"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
-import ClienteInfo from "@/src/component/pages/clientes/clienteInfo"
 import Head from "next/head"
 
+const AllOrders=()=>{
 
-const ClienteInf=()=>{
   return <>
   <Head>
-  <title>Home</title>
+  <title>Orders</title>
   <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
   </Head>
   <main >
-  <HeaderAuth logoUrl="/register"
-           
-           btnContent="Abas"/>
-    <ClienteInfo/>
- 
+ <HeaderAuth
+  logoUrl="/home"
+  btnContent="Abas"
+  tabs={[
+    { label: "Página inicial", href: "/home" },
+    { label: "Comandas", href: "/allClients" },
+    { label: "Cliente Info", href: "/clienteInfo" },
+    { label: "Registrar", href: "/register" }
+  ]}
+/>
+<Clientes/>
     <Footer/>
   </main>
   </>
 }
-export default ClienteInf
+export default AllOrders
