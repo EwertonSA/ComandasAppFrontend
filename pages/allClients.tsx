@@ -12,16 +12,7 @@ const AllOrders=()=>{
   <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
   </Head>
   <main >
- <HeaderAuth
-  logoUrl="/home"
-  btnContent="Abas"
-  tabs={[
-    { label: "Página inicial", href: "/home" },
-    { label: "Comandas", href: "/allClients" },
-    { label: "Cliente Info", href: "/clienteInfo" },
-    { label: "Registrar", href: "/register" }
-  ]}
-/>
+<HeaderAuth logoUrl="/register"  />
 <Clientes/>
     <Footer/>
   </main>

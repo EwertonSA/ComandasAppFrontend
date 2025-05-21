@@ -1,24 +1,36 @@
-import Link from "next/link"
-import { Container, Form, Input } from "reactstrap"
+
 import styles from './styles.module.scss';
 import Modal from 'react-modal';
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { handleCloseModal, handleLogout, handleOpenModal } from "../Modal";
-interface TabItem {
-  label: string;
-  href: string;
-}
+import Link from "next/link";
+import { Container } from "reactstrap";
 
-interface Props {
-  logoUrl: string;
-  btnContent: string;
-  tabs: TabItem[];
-}
-Modal.setAppElement("#__next")
-const HeaderAuth = ({ logoUrl, btnContent, tabs=[] }: Props) => {
+Modal.setAppElement("#__next");
+
+const HeaderAuth = ({ logoUrl }: { logoUrl: string }) => {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
+
+  // Mapeia cada rota para um texto
+  const getBtnContent = () => {
+    switch (router.pathname) {
+      case "/home":
+        return "Página inicial";
+    
+        case "/allClients":
+          return "Cliente Info";
+       
+      case "/clienteInfo":
+     
+          return "Comandas";
+      case "/register":
+        return "Registrar";
+      default:
+        return "Menu";
+    }
+  };
 
   return (
     <>
@@ -28,9 +40,10 @@ const HeaderAuth = ({ logoUrl, btnContent, tabs=[] }: Props) => {
         </Link>
         <div className="d-flex align-items-center">
           <p className={styles.user} onClick={() => handleOpenModal(setModalOpen)}>
-            {btnContent}
+            {getBtnContent()}
           </p>
         </div>
+
         <Modal
           isOpen={modalOpen}
           onRequestClose={() => handleCloseModal(setModalOpen)}
@@ -38,11 +51,18 @@ const HeaderAuth = ({ logoUrl, btnContent, tabs=[] }: Props) => {
           className={styles.modal}
           overlayClassName={styles.overlay}
         >
-          {Array.isArray(tabs)&&tabs.map((tab, index) => (
-            <Link key={index} href={tab.href}>
-              <p className={styles.modalLink}>{tab.label}</p>
-            </Link>
-          ))}
+          <Link href="/home">
+            <p className={styles.modalLink}>Página inicial</p>
+          </Link>
+          <Link href="/clienteInfo">
+            <p className={styles.modalLink}>Comandas</p>
+          </Link>
+          <Link href="/allClients">
+            <p className={styles.modalLink}>Cliente Info</p>
+          </Link>
+          <Link href="/register">
+            <p className={styles.modalLink}>Registrar</p>
+          </Link>
           <p className={styles.modalLink} onClick={() => handleLogout(router)}>Sair</p>
         </Modal>
       </Container>
@@ -50,4 +70,4 @@ const HeaderAuth = ({ logoUrl, btnContent, tabs=[] }: Props) => {
   );
 };
 
-export default HeaderAuth
+export default HeaderAuth;

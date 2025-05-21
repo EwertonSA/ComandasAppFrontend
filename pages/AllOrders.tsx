@@ -21,7 +21,7 @@ const AllOrders=()=>{
   <main >
   <HeaderAuth logoUrl="/register"
            
-           btnContent="Abas"/>
+       />
 <Orders/>
     <Footer/>
   </main>

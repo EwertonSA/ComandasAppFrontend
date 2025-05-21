@@ -43,7 +43,7 @@ const HomeAuth = () => {
       </Head>
       <main>
         <div>
-          <HeaderAuth logoUrl="/register" btnContent="Abas" />
+          <HeaderAuth logoUrl="/register" />
           <SlideSection getproduts={products} />
           <SlidePedidos />
           <SlidePagamentos />

@@ -11,27 +11,29 @@ status:string
 }
 
 const pedidoService={
+  pedidos:async()=>{
+const token=sessionStorage.getItem('comandas-token')
+try {
+  const res=await api.get('/pedidos',{
+    headers:{
+      Authorization:`Bearer ${token}`
+    }
+  })
+  return res.data?.pedidos || [];
+} catch (error) {
+   return []
+}
+  },
   getPedidos:async(page=1,perPage=10)=>{
     const token=sessionStorage.getItem("comandas-token")
     try {
-      const res=await api.get('/pedidos',{
+      const res=await api.get('/pedidoCompleto',{
         params:{page,perPage},
         headers:{
           Authorization:`Bearer ${token}`
         }
       })
-      const pedidos=res.data.pedidos
-      const allOrders=await Promise.all(
-        pedidos.map(async(pedido:any)=>{
-          const pedidoRes= await api.get(`pedidos/${pedido.id}`,{
-             headers:{
-          Authorization:`Bearer ${token}`
-        }
-          })  
-          return pedidoRes.data
-        })
-      )
-      return allOrders
+    return res.data
       
     } catch (error) {
       return []

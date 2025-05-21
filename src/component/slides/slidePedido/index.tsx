@@ -8,7 +8,7 @@ import styles from '../slideSection/styles.module.scss'
 import Link from 'next/link';
 
 const SlidePedidos = () => {
-  const { data, error } = useSWR('/pedidos', pedidoService.getPedidos);
+  const { data, error } = useSWR('/pedidos', pedidoService.pedidos);
 
   if (error) return <p>Erro ao carregar pedidos</p>;
   if (!data) return <p>Carregando...</p>;
