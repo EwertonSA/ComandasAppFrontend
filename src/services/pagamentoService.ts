@@ -25,10 +25,11 @@ export const pagamentoService={
           }; 
         }
       },
-      pagamentos:async()=>{
+      pagamentos:async(page=1,perPage=10)=>{
         try {
           const token=sessionStorage.getItem("comandas-token")
           const res=await api.get('/pagamentos',{
+            params:{page,perPage},
             headers: {
               Authorization: `Bearer ${token}`
           },

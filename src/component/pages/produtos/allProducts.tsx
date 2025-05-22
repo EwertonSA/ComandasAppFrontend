@@ -1,28 +1,23 @@
 import produtService from "@/src/services/productService";
-import { Table, Button } from "reactstrap";
+import { Table, Button, Pagination } from "reactstrap";
 import useSWR from "swr";
 import { useState } from "react";
 import styles from "../../../../styles/getStyles.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import PaginationComponent from "@/src/components/common/pagination";
+import useProducts from "../../hooks/produtos/useProducts";
 
 const AllProducts = () => {
   const router=useRouter()
   const [page, setPage] = useState(1); // Estado da página
   const perPage = 10;
 
-  const { data, error} = useSWR(
-    [`/produtos?page=${page}&perPage=${perPage}`, page], // chave única baseada na página
-    async () => {
-      const res = await produtService.getProduct(page, perPage); // passe a página e o perPage aqui
-      return res.data;
-    }
-  );
+ const { produtos, total, error } = useProducts(page, perPage);
 
-  if (!data) return <p>Loading...</p>;
+  if (!produtos.length && !error) return <p>Loading...</p>;
   if (error) return <p>Erro.</p>;
 
-  const { produtos, total } = data;
   const totalPages = Math.ceil(total / perPage);
 
   return (
@@ -50,7 +45,7 @@ const AllProducts = () => {
             return (
             
               <tr key={produto.id} onClick={() => router.push(`/produto/${produto.id}`)} className={styles.clickableRow}>
-                <td className={styles.row}>
+                <td className={styles.rowImg}>
                   <img src={imgUlr} alt="" className={styles.Img} />
                 </td>
                 <td className={styles.row}>{produto.id}</td>
@@ -68,23 +63,7 @@ const AllProducts = () => {
       </Table>
 
       {/* Paginação */}
-      <div className={styles.main}>
-        <Button
-          onClick={() => setPage((p) => Math.max(p - 1, 1))}
-          disabled={page === 1}
-        >
-          Anterior
-        </Button>
-        <span className={styles.pageInfo}>
-          Página {page} de {totalPages}
-        </span>
-        <Button
-          onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-          disabled={page === totalPages}
-        >
-          Próxima
-        </Button>
-      </div>
+   <PaginationComponent page={page} setPage={setPage} totalPages={totalPages}/>
     </main>
   );
 };

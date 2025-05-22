@@ -5,41 +5,49 @@ import TabsSwitcher from "@/src/components/common/switch/switchComponent";
 import styles from "../../../../styles/getStyles.module.scss";
 
 
-import { useClientes } from "@/src/component/hooks/clientes/useClientes";
+
 import ClienteCard from "../../render/cards/clienteCard";
+import PaginationComponent from "@/src/components/common/pagination";
+import { useClientes } from "../../hooks/clientes/useClientes";
 
 const ClienteInfo = () => {
-  const { clientes, error } = useClientes();
-  const [abaAtiva, setAbaAtiva] = useState<"andamento" | "paga">("andamento");
+  const [page, setPage] = useState(1);
+  const perPage = 10;
+  const [abaAtiva, setAbaAtiva] = useState<"pendente" | "pago">("pendente");
+
+  const { clientes, error, totalPages } = useClientes(page, perPage, abaAtiva);
 
   if (error) return <p>Erro ao carregar dados dos clientes.</p>;
 
-
-  const clientesFiltrados = clientes.filter((cliente: any) => {
-    const status = typeof cliente.comandas?.status === "string"
-      ? cliente.comandas?.status.toLowerCase()
-      : "";
-    if (!cliente.comandas) return abaAtiva === "andamento";
-    return abaAtiva === "andamento" ? status !== "pago" : status === "pago";
-  });
   return (
     <div className={styles.div}>
       <TabsSwitcher
         abaAtiva={abaAtiva}
-        setAbaAtiva={setAbaAtiva}
+        setAbaAtiva={(value) => {
+          setPage(1);
+          setAbaAtiva(value);
+        }}
         btnClassName={styles.btn}
         options={[
-          { label: "Em andamento", value: "andamento", color: "primary" },
-          { label: "Comandas pagas", value: "paga", color: "primary" },
+          { label: "Em andamento", value: "pendente", color: "primary" },
+          { label: "Comandas pagas", value: "pago", color: "primary" },
         ]}
       />
+
       <div className={styles.main}>
-        {clientesFiltrados.map((cliente: any, index: number) => (
+        {clientes.map((cliente: any) => (
           <ClienteCard key={cliente.id} cliente={cliente} />
         ))}
       </div>
+
+      {totalPages > 1 && (
+        <PaginationComponent
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 };
-
-export default ClienteInfo;
+export default ClienteInfo

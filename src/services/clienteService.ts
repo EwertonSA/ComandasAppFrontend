@@ -7,7 +7,7 @@ export interface RegisterParams {
 }
 
 const clienteService = {
-  getClientes:async(page=1,perPage=10)=>{
+  getClientes:async(page=1,perPage=10,status:string)=>{
     try {
       const token=sessionStorage.getItem("comandas-token")
       const res=await api.get('/clientes',{
@@ -22,52 +22,43 @@ const clienteService = {
       return []
     }
   },
-  getClientesInfo: async () => {
-    try {
-      const token=sessionStorage.getItem("comandas-token")
-      const res = await api.get('/clientes',{
-        headers: {
-          Authorization: `Bearer ${token}`
-      },
-      });
-      const clientes = res.data.clientes;
-      
-      const clientesComComandas = await Promise.all(
-        clientes.map(async (cliente: any) => {
-          const detalhesRes = await api.get(`/clientes/${cliente.id}`,{
-            headers: {
-              Authorization: `Bearer ${token}`
-          },
-          });
-          const comandaBase = detalhesRes.data.comandas || null;
-          let comandaDetalhada = null;
+getClientesInfo: async (page = 1, perPage = 10, status?: string) => {
   
-          if (comandaBase?.id) {
-            const comandaRes = await api.get(`/comandas/${comandaBase.id}`,{
-              headers: {
-                Authorization: `Bearer ${token}`
-            },
-            });
-            comandaDetalhada = {
-              ...comandaRes.data,
-              pedidos: comandaRes.data.pedidos || [],
-            };
-          }
-  
-          return {
-            ...cliente,
-            comandas: comandaDetalhada,
-          };
-        })
-      );
-  
-    return clientesComComandas
-  
-    } catch (err: any) {
-      console.error("Erro ao buscar info dos clientes:", err);
-      return [];
+  try {
+    const token = sessionStorage.getItem("comandas-token")?.trim() ?? sessionStorage.getItem('cliente-token');
+
+    if (!token) {
+      throw new Error("Usuário não autenticado: token ausente");
     }
-  },
+
+    console.log('Fazendo requisição para /clientes');
+
+    const res = await api.get('/clientes', {
+      params: { page, perPage, status },
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log('Resposta recebida:', res.data);
+
+    return {
+      clientes: res.data.clientes || [],
+      total: res.data.total || 0,
+      totalPages: Math.ceil(res.data.total / perPage),
+    };
+  } catch (err: any) {
+    console.error("Erro ao buscar info dos clientes:", err);
+    return {
+      clientes: [],
+      total: 0,
+      totalPages: 1,
+    };
+  }
+},
+
+
+
   register: async (params: RegisterParams) => {
     const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
     try {

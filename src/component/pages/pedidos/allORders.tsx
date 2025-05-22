@@ -3,8 +3,11 @@ import { Button, Container } from "reactstrap";
 import useSWR from "swr"
 import styles from "../../../../styles/getStyles.module.scss"
 import { useState } from "react";
+import PaginationComponent from "@/src/components/common/pagination";
+import { useRouter } from "next/router";
 
 const Orders=()=>{
+  const router=useRouter()
   const [page,setPage]=useState(1)
   const perPage=10
  const { data, error } = useSWR(`/pedidos?page=${page}&perPage=${perPage}`, () => pedidoService.getPedidos(page, perPage));
@@ -40,7 +43,7 @@ return(
       ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`
       : defaultImage;
     return (
-      <tr key={`${pedido.id}-${produto.id}-${index}`}>
+      <tr key={`${pedido.id}-${produto.id}-${index}`} onClick={()=>router.push(`/comandas/${pedido.comandaId}`)}>
         <td className={styles.rowImg}>
           <img src={imageUrl} alt={produto.nome} className={styles.Img} />
         </td>
@@ -59,24 +62,7 @@ return(
 
   </tbody>
 </table>
- <div className={styles.main}>
-        <Button
-          onClick={() => setPage((p) => Math.max(p - 1, 1))}
-          disabled={page === 1}
-        >
-          Anterior
-        </Button>
-        <span className={styles.pageInfo}>
-          Página {page} de {totalPages}
-        </span>
-        <Button
-          onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-          disabled={page === totalPages}
-        >
-          Próxima
-        </Button>
-      </div>
-
+  <PaginationComponent page={page} setPage={setPage} totalPages={totalPages}/>
     </main>
 )
 }

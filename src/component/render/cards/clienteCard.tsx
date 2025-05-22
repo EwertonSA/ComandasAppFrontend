@@ -21,11 +21,12 @@ const ClienteCard = ({ cliente }: ClienteCardProps) => {
   };
 
   return (
-    <Container className={styles.container}>
+    <Container className={styles.container} onClick={()=>router.push(`/comandas/${cliente.comandas.id}`)}>
       <div>
        
         {cliente.comandas ? (
           <div key={cliente.comandas.id}>
+            
             <p className={styles.title}><strong>Comanda ID:</strong> {cliente.comandas.id}</p>
             <p><strong>Mesa:</strong> {cliente.comandas.mesaId}</p>
             <p><strong>Cliente:</strong> {cliente.comandas.clienteId}</p>
@@ -34,9 +35,6 @@ const ClienteCard = ({ cliente }: ClienteCardProps) => {
         <p><strong>Telefone:</strong> {cliente.telefone}</p>
         <p><strong>Mesa ID:</strong> {cliente.mesaId}</p>
 
-            <Link href={`/comandas/${cliente.comandas.id}`} className={styles.btn}>
-              Ver produtos
-            </Link>
           </div>
         ) : (
           <p style={{ color: "gray" }}>Sem comanda registrada</p>

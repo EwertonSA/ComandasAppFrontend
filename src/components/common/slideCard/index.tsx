@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import styles from "./styles.module.scss";
 import { ProductType } from "@/src/services/productService";
 
@@ -7,13 +8,14 @@ export interface props{
 
 
 const SlideCard=({product}:props)=>{
+    const router=useRouter()
     const defaultImage = "/images/default-thumbnail.jpg"; 
     const imageUrl = product.thumbnailUrl 
         ? `${process.env.NEXT_PUBLIC_BASEURL}/${product.thumbnailUrl}` 
         : defaultImage;
 
     return <>
-    <div className={styles.slide}>
+    <div className={styles.slide} onClick={()=>router.push(`/produtos/${product.id}`)}>
         <img src={imageUrl} alt={product.nome} className={styles.slideImg}/>
         <p className={styles.slideTitle}>{product.nome}</p>
         <p className={styles.slideDescription}>{product.descricao}</p>

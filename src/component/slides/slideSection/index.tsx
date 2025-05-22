@@ -18,17 +18,17 @@ const SlideSection = ({ getproduts }: props) => {
     : [];
   return (
     <Container className="d-flex flex-column align-items-center">
-     <Link href="/allProducts"> <p className='text-center'>Produtos disponíveis</p>
+   <p className={styles.title}>Produtos disponíveis</p>
 
       <SlideComponent
         items={produtosArray}
         renderItem={(product) => <SlideCard product={product} />}
       />
-      </Link>
+      
 
-      <Link href="/indexLogin">
+      <Link href="/allProducts">
         <Button outline color="light" className={styles.slideSection}>
-          Faça seu pedido agora
+          Veja todos os produtos
         </Button>
       </Link>
     </Container>
