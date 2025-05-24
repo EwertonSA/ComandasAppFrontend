@@ -15,7 +15,7 @@ const SlideCard=({product}:props)=>{
         : defaultImage;
 
     return <>
-    <div className={styles.slide} onClick={()=>router.push(`/produtos/${product.id}`)}>
+    <div className={styles.slide} onClick={()=>router.push(`/produto/${product.id}`)}>
         <img src={imageUrl} alt={product.nome} className={styles.slideImg}/>
         <p className={styles.slideTitle}>{product.nome}</p>
         <p className={styles.slideDescription}>{product.descricao}</p>

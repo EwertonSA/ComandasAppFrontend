@@ -14,9 +14,7 @@ const product=()=>{
     </Head>
     <main >
 
-  <HeaderAuth logoUrl="/register"
-           
-           btnContent="Abas"/>
+   <HeaderAuth logoUrl="/home" />
            <ProdutoIdForUser/>
       <Footer/>
     </main>

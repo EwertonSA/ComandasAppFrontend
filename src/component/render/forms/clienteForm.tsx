@@ -3,7 +3,7 @@ import {
   } from "reactstrap";
   import styles from "../../../../styles/register.module.scss"
 
-  interface ClienteFormProps{
+  export interface ClienteFormProps{
     mesas:any;
     mesaSelecionada:string;
     setMesaSelecionada:(value:string)=>void;

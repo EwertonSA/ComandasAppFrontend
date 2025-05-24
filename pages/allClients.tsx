@@ -12,7 +12,7 @@ const AllOrders=()=>{
   <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
   </Head>
   <main >
-<HeaderAuth logoUrl="/register"  />
+   <HeaderAuth logoUrl="/home" />
 <Clientes/>
     <Footer/>
   </main>

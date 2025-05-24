@@ -23,9 +23,9 @@ const SlidePedidos = () => {
       renderItem={(pedido: PedidosType) => <PedidoCard pedido={pedido} />}
     />
        </Link>
-      <Link href="/register">
+      <Link href="/AllOrders">
         <Button outline color="light" className={styles.slideSection}>
-          Faça seu pedido agora
+         Veja todos os pedidos
         </Button>
       </Link>
     

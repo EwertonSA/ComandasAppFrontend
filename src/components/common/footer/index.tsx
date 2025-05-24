@@ -1,5 +1,6 @@
 import { Container } from 'reactstrap';
 import styles from './styles.module.scss';
+import Link from 'next/link';
 
 const Footer=()=>{
 
@@ -7,8 +8,8 @@ const Footer=()=>{
         <>
         <Container className={styles.footer}>
             <img src="/2.jpg" alt="" className={styles.footerLogo} />
-            <a href="http://comandassss.com" target='blank'
-            className={styles.footerLink}>Products</a>
+            <Link   className={styles.footerLink} href='/'>Home</Link>
+          
         </Container>
         </>
     )

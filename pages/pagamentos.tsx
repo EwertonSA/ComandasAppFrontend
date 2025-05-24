@@ -7,15 +7,14 @@ import { useRouter } from "next/router"
 
 const Pagamento=()=>{
     const router=useRouter()
+    const {comandaId}=router.query
 return<>
  <Head>
             <title>Home</title>
             <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
         </Head>
 <main>
-<HeaderAuth logoUrl="/clienteInfo"
-           
-           btnContent="Abas"/>
+   <HeaderAuth logoUrl={`/comandas/${comandaId}`} />
 <Pagamentos redirectTo={()=>{router.push('/clienteInfo')}}/>
 <Footer/>
 </main>

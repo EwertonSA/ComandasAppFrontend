@@ -5,18 +5,21 @@ import Footer from "@/src/components/common/footer"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
 import { ProdutoProps } from "@/src/services/productService"
 import Head from "next/head"
+import { useRouter } from "next/router"
 
-const product=()=>{
+const Header=()=>{
+    const router = useRouter();
+  const { comandaId } = router.query;
     return <>
     <Head>
     <title>Home</title>
     <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
     </Head>
     <main >
- <HeaderGeneric btnContent="registrar" btnUrl="/userRegister" logoUrl="/"/>
+ <HeaderGeneric logoUrl={`/homeNoAuth?comandaId=${comandaId}`}/>
   <ProductId />
       <Footer/>
     </main>
     </>
   }
-  export default product
+  export default Header

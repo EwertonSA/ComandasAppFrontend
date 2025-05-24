@@ -48,8 +48,8 @@ return(
         backgroundImage:`linear-gradient(to bottom, #6666661a, #151515),url(${imgUrl})`,
         backgroundSize:"cover",
         backgroundPosition:'center',
-        height:'100vh',
-        minWidth:'100vh'
+        height:'100%',
+        minWidth:'100%'
 
     }} key={data.id}>
 <Container className={styles.container}>

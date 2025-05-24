@@ -16,7 +16,7 @@ const SlidePagamentos=()=>{
     return(
        <Container className="d-flex flex-column align-items-center">
          <Link href="/allPayments"  className="text-center">
-        <p className={styles.sectionTitle}>Pagamentos</p>
+        <p className={styles.title}>Pagamentos</p>
      
         <SlideComponent items={data.pagamentos} renderItem={(pagamento:PagamentosParams)=> <PagamentosCard pagamentos={pagamento}/>}/> </Link>
         <p className={styles.total}>
@@ -24,9 +24,9 @@ const SlidePagamentos=()=>{
             
         </p>
        
-        <Link href='/pagamentos'>
+        <Link href='/allPayments'>
         <Button outline>
-            Faça seu pagamento
+         Veja todos os pagamentos
         </Button>
         </Link>
         <Footer/>

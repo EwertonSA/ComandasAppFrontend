@@ -45,10 +45,10 @@ const PedidosList = ({ pedidos, tipo, onEntregar, onCancelar }: PedidosListProps
                 : defaultImage;
 
               return (
-                <li key={`${pedido.id}-${item.produto.id}`}>
+                <div key={`${pedido.id}-${item.produto.id}`}>
                   <img src={imageUrl} alt={item.produto.nome}  className={styles.slide} /><br/>
                   {item.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
-                </li>
+                </div>
               );
             })}
           </ul>

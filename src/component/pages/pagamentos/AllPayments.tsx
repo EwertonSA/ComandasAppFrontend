@@ -4,8 +4,10 @@ import { Table } from "reactstrap";
 import PaginationComponent from "@/src/components/common/pagination";
 import styles from '../../../../styles/getStyles.module.scss';
 import { usePagamentos } from "../../hooks/usePagamentos";
+import { useRouter } from "next/router";
 
 const Payments = () => {
+  const router=useRouter()
   const [page, setPage] = useState(1);
   const perPage = 10;
 
@@ -28,7 +30,7 @@ const Payments = () => {
         </thead>
         <tbody>
           {pagamentos.map((pagament: any) => (
-            <tr key={pagament.id}>
+            <tr key={pagament.id} onClick={()=>router.push(`/comandas/${pagament.comandaId}`)}>
               <td className={styles.row}>{pagament.id}</td>
               <td className={styles.row}>{pagament.comandaId}</td>
               <td className={styles.row}>{pagament.valor}</td>

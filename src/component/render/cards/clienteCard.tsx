@@ -21,11 +21,11 @@ const ClienteCard = ({ cliente }: ClienteCardProps) => {
   };
 
   return (
-    <Container className={styles.container} onClick={()=>router.push(`/comandas/${cliente.comandas.id}`)}>
+    <Container className={styles.container} >
       <div>
        
         {cliente.comandas ? (
-          <div key={cliente.comandas.id}>
+          <div key={cliente.comandas.id} onClick={()=>router.push(`/comandas/${cliente.comandas.id}`)}>
             
             <p className={styles.title}><strong>Comanda ID:</strong> {cliente.comandas.id}</p>
             <p><strong>Mesa:</strong> {cliente.comandas.mesaId}</p>

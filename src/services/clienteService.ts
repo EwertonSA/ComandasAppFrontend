@@ -7,7 +7,7 @@ export interface RegisterParams {
 }
 
 const clienteService = {
-  getClientes:async(page=1,perPage=10,status:string)=>{
+  getClientes:async(page=1,perPage=10)=>{
     try {
       const token=sessionStorage.getItem("comandas-token")
       const res=await api.get('/clientes',{
@@ -33,7 +33,7 @@ getClientesInfo: async (page = 1, perPage = 10, status?: string) => {
 
     console.log('Fazendo requisição para /clientes');
 
-    const res = await api.get('/clientes', {
+    const res = await api.get('/clienteCompleto', {
       params: { page, perPage, status },
       headers: {
         Authorization: `Bearer ${token}`,

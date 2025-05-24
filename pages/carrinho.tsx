@@ -18,7 +18,7 @@ const Cart=()=>{
     <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
     </Head>
     <main >
- <HeaderGeneric btnContent="abas" btnUrl="" logoUrl={`homeNoAuth?comandaId=${comandaId}`} />
+ <HeaderGeneric logoUrl={`homeNoAuth?comandaId=${comandaId}`} />
  {comandaId && typeof comandaId ==="string" &&(<Card  id={comandaId} />)}
 
       <Footer/>

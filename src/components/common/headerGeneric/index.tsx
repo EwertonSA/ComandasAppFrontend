@@ -11,7 +11,7 @@ interface props{
     btnUrl:string;
     btnContent:string;
 }
-const HeaderGeneric=({logoUrl,btnContent}:props)=>{
+const HeaderGeneric=({ logoUrl }: { logoUrl: string })=>{
         const router=useRouter();
         const [modalOpen, setModalOpen]= useState(false)
         const {comandaId}=router.query
@@ -21,6 +21,22 @@ const HeaderGeneric=({logoUrl,btnContent}:props)=>{
       Modal.setAppElement('#__next'); // Next.js monta a app aqui por padrão
     }
   }, []);
+   const getBtnContent = () => {
+    switch (router.pathname) {
+      case "/homeNoAuth":
+        return "Página inicial";
+    
+        case '/carrinho':
+          return "Carrinho";
+       
+      case "/pagamentoCliente":
+     
+          return "Pagamento";
+    
+      default:
+        return "Menu";
+    }
+  };
     return<>
     <div className={styles.header}>
 <Container className={styles.headerContainer}>
@@ -29,8 +45,9 @@ const HeaderGeneric=({logoUrl,btnContent}:props)=>{
     </Link>
     <div className={styles.button}>
            <div className="d-flex align-items-center">
-               
-                <p className={styles.user} onClick={()=>handleOpenModal(setModalOpen)}>{btnContent}</p>
+                <p className={styles.user} onClick={() => handleOpenModal(setModalOpen)}>
+            {getBtnContent()}
+          </p>
             </div>
   <Modal isOpen={modalOpen} onRequestClose={()=>handleCloseModal(setModalOpen)} 
           shouldCloseOnEsc={true} className={styles.modal} 

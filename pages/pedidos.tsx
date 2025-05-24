@@ -11,9 +11,7 @@ const Pedido=()=>{
             <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
         </Head>
         <main>
-            <HeaderAuth logoUrl="/register"
-           
-        btnContent="Abas"/>
+          <HeaderAuth logoUrl="/home" />
          <Pedidos/>
          <Footer/>
   </main>

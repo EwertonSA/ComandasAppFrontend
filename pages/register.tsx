@@ -13,11 +13,7 @@ return <>
 <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
 </Head>
 <main>
-<HeaderAuth
-          logoUrl="/"
-        
-          btnContent="Abas"
-        />
+   <HeaderAuth logoUrl="/home" />
     <Register/>
     
     <Footer/>

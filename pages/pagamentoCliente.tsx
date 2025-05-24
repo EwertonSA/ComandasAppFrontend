@@ -15,7 +15,7 @@ return<>
             <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
         </Head>
 <main>
-<HeaderGeneric btnContent="Navegar" btnUrl="" logoUrl={`homeNoAuth?comandaId=${comandaId}`}/>
+<HeaderGeneric logoUrl={`homeNoAuth?comandaId=${comandaId}`}/>
 <Pagamentos redirectTo={()=>handleLogout(router)}/>
 <Footer/>
 </main>

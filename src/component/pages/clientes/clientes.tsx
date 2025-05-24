@@ -1,10 +1,14 @@
 
-import { getClientes } from "@/src/component/hooks/clientes/useClientes";
+
 import clienteService, { RegisterParams } from "@/src/services/clienteService";
 import { Container, Table } from "reactstrap";
 import useSWR from "swr";
 import styles from "../../../../styles/getStyles.module.scss"
 import { useRouter } from "next/router";
+import getClientes from "../../hooks/clientes/useGetClientes";
+import { useState } from "react";
+import PaginationComponent from "@/src/components/common/pagination";
+import useGetClientes from "../../hooks/clientes/useGetClientes";
 export interface ClienteParams {
   id: number;
   nome: string;
@@ -14,9 +18,12 @@ export interface ClienteParams {
 interface Comanda{
   id:string
 }
+
 const Clientes = () => {
   const router=useRouter()
-  const { clientes, error } = getClientes()
+    const [page, setPage] = useState(1);
+    const perPage = 10;
+  const { clientes,totalPages, error } = useGetClientes(page,perPage)
 
   if (error || clientes?.error) return <p>Erro ao retornar os clientes.</p>;
   if (!clientes || (Array.isArray(clientes) && clientes.length === 0)) return <p>Carregando...</p>;
@@ -45,7 +52,8 @@ const Clientes = () => {
         }
       }}
     >
-      <td className={styles.row}>{cliente.nome}</td>      <td className={styles.row}>{cliente.mesaId}</td>
+      <td className={styles.row}>{cliente.nome}</td>      
+      <td className={styles.row}>{cliente.mesaId}</td>
     </tr>
      
       
@@ -53,6 +61,9 @@ const Clientes = () => {
       ))}
       </tbody>
          </Table>
+            {!isNaN(totalPages) && (
+  <PaginationComponent page={page} setPage={setPage} totalPages={totalPages} />
+)}
     </main>
   );
 };

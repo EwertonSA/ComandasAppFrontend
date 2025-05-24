@@ -7,8 +7,10 @@ import { useRouter } from "next/router"
 import ToastComponent from "@/src/components/common/toast"
 import authService from "@/src/services/authService"
 import { comandaService } from "@/src/services/comandaService"
+import { ClienteFormProps } from "../../render/forms/clienteForm"
 
-const ClienteLogin=()=>{
+const ClienteLogin=({mesas,mesaSelecionada,setMesaSelecionada}:ClienteFormProps)=>{
+    console.log("Mesas recebidas:", mesas);
     const router=useRouter()
       const [toastMessage, setToastMessage] = useState("");
           const [toastIsOpen, setToastIsOpen] = useState(false);
@@ -72,9 +74,22 @@ if (res.status === 200 || res.status === 201) {
                     <p><strong>Bem vindo ao serviço de comandas</strong></p>
                     <FormGroup>
                         <Label for="mesaId" className={styles.label}>MESA ID</Label>
-                        <Input name="mesaId" type="number" id="mesaId" placeholder="Digite o número da mesa" className={styles.input} required/>
-                    </FormGroup>
-                  
+                       <Input
+            type="select"
+            id="mesaId"
+            name="mesaId"
+            value={mesaSelecionada}
+            onChange={(e) => setMesaSelecionada(e.target.value)}
+            required
+            className={styles.input}
+          >
+            <option value="">Selecione uma mesa</option>
+            {Array.isArray(mesas)&&mesas.map((mesa:any) => (
+              <option key={mesa.id} value={mesa.id}>
+                Mesa {mesa.numero} (Capacidade: {mesa.capacidade})
+              </option>
+            ))}
+          </Input></FormGroup>
                     <FormGroup>
                         <Label for="nome" className={styles.label}>NOME</Label>
                         <Input name="nome" type="text" id="nome" placeholder="Digite seu nome" className={styles.input} required/>
