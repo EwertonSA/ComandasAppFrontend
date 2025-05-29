@@ -7,15 +7,17 @@ const useGetClientes = (page: number, perPage: number) => {
     () => clienteService.getClientes(page, perPage)
   );
 
+  const clientes = data?.clientes || [];
   const totalPages = data && typeof data.total === "number"
     ? Math.ceil(data.total / perPage)
     : 1;
 
   return {
-    clientes: data || [],
+    clientes,
     totalPages,
     error,
   };
 };
+
 
 export default useGetClientes

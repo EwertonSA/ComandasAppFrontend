@@ -40,7 +40,7 @@ const Clientes = () => {
      </tr>
      </thead>
      <tbody>
-      {clientes.map((cliente: ClienteParams, index: number) => (
+      {Array.isArray(clientes)&&clientes.map((cliente: ClienteParams, index: number) => (
          
      <tr
       key={index}

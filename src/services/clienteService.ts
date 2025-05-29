@@ -17,7 +17,7 @@ const clienteService = {
       },
       })
    
-      return res.data.clientes
+      return res.data
     }  catch (err: any) {
       return []
     }
