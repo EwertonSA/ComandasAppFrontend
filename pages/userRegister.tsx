@@ -16,7 +16,7 @@ return <>
 <HeaderAuth
           logoUrl="/"
         
-          btnContent="Abas"
+      
         />
 <Register/>
     <Footer/>

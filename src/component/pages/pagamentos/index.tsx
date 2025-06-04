@@ -11,7 +11,9 @@ interface PagamentosResponse {
     pagamentos: PagamentosParams[];
   }
 const GetPagamentos = () => {
-  const { pagamentos, error } = usePagamentos();
+  const page = 1
+const perPage = 10
+  const { pagamentos, error } = usePagamentos(page,perPage);
 
   if (error) return <p>Erro ao carregar pagamentos.</p>;
 

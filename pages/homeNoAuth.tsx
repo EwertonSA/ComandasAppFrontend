@@ -45,7 +45,7 @@ useEffect(()=>{
         <main >
           
            
-        <HeaderGeneric btnContent="registrar" btnUrl="/userRegister" logoUrl="/homeNoAuth"/>
+        <HeaderGeneric  logoUrl="/homeNoAuth"/>
        <div className="d-flex flex-column align-items-center justify-content-center">
        <SearchHomeNoAuth/>
       

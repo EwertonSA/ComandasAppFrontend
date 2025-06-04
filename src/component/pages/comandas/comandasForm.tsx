@@ -49,7 +49,7 @@ return <>
  <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
 </Head>
 <main className={styles.main}>
-<HeaderGeneric logoUrl="/register" btnUrl="/pedidos" btnContent="fazer pedidos"/>
+<HeaderGeneric logoUrl="/register"/>
 <Container className='py-5'>
     <p className={styles.formTitle}>
        Cadastro de comandas
