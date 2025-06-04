@@ -31,7 +31,7 @@
 
     &:hover{
         border:2px solid;
-            border-color: $lightBlue;
+            border-color: colors.$lightBlue;
            
             
         
@@ -106,7 +106,7 @@
     word-break: break-word;
 
   &:hover{
-color: $lightBlue;
+color: colors.$lightBlue;
   }
 }
 .Img{
@@ -127,7 +127,7 @@ color: $lightBlue;
     transition: 0.3s;
     
     &:hover{
-    color: $lightBlue;
+    color: colors.$lightBlue;
     }
 }
 @media(max-width:766px){
