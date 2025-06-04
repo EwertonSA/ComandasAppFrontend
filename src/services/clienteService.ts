@@ -33,7 +33,7 @@ getClientesInfo: async (page = 1, perPage = 10, status?: string) => {
 
     console.log('Fazendo requisição para /clientes');
 
-    const res = await api.get('/clienteCompleto', {
+    const res = await api.get('/api/clienteCompleto', {
       params: { page, perPage, status },
       headers: {
         Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ getClientesInfo: async (page = 1, perPage = 10, status?: string) => {
     const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
     try {
     
-      const res = await api.post('/clientes', params,{
+      const res = await api.post('/api/clientes', params,{
         headers: {
           Authorization: `Bearer ${token}`
       },

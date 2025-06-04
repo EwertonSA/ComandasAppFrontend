@@ -14,7 +14,7 @@ const pedidoService={
   pedidos:async()=>{
 const token=sessionStorage.getItem('comandas-token')
 try {
-  const res=await api.get('/pedidos',{
+  const res=await api.get('/api/pedidos',{
     headers:{
       Authorization:`Bearer ${token}`
     }
@@ -27,7 +27,7 @@ try {
   getPedidos:async(page=1,perPage=10)=>{
     const token=sessionStorage.getItem("comandas-token")
     try {
-      const res=await api.get('/pedidoCompleto',{
+      const res=await api.get('/api/pedidoCompleto',{
         params:{page,perPage},
         headers:{
           Authorization:`Bearer ${token}`
@@ -43,7 +43,7 @@ try {
   getOrdersById: async (id: number | string) => {
     const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
 try {
-  const response = await api.get(`/pedidos/${id}`,{
+  const response = await api.get(`/api/pedidos/${id}`,{
     headers: {
       Authorization: `Bearer ${token}`
   },
@@ -60,7 +60,7 @@ try {
   create:async(params:PedidoParams)=>{
     const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
     try {
-        const res=await api.post('/pedidos',params,{
+        const res=await api.post('/api/pedidos',params,{
           headers: {
             Authorization: `Bearer ${token}`
         },
@@ -77,7 +77,7 @@ try {
       
 updateStatus: async (id: string, status: string) => {
   const token=sessionStorage.getItem("comandas-token")
-  const res = await api.put(`/pedidos/${id}`, { status },{
+  const res = await api.put(`/api/pedidos/${id}`, { status },{
     headers: {
       Authorization: `Bearer ${token}`
   },
@@ -134,7 +134,7 @@ registerAll: async ({
 delete:async(id:number,status:string)=>{
   const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
   try {
-    const res=await api.delete(`/pedidos/${id}`,{
+    const res=await api.delete(`/api/pedidos/${id}`,{
       headers: {
         Authorization: `Bearer ${token}`
     },

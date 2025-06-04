@@ -37,7 +37,7 @@ const produtService={
       
         try {
          const token=sessionStorage.getItem("comandas-token")
-          const res=await api.get("/produtos",{
+          const res=await api.get("/api/produtos",{
             params:{page,perPage},
             headers:{
               Authorization:`Bearer ${token}`
@@ -58,7 +58,7 @@ const produtService={
       ): Promise<ProductSearchResponse> => {
         const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
         try {
-          const res = await api.get(`/pedidos/search`, {
+          const res = await api.get(`/api/pedidos/search`, {
            
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ const produtService={
         }
       
         try {
-          const res = await api.get(`/produtos/categoria/${categoria}`, {
+          const res = await api.get(`/api/produtos/categoria/${categoria}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -113,7 +113,7 @@ const produtService={
       },getProductById:async(id:string)=>{
        const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
         try {
-          const res= await api.get(`/produtos/${id}`,{
+          const res= await api.get(`/api/produtos/${id}`,{
             headers:{
               Authorization: `Bearer ${token}`
             }

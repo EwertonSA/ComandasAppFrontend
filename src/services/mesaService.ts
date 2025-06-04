@@ -8,7 +8,7 @@ export const mesaService={
     registerMesa: async (params: MesasParams) => {
       const token=sessionStorage.getItem('comandas-token')
         try {
-          const res = await api.post("/mesas", params,{
+          const res = await api.post("/api/mesas", params,{
             headers: {
               Authorization: `Bearer ${token}`
           },
@@ -24,7 +24,7 @@ export const mesaService={
       getMesas: async (page=1,perPage=10) => {
         try {
           const token=sessionStorage.getItem('comandas-token')
-          const response = await api.get("/mesas",{
+          const response = await api.get("/api/mesas",{
              params:{page,perPage},
             headers: {
               Authorization: `Bearer ${token}`

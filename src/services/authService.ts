@@ -27,7 +27,7 @@ interface clienteParams{
 const authService={
     register: async (params: RegisterLogin) => {
         try {
-          const res = await api.post('/auth/register', params);
+          const res = await api.post('/api/auth/register', params);
           return {
             status: res.status,
             data: res.data
@@ -41,7 +41,7 @@ const authService={
         }
       },
       login:async(params:LoginParams)=>{
-        const res=await api.post('/auth/login',params).catch((error)=>{
+        const res=await api.post('/api/auth/login',params).catch((error)=>{
           if(error.response.status === 400 || error.response.status === 401){
             return error.response
           }
@@ -54,7 +54,7 @@ const authService={
       },
    autoLogin:async(params:LoginParams)=>{
     try {
-      const res=await api.post("auth/autoLogin",params)
+      const res=await api.post("/apiauth/autoLogin",params)
       if(res.status ===200 || res.status ===201 ){
         sessionStorage.setItem("cliente-token",res.data.token)
         return{ ...res.data, status:res.status} 

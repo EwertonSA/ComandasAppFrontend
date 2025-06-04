@@ -12,7 +12,7 @@ export const pagamentoService={
       const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
         try {
           console.log("Dados enviados ao back:", params);
-          const res=await api.post('/pagamentos',params,{
+          const res=await api.post('/api/pagamentos',params,{
             headers: {
               Authorization: `Bearer ${token}`
           },
@@ -28,7 +28,7 @@ export const pagamentoService={
       pagamentos:async(page=1,perPage=10)=>{
         try {
           const token=sessionStorage.getItem("comandas-token")
-          const res=await api.get('/pagamentos',{
+          const res=await api.get('/api/pagamentos',{
             params:{page,perPage},
             headers: {
               Authorization: `Bearer ${token}`
@@ -43,7 +43,7 @@ export const pagamentoService={
         total:async()=>{
             try {
               const token=sessionStorage.getItem("comandas-token")
-              const res=await api.get('/pagamentos/total',{
+              const res=await api.get('/api/pagamentos/total',{
                 headers: {
                   Authorization: `Bearer ${token}`
               },

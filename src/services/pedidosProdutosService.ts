@@ -10,7 +10,7 @@ export const pedidosProdutosService={
     createPedidosProdutos:async(params:PedidosProdutosParams)=>{
         try {
           const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
-          const res=await api.post('/pedidosProdutos',params,{
+          const res=await api.post('/api/pedidosProdutos',params,{
             headers: {
               Authorization: `Bearer ${token}`
           },

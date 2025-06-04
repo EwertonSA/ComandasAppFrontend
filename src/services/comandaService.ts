@@ -10,7 +10,7 @@ export const comandaService={
   getComanda:async()=>{
     const token=sessionStorage.getItem('comandas-token')
     try {
-    const res=await api.get('/comandas',{
+    const res=await api.get('/api/comandas',{
       headers: {
         Authorization: `Bearer ${token}`
     },
@@ -23,7 +23,7 @@ export const comandaService={
   getPedidosComanda:async(comandaId:string)=>{
     const token=sessionStorage.getItem('comandas-token')??sessionStorage.getItem('cliente-token')
     try {
-      const res=await api.get(`/comandas/${comandaId}`,{
+      const res=await api.get(`/api/comandas/${comandaId}`,{
         headers: {
           Authorization: `Bearer ${token}`
       },
@@ -38,7 +38,7 @@ export const comandaService={
       registerComanda: async (params: ComandasParams) => {
         const token=sessionStorage.getItem('comandas-token')??sessionStorage.getItem('cliente-token')
         try {
-          const res = await api.post("/comandas", params,{
+          const res = await api.post("/api/comandas", params,{
             headers: {
               Authorization: `Bearer ${token}`
           },
