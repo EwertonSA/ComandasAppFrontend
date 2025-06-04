@@ -1,4 +1,4 @@
-@import "../../../../styles/colors.module.scss";
+@use "../../../../styles/colors.module.scss";
 
 .imgLogoNav{
     width: 250px;
@@ -33,11 +33,11 @@
 .input{
     background-color: transparent;
     color: white;
-    border-radius: $lightGray;
+    border-radius: colors.$lightGray;
     &:focus{
         background-color: transparent;
         color: white;
-        border-color: $darkGray;
+        border-color: colors.$darkGray;
         box-shadow: none;
     }
     &::placeholder{
@@ -64,7 +64,7 @@
     justify-content: center;
     padding: 0px 24px;
     &:hover{
-    border-color: $lightBlue;
+    border-color: colors.$lightBlue;
     }
 }
 .overlayModal{
@@ -81,7 +81,7 @@
     font-weight: bold;
     cursor: pointer;
     &:hover{
-        color: $lightBlue;
+        color: colors.$lightBlue;
     }
   
 }

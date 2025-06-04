@@ -1,6 +1,6 @@
-@import "../../../../styles/colors.module.scss";
+@use "../../../../styles/colors.module.scss";
 .ctaSection{
-    background-color:$dark ;
+    background-color:colors.$dark ;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,9 +25,9 @@
     border-color: transparent;
     color:white;
     &:hover{
-        border-color:$lightBlue;
+        border-color:colors.$lightBlue;
         border-width: 2px solid;
-        color: $darkGray;
+        color: colors.$darkGray;
         background-color: transparent;
     }
 } 

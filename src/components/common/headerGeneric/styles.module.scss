@@ -1,4 +1,4 @@
-@import "../../../../styles/colors.module.scss";
+@use "../../../../styles/colors.module.scss";
 .header{
     background-color: #151515;
 }
@@ -28,9 +28,9 @@
   }
 
 .headerBtn:hover{
-    border-color: $lightBlue;
+    border-color: colors.$lightBlue;
     background-color: transparent;
-    color: $lightGray;
+    color: colors.$lightGray;
     
 }
 .button{
@@ -55,7 +55,7 @@
     justify-content: center;
     padding: 0px 24px;
     &:hover{
-    border-color: $lightBlue;
+    border-color: colors.$lightBlue;
     }
 }
 .overlayModal{
@@ -72,7 +72,7 @@
     font-weight: bold;
     cursor: pointer;
     &:hover{
-        color: $lightBlue;
+        color: colors.$lightBlue;
     }
   
 }

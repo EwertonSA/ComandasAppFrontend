@@ -1,4 +1,4 @@
-@import '../../../../styles/colors.module.scss';
+@use '../../../../styles/colors.module.scss';
 
 .sectionTitle{
     font-size: 20px;
@@ -7,9 +7,9 @@
 .slideSection{
     margin-bottom: 50px;
     &:hover{
-        border-color: $lightBlue;
+        border-color: colors.$lightBlue;
         background-color: transparent;
-        color: $lightGray;
+        color: colors.$lightGray;
     }
 }
 .total{

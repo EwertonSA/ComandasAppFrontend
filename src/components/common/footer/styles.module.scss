@@ -1,4 +1,4 @@
-@import "../../../../styles/colors.module.scss";
+@use "../../../../styles/colors.module.scss";
 
 .footer{
     display: flex;
@@ -12,10 +12,10 @@
 }
 .footerLink{
     text-decoration: none;
-    color:$lightGray;
+    color:colors.$lightGray;
     transition: 0.4s;
     &:hover{
-        color:$lightBlue
+        color:colors.$lightBlue
     }
 }
 @media(max-width:575px){

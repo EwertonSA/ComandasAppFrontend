@@ -1,4 +1,4 @@
-@import "../../../../styles/colors.module.scss";
+@use "../../../../styles/colors.module.scss";
 
 .imgPresentation{
     width: 550px;
@@ -6,7 +6,7 @@
 .subtitle{
     font-size: 22px;
     font-weight: bold;
-    color: $lightGray;
+    color: colors.$lightGray;
     line-height: 50px;
     margin: 20px 0px 40px 0px;
 }
@@ -23,14 +23,14 @@
     align-items: center;
     gap: 25px;
     padding: 14px 30px;
-    border:2px solid $lightBlue;
+    border:2px solid colors.$lightBlue;
 
 .btnImg{
     width: 11px;
 }
 &:hover{
-    border-color: $darkGray;
-    color:$lightBlue;
+    border-color: colors.$darkGray;
+    color:colors.$lightBlue;
     background-color: transparent;
 }
 }
