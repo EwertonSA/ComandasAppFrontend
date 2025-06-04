@@ -1,4 +1,4 @@
-@import "../styles/colors.module.scss";
+@use "../styles/colors.module.scss";
 .div{
     min-height: 90vh;
 }
@@ -73,7 +73,7 @@
 .main2{
     @extend .main;
       min-height: 90vh;
-    background-image: linear-gradient(to bottom, #8b8b8b1a, #151515),url("../public/comandasApp.jpg");
+    background-image: linear-gradient(to bottom, #8b8b8b1a, #151515),url("/comandasApp.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
