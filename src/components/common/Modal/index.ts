@@ -1,6 +1,7 @@
+import { usePedidosComanda } from "@/src/component/hooks/pedidos/usePedidosComanda"
 import { comandaService } from "@/src/services/comandaService"
 import { NextRouter } from "next/router"
-
+ 
 export function handleLogout(router:NextRouter){
   
 sessionStorage.clear()
@@ -12,13 +13,14 @@ export const handleOpenModal=(setModalOpen:(v:boolean)=>void)=>{
 export const handleCloseModal=(setModalOpen:(v:boolean)=>void)=>{
     setModalOpen(false)
 }
-export async function handleLogoutClientes(router: NextRouter, comandaId: string) {
+
+export async function handleLogoutClientes(router: NextRouter, comandaId: string, totalDelivered: number) {
+    
   try {
     const comanda = await comandaService.getPedidosComanda(comandaId);
  
-    console.log('Status da comanda:', comanda.status);
-    console.log('Objeto comanda:', comanda);
-if(comanda.status ==='pago'){
+
+if(comanda.status ==='pago'&&totalDelivered ===0){
        sessionStorage.clear();
       router.push('/indexLogin');
 }else{

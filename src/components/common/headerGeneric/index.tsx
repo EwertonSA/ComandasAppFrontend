@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { handleCloseModal, handleLogout, handleLogoutClientes, handleOpenModal } from '../Modal';
+import { usePedidosComanda } from '@/src/component/hooks/pedidos/usePedidosComanda';
 
 interface props{
     logoUrl:string;
@@ -16,7 +17,8 @@ const HeaderGeneric=({ logoUrl }: { logoUrl: string })=>{
    
         const [modalOpen, setModalOpen]= useState(false)
         const comandaId=router.query.comandaId as string
-        
+         const {
+    pedidos,error,mutate,abaAtiva,setAbaAtiva,pedidosPendentes,pedidosEntregues,handleCancel,delivered,totalDelivered}=usePedidosComanda(comandaId)
           useEffect(() => {
     if (typeof window !== 'undefined') {
       Modal.setAppElement('#__next'); // Next.js monta a app aqui por padrão
@@ -62,7 +64,7 @@ const HeaderGeneric=({ logoUrl }: { logoUrl: string })=>{
           <Link href={`/pagamentoCliente?comandaId=${comandaId}`} legacyBehavior>
           <a className={styles.modalLink}>Pagamento</a>
           </Link>
-          <a className={styles.modalLink} onClick={()=>handleLogoutClientes(router,comandaId)}>Sair</a>
+          <a className={styles.modalLink} onClick={()=>handleLogoutClientes(router,comandaId,totalDelivered)}>Sair</a>
           </Modal >
     </div>
     
