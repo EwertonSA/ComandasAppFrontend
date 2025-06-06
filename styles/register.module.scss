@@ -33,9 +33,10 @@ background-color: transparent;
     text-transform: none;
 }
 &:focus{
-    background-color: transparent;
+    background-color: black;
     border-color: colors.$lightGray;
     box-shadow: none;
+    color: white
 }}
 .inputName{
     @extend .input;
