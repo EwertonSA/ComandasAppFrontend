@@ -20,6 +20,7 @@ export const comandaService={
       return []
     }
   },
+
   getPedidosComanda:async(comandaId:string)=>{
     const token=sessionStorage.getItem('comandas-token')??sessionStorage.getItem('cliente-token')
     try {

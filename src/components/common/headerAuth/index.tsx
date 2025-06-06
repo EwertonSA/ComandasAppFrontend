@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import Modal from 'react-modal';
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { handleCloseModal, handleLogout, handleOpenModal } from "../Modal";
+import { handleCloseModal, handleLogout, handleLogoutClientes, handleOpenModal } from "../Modal";
 import Link from "next/link";
 import { Container } from "reactstrap";
 
@@ -11,6 +11,7 @@ Modal.setAppElement("#__next");
 
 const HeaderAuth = ({ logoUrl }: { logoUrl: string }) => {
   const router = useRouter();
+  const comandaId = router.query.comandaId as string;
   const [modalOpen, setModalOpen] = useState(false);
 
   // Mapeia cada rota para um texto

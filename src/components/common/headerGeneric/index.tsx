@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { handleCloseModal, handleLogout, handleOpenModal } from '../Modal';
+import { handleCloseModal, handleLogout, handleLogoutClientes, handleOpenModal } from '../Modal';
 
 interface props{
     logoUrl:string;
@@ -13,8 +13,9 @@ interface props{
 }
 const HeaderGeneric=({ logoUrl }: { logoUrl: string })=>{
         const router=useRouter();
+   
         const [modalOpen, setModalOpen]= useState(false)
-        const {comandaId}=router.query
+        const comandaId=router.query.comandaId as string
         
           useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -61,7 +62,7 @@ const HeaderGeneric=({ logoUrl }: { logoUrl: string })=>{
           <Link href={`/pagamentoCliente?comandaId=${comandaId}`} legacyBehavior>
           <a className={styles.modalLink}>Pagamento</a>
           </Link>
-          <a className={styles.modalLink} onClick={()=>handleLogout(router)}>Sair</a>
+          <a className={styles.modalLink} onClick={()=>handleLogoutClientes(router,comandaId)}>Sair</a>
           </Modal >
     </div>
     
