@@ -32,8 +32,8 @@ const ProductId=()=>{
     }
 let imgUrl = ''
 if (data.thumbnailUrl) {
-  const cleanPath = data.thumbnailUrl.replace(/^thumbnailUrl\//, '')
-  imgUrl = `${process.env.NEXT_PUBLIC_BASEURL}/thumbnailUrl/${cleanPath}`
+  const cleanPath = data.thumbnailUrl.replace(/^thumbnailUrl\//, '') // remove "thumbnailUrl/"
+  imgUrl = `${process.env.NEXT_PUBLIC_BASEURL}/${cleanPath}` // monta URL final correta
 }
     const handleIncrease=()=>setquantity((prev)=>prev+1)
     const handleDecrease=()=>setquantity((prev)=>prev>1?prev-1:1)
