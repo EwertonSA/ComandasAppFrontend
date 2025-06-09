@@ -44,7 +44,7 @@ const AllProducts = () => {
               : defaultImg;
             return (
             
-              <tr key={produto.id} onClick={() => router.push(`/produto/${produto.id}`)} className={styles.clickableRow}>
+              <tr key={produto.id} onClick={() => router.push(`/produtoComanda/${produto.id}`)} className={styles.clickableRow}>
                 <td className={styles.rowImg}>
                   <img src={imgUlr} alt="" className={styles.Img} />
                 </td>

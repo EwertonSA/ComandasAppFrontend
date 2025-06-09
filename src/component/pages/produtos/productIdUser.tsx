@@ -91,7 +91,7 @@ const ProdutoIdForUser = () => {
         <p className={styles.subTitle}>{data.preco}</p>
         <p className={styles.subTitle}>{data.categoria}</p>
 
-        <Form onSubmit={handleOrder}>
+        <Form onSubmit={handleOrder} >
           <Input
             id="quantidade"
             type="number"

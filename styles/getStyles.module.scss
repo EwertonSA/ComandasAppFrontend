@@ -51,6 +51,23 @@
     text-align: center;
     margin: 20px;
 }
+.input{
+border-color: colors.$darkGray;
+color: white;
+background-color: transparent;
+margin-bottom: 12px;
+
+
+&::placeholder{
+    color: colors.$lightGray;
+    text-transform: none;
+}
+&:focus{
+    background-color: black;
+    border-color: colors.$lightGray;
+    box-shadow: none;
+    color: white
+}}
 .btn{
     display: flex;
     align-items: center;

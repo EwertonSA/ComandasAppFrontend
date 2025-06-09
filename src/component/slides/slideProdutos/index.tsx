@@ -30,7 +30,7 @@ const SlideCategorias = ({ produtosPorCategoria }: SlideCategoriasProps) => {
   items={produtosPorCategoria[categoria]}
   renderItem={(product) => (
     <Link href={`/produtos/${product.id}?comandaId=${router.query.comandaId}`} key={product.id}>
-      <SlideCard product={product} />
+      <SlideCard product={product} disableInternalNavigation/>
     </Link>
   )}
 />
