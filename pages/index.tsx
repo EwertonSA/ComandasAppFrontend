@@ -1,16 +1,12 @@
 import Head from 'next/head';
 import styles from '../styles/HomeNoAuth.module.scss'
-import HeaderNoAuth from '@/src/components/homeNoAuth/headerNoAuth';
-import PresentationSection from '@/src/components/homeNoAuth/presentationSection';
-import CardSection from '@/src/components/homeNoAuth/cardSection';
-import SlideSection from '@/src/component/slides/slideSection';
 import { GetStaticProps } from 'next';
 import produtService, { ProductType } from '@/src/services/productService';
 import { ReactNode, useEffect } from 'react';
-import Footer from '@/src/components/common/footer';
+
 import Aos from 'aos';
 import 'aos/dist/aos.css'
-import Link from "next/link";
+
 import HeaderIndex from "@/src/components/homeNoAuth/headerIndex";
 import FooterIndex from "@/src/components/common/footerIndex";
 import IndexDescription from "@/src/component/render/cards/static/indexDesciption";
