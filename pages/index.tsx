@@ -12,6 +12,7 @@ import FooterIndex from "@/src/components/common/footerIndex";
 import IndexDescription from "@/src/component/render/cards/static/indexDesciption";
 import IndexProjects from "@/src/component/render/cards/static/indexProjects";
 import IndexTech from "@/src/component/render/cards/static/indexTech";
+import IndexCertifications from '@/src/component/render/cards/static/indexCertifications';
 export interface IndexPageProps{
   children?: ReactNode;
   
@@ -39,6 +40,7 @@ Aos.init()
 
      <IndexDescription/>
      <IndexProjects/>
+     <IndexCertifications/>
      <IndexTech/>
    
       </main>
