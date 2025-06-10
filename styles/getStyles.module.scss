@@ -104,7 +104,7 @@ margin-bottom: 12px;
 }
 .main4{
     @extend .main;
-    min-height: 90vh;
+    min-width: 100%;
     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/sobremesa.jpg");
     background-size: cover;
     background-repeat: no-repeat;
