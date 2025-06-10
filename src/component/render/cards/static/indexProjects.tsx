@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 const IndexProjects=()=>{
     const router=useRouter()
 return(
-    <main>
+    <main className={styles.main4}>
        <div className="d-flex flex-wrap flex-column justify-content-center align-items-center">
             <p className={styles.title}>Projetos FullStack com JS</p>
              <p className={styles.subtitle}>Projeto de serviço para restaurantes</p>
