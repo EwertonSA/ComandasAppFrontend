@@ -1,13 +1,13 @@
 
 
 import Head from "next/head";
-import styles from "../styles/getStyles.module.scss";
+
 import HeaderNoAuth from "@/src/components/homeNoAuth/headerNoAuth";
 import PresentationSection from "@/src/components/homeNoAuth/presentationSection";
 import CardSection from "@/src/components/homeNoAuth/cardSection";
 import SlideSection from "@/src/component/slides/slideSection";
 import Footer from "@/src/components/common/footer";
-
+import styles from '../styles/HomeNoAuth.module.scss'
 
 
 

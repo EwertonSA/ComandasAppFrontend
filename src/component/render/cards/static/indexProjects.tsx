@@ -1,6 +1,8 @@
 import Link from "next/link"
 import styles from "../../../../../styles/getStyles.module.scss"
+import { useRouter } from "next/router"
 const IndexProjects=()=>{
+    const router=useRouter()
 return(
     <main>
        <div className="d-flex flex-wrap flex-column justify-content-center align-items-center">
@@ -13,7 +15,7 @@ return(
              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, quas sit eligendi, quis saepe vitae iusto inventore
      architecto delectus nostrum obcaecati nisi animi consequatur praesentium deserunt explicabo earum incidunt.</p>
      
-              <button className={styles.btn}>Ver Front-End</button>
+              <button className={styles.btn} onClick={()=>router.push('/indexComandas')}>Ver Front-End</button>
             </div>
              
             <Link href="https://esadev.com.br/admin" target="_blank"  className={styles.container}>
