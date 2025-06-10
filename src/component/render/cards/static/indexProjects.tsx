@@ -19,7 +19,7 @@ return(
             </div>
              
             <Link href="https://esadev.com.br/admin" target="_blank"  className={styles.container}>
- <img src="/comadasApp.jpg" alt=""  className={styles.slideImg}/>
+ <img src="/comandasApp.jpg" alt=""  className={styles.slideImg}/>
  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, quas sit eligendi, quis saepe vitae iusto inventore
      architecto delectus nostrum obcaecati nisi animi consequatur praesentium deserunt explicabo earum incidunt.</p>
               <button className={styles.contactButton}>Ver Back-End</button>

@@ -1,7 +1,7 @@
 import styles from "../../../../../styles/getStyles.module.scss"
 const IndexCertifications=()=>{
 return(
-    <main >
+    <main className={styles.main4}>
 <p className={styles.title}>Certificações</p>
 <p className={styles.subtitle}><img src={"/logoCta.png"} className={styles.Img}></img>HTML5</p>
 <p className={styles.subtitle}><img src={"/logoCta.png"}className={styles.Img}></img>CSS</p>
