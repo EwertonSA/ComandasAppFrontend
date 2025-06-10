@@ -5,9 +5,10 @@
 .main{
     display: flex;
    
-    
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
+
     align-items: center;
     background-color: black;
   
@@ -101,6 +102,53 @@ margin-bottom: 12px;
     align-items: center;
     background-color: black;
 }
+.main4{
+    @extend .main;
+    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/sobremesa.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.hero {
+  text-align: center;
+  max-width: 800px;
+  width: 100%;
+}
+
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.content{
+    margin-bottom: 20px;
+    max-width: 800px;
+}
+.techStack {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+.contactButton {
+  background-color: #34d399;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.contactButton:hover {
+  background-color: #059669;
+}
+
 .slideImg{
     height: 200px;
     width: 280px;
