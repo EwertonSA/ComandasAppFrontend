@@ -34,7 +34,7 @@ Aos.init()
         />
       </Head>
 
-      <main className={styles.main4}>
+      <main className={styles.main}>
    <HeaderIndex/>
 
      <IndexDescription/>
