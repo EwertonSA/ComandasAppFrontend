@@ -1,8 +1,8 @@
 import Link from "next/link"
-
+import styles from "../footer/styles.module.scss"
 const FooterIndex=()=>{
 return(
-    <main className="d-flex flex-row justify-content-center">
+    <main className={styles.footer}>
     <Link href={'https://github.com/EwertonSA'}>
     
     <p>Github</p>
