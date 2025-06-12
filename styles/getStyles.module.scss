@@ -109,7 +109,20 @@ margin-bottom: 12px;
     background-size: cover;
     background-repeat: no-repeat;
 }
-
+.main5{
+    @extend .main;
+    min-width: 100%;
+    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.main6{
+    @extend .main;
+    min-width: 100%;
+    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/1.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 .hero {
   text-align: center;
   max-width: 800px;
@@ -127,6 +140,7 @@ margin-bottom: 12px;
 .content{
     margin-bottom: 20px;
     max-width: 800px;
+    font-size: 20px;
 }
 .techStack {
   display: flex;
@@ -149,7 +163,29 @@ margin-bottom: 12px;
 .contactButton:hover {
   background-color: #059669;
 }
+.certifications{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    padding: 20px;
+  
 
+   
+
+}
+.tech{
+    @extend .subtitle;
+    border:2px solid white;
+    border-radius: 5px;
+    margin: 50px 20px;
+    padding: 20px 20px;
+      cursor: pointer;
+    &:hover{
+        background-color: colors.$lightGray;
+    }
+}
 .slideImg{
     height: 200px;
     width: 280px;

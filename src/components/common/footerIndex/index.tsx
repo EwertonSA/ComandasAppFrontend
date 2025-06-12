@@ -1,5 +1,5 @@
 import Link from "next/link"
-import styles from "../footer/styles.module.scss"
+import styles from "../../../../styles/getStyles.module.scss"
 const FooterIndex=()=>{
 return(
     <main className={styles.footer}>

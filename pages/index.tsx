@@ -13,6 +13,7 @@ import IndexDescription from "@/src/component/render/cards/static/indexDesciptio
 import IndexProjects from "@/src/component/render/cards/static/indexProjects";
 import IndexTech from "@/src/component/render/cards/static/indexTech";
 import IndexCertifications from '@/src/component/render/cards/static/indexCertifications';
+import Footer from '@/src/components/common/footer';
 export interface IndexPageProps{
   children?: ReactNode;
   
@@ -36,15 +37,15 @@ Aos.init()
       </Head>
 
       <main className={styles.main}>
-   <HeaderIndex/>
+
 
      <IndexDescription/>
      <IndexProjects/>
      <IndexCertifications/>
      <IndexTech/>
-   
+      <Footer/>
       </main>
-           <FooterIndex/>
+        
     </>
   );
 };
