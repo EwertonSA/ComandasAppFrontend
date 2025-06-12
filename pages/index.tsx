@@ -37,7 +37,7 @@ Aos.init()
       </Head>
 
       <main className={styles.main}>
-
+   <HeaderIndex/>
 
      <IndexDescription/>
      <IndexProjects/>
