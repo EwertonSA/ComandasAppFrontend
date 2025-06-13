@@ -1,3 +1,4 @@
+import Link from "next/link"
 import styles from "../../../../../styles/getStyles.module.scss"
 const IndexCertifications=()=>{
 return(
@@ -5,20 +6,20 @@ return(
         <div className=" pt-5">
 <p className={styles.title}>Certificações</p>
 <div className={styles.certifications}> 
-<p className={styles.tech}><img src={"/logoCta.png"} className={styles.Img}></img>HTML5</p>
-<p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>CSS</p>
-<p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Bootstrap e Sass</p>
-<p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>React</p>
-<p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Next</p>
-<p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Node</p>
-<p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Banco de dados SQL</p>
-<p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>SQL no Node e Prisma ORM</p>
-<p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>MongoDB</p>
-<p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>PHP MySQL</p>
+<Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"} className={styles.Img}></img>HTML5</p></Link>
+<Link href={"/css.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>CSS</p></Link>
+<Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Bootstrap e Sass</p></Link>
+<Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>React</p></Link>
+<Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Next</p></Link>
+<Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Node</p></Link>
+<Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Banco de dados SQL</p></Link>
+<Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>SQL no Node e Prisma ORM</p></Link>
+<Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>MongoDB</p></Link>
+<Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>PHP MySQL</p></Link>
 </div>
 <p></p>
 </div>
     </main>
 )
 }
-export default IndexCertifications
+export default IndexCertifications  
