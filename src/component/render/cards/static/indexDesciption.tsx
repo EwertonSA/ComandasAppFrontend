@@ -2,7 +2,7 @@ import Link from "next/link"
 import styles from "../../../../../styles/getStyles.module.scss"
 const IndexDescription=()=>{
 return(
-    <main className={styles.main5}>
+    <main className={styles.main5} data-aos="fade-right" data-aos-duration='2000'>
 
           <h1 className={styles.title}>
             Bem-vindo(a) ao portfólio de Ewerton Silva de Abreu

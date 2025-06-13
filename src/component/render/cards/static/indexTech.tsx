@@ -1,7 +1,7 @@
 import styles from "../../../../../styles/getStyles.module.scss"
 const IndexTech=()=>{
 return(
-    <main className={styles.main4}>
+    <main className={styles.main4} data-aos="fade-zoom-in" data-aos-duration="2000">
           <p className={styles.title}>Tecnologias</p>
           <div className={styles.techStack} >
       

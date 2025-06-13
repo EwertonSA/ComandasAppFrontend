@@ -1,10 +1,10 @@
 import styles from "../../../../../styles/getStyles.module.scss"
 const IndexCertifications=()=>{
 return(
-    <main className={styles.main6}>
+    <main className={styles.main6} data-aos="fade-zoom-out" data-aos-duration="2000">
         <div className=" pt-5">
 <p className={styles.title}>Certificações</p>
-<div className={styles.certifications}>
+<div className={styles.certifications}> 
 <p className={styles.tech}><img src={"/logoCta.png"} className={styles.Img}></img>HTML5</p>
 <p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>CSS</p>
 <p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Bootstrap e Sass</p>

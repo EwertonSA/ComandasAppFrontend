@@ -8,7 +8,6 @@ import Aos from 'aos';
 import 'aos/dist/aos.css'
 
 import HeaderIndex from "@/src/components/homeNoAuth/headerIndex";
-import FooterIndex from "@/src/components/common/footerIndex";
 import IndexDescription from "@/src/component/render/cards/static/indexDesciption";
 import IndexProjects from "@/src/component/render/cards/static/indexProjects";
 import IndexTech from "@/src/component/render/cards/static/indexTech";
@@ -36,13 +35,13 @@ Aos.init()
         />
       </Head>
 
-      <main className={styles.main}>
+      <main className={styles.main} >
    <HeaderIndex/>
 
-     <IndexDescription/>
-     <IndexProjects/>
-     <IndexCertifications/>
-     <IndexTech/>
+     <IndexDescription />
+     <IndexProjects />
+     <IndexCertifications />
+     <IndexTech />
       <Footer/>
       </main>
         
