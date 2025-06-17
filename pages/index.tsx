@@ -10,7 +10,6 @@ import 'aos/dist/aos.css'
 import HeaderIndex from "@/src/components/homeNoAuth/headerIndex";
 import IndexDescription from "@/src/component/render/cards/static/indexDesciption";
 import IndexProjects from "@/src/component/render/cards/static/indexProjects";
-import IndexTech from "@/src/component/render/cards/static/indexTech";
 import IndexCertifications from '@/src/component/render/cards/static/indexCertifications';
 import Footer from '@/src/components/common/footer';
 export interface IndexPageProps{
@@ -41,7 +40,7 @@ Aos.init()
      <IndexDescription />
      <IndexProjects />
      <IndexCertifications />
-     <IndexTech />
+
       <Footer/>
       </main>
         
