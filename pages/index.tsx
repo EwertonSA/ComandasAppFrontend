@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import styles from "../styles/getStyles.module.scss";
+
 import { GetStaticProps } from 'next';
 import produtService, { ProductType } from '@/src/services/productService';
 import { ReactNode, useEffect } from 'react';
@@ -34,7 +34,7 @@ Aos.init()
         />
       </Head>
 
-      <main className={styles.main} >
+      <main >
    <HeaderIndex/>
 
      <IndexDescription />

@@ -104,21 +104,21 @@ margin-bottom: 12px;
 }
 .main4{
     @extend .main;
-    min-width: 100%;
+    width: 100%;
     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/imgFrontend.png");
     background-size: cover;
     background-repeat: no-repeat;
 }
 .main5{
     @extend .main;
-    min-width: 100%;
+    width: 100%;
     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/2.png");
     background-size: cover;
     background-repeat: no-repeat;
 }
 .main6{
     @extend .main;
-    min-width: 100%;
+    width: 100%;
     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/1.png");
     background-size: cover;
     background-repeat: no-repeat;
