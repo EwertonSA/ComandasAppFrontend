@@ -1,9 +1,11 @@
 import { Container } from "reactstrap"
 import styles from './styles.module.scss'
+import Link from "next/link"
 const CardSection=()=>{
     return(
         <>
         <p className={styles.sectionTitle}>O QUE VOCÊ VAI ACESSAR</p>
+        <Link href="/indexLogin">
         <Container className="d-flex flex-wrap justify-content-center gap-4 pb-5">
             <div className={styles.card1}>
                 <p className={styles.cardTitle}>Entradas</p>
@@ -42,6 +44,7 @@ const CardSection=()=>{
                     saepe culpa consectetur, harum, numquam voluptas. Aperiam deserunt saepe cum.</p>
             </div>
         </Container>
+        </Link>
         </>
     )
 }
