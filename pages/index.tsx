@@ -8,10 +8,11 @@ import Aos from 'aos';
 import 'aos/dist/aos.css'
 
 import HeaderIndex from "@/src/components/homeNoAuth/headerIndex";
-import IndexDescription from "@/src/component/render/cards/static/indexDesciption";
+
 import IndexProjects from "@/src/component/render/cards/static/indexProjects";
 import IndexCertifications from '@/src/component/render/cards/static/indexCertifications';
 import Footer from '@/src/components/common/footer';
+import IndexDescription from '@/src/component/render/cards/static/indexDescription';
 export interface IndexPageProps{
   children?: ReactNode;
   
@@ -37,10 +38,12 @@ Aos.init()
       <main >
    <HeaderIndex/>
 
-     <IndexDescription />
+         
      <IndexProjects />
-     <IndexCertifications />
+        <IndexDescription />
 
+     <IndexCertifications />
+ 
       <Footer/>
       </main>
         

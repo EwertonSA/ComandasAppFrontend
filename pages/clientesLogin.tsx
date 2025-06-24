@@ -5,6 +5,7 @@ import Footer from "@/src/components/common/footer";
 import ClienteLogin from "@/src/component/pages/login/clienteLogin";
 import { comandaService } from "@/src/services/comandaService"; // ou onde tem o getMesas
 import { mesaService } from "@/src/services/mesaService";
+import HeaderNoAuth from "@/src/components/homeNoAuth/headerNoAuth";
 
 const IndexPage = () => {
   const [mesas, setMesas] = useState([]);
@@ -34,7 +35,7 @@ const IndexPage = () => {
         <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
       </Head>
       <main>
-        <HeaderGeneric  logoUrl="/" />
+        <HeaderNoAuth/>
         <ClienteLogin
           mesas={mesas}
           mesaSelecionada={mesaSelecionada}

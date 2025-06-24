@@ -4,11 +4,14 @@ import { useRouter } from "next/router"
 const IndexProjects=()=>{
     const router=useRouter()
 return(
-    <main className={styles.main4} data-aos="fade-left" data-aos-duration="2000">
-       <div className="d-flex flex-wrap flex-column justify-content-center align-items-center">
-            <p className={styles.title}>Projetos FullStack com JS</p>
-             <p className={styles.subtitle}>Projeto de serviço para restaurantes</p>
-            <div className="d-flex flex-row">
+    <main className={styles.main5} data-aos="fade-left" data-aos-duration="2000">
+       <div className="d-flex flex-wrap flex-column justify-content-center align-items-center mt-10 mb-10">
+           <h1 className={styles.title}>
+            Bem-vindo(a) ao portfólio de Ewerton Silva de Abreu
+          </h1>
+            <p className={styles.subtitle}>Projetos FullStack com JS</p>
+            
+            <div className={styles.projects}>
             <div  className={styles.container}>
 
             <img src="/comandasApp.jpg" alt=""  className={styles.slideImg}/>

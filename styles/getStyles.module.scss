@@ -8,7 +8,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-
+    width: 100%;
     align-items: center;
     background-color: black;
   
@@ -92,8 +92,10 @@ margin-bottom: 12px;
     @extend .main;
       min-height: 90vh;
     background-image: linear-gradient(to bottom, #8b8b8b1a, #151515),url("/comandasApp.jpg");
+    overflow-x: hidden;
     background-size: cover;
     background-repeat: no-repeat;
+     min-height: 100vh;
 }
 .main3{
     display: flex;
@@ -101,27 +103,38 @@ margin-bottom: 12px;
     justify-content: flex-start;
     align-items: center;
     background-color: black;
+     min-height: 100vh;
 }
 .main4{
     @extend .main;
-    width: 100%;
+    max-width: 100%;
     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/imgFrontend.png");
+    overflow-x: hidden;
     background-size: cover;
     background-repeat: no-repeat;
+    min-height: 100vh;
+   
+    margin: 0 auto;
 }
-.main5{
-    @extend .main;
-    width: 100%;
-    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/2.png");
-    background-size: cover;
-    background-repeat: no-repeat;
+.main5 {
+  @extend .main;
+  width: 100%;
+  overflow-x: hidden;
+  background-image: linear-gradient(to bottom, #8b8b8b1a, #151515), url("/2.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
+
 .main6{
     @extend .main;
-    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/1.png");
     background-size: cover;
     background-repeat: no-repeat;
+    min-height: 100vh;
 }
 .hero {
   text-align: center;
@@ -138,9 +151,20 @@ margin-bottom: 12px;
 }
 
 .content{
-    margin-bottom: 20px;
+  margin: 20px 20px;
     max-width: 800px;
     font-size: 20px;
+}
+.projects{
+    display: flex;
+   flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+     max-width: 900px;
+    margin: 0 auto;
+
+
 }
 .techStack {
   display: flex;
@@ -249,4 +273,28 @@ color: colors.$lightBlue;
       padding:0px;
   gap: 0px;
   }
+  .container{
+     width: 250px;
+ 
+  }
+}
+@media(max-width:1200px){
+    .projects{
+        max-width: 600px;
+    }
+    .title{
+        font-size: 24px;
+    }
+    .content{
+font-size: 14px;
+max-width: 600px
+    };
+}
+@media(max-width:520px){
+    .title{
+        font-size: 20px;
+    }
+    .subtitle{
+        font-size: 14px;
+    }
 }

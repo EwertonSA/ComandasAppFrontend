@@ -2,12 +2,10 @@ import Link from "next/link"
 import styles from "../../../../../styles/getStyles.module.scss"
 const IndexDescription=()=>{
 return(
-    <main className={styles.main5} data-aos="fade-right" data-aos-duration='2000'>
-
-          <h1 className={styles.title}>
-            Bem-vindo(a) ao portfólio de Ewerton Silva de Abreu
-          </h1>
-          <p className={styles.subtitle}>
+    <main className={styles.main4} >
+        <div className="d-flex flex-wrap flex-column justify-content-center align-items-center py-10">
+       
+          <p className={styles.title}>
             Desenvolvedor Full Stack focado em soluções com JavaScript, React,
             Node.js e PostgreSQL.
           </p>
@@ -28,8 +26,9 @@ return(
                 <Link href="mailto:seuemail@email.com">
             <button className={styles.contactButton}>Entrar em contato</button>
           </Link>
-
+          </div>
     </main>
 )
 }
 export default IndexDescription
+
