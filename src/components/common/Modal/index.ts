@@ -1,32 +1,36 @@
 import { usePedidosComanda } from "@/src/component/hooks/pedidos/usePedidosComanda"
 import { comandaService } from "@/src/services/comandaService"
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime"
 import { NextRouter } from "next/router"
- 
-export function handleLogout(router:NextRouter){
-  
-sessionStorage.clear()
-router.push('/indexLogin')
+export async function handleLogout(router: AppRouterInstance) {
+  sessionStorage.clear();
+  await router.push('/login/index');
 }
+
 export const handleOpenModal=(setModalOpen:(v:boolean)=>void)=>{
     setModalOpen(true)
 }
 export const handleCloseModal=(setModalOpen:(v:boolean)=>void)=>{
     setModalOpen(false)
 }
+export async function handleLogoutClientes(
+  router: AppRouterInstance,
+  comandaId: string,
+  totalDelivered: number
+) {
+  const token = typeof window !== "undefined"
+    ? sessionStorage.getItem("comandas-token")
+    : null;
 
-export async function handleLogoutClientes(router: NextRouter, comandaId: string, totalDelivered: number) {
-    
   try {
-    const comanda = await comandaService.getPedidosComanda(comandaId);
- 
+    const comanda = await comandaService.getPedidosComanda(token, comandaId);
 
-if(comanda.status ==='pago'&&totalDelivered ===0){
-       sessionStorage.clear();
-      router.push('/indexLogin');
-}else{
-  alert('Você só pode sair após concluir o pagamento da comanda.');
-}
-
+    if (comanda.status === 'pago' && totalDelivered === 0) {
+      sessionStorage.clear();
+      await router.push('/indexLogin');
+    } else {
+      alert('Você só pode sair após concluir o pagamento da comanda.');
+    }
   } catch (error) {
     console.error('Erro ao verificar status da comanda:', error);
     alert('Erro ao verificar pagamento. Tente novamente.');

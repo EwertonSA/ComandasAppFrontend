@@ -8,14 +8,12 @@ export interface PagamentosParams{
     status:string
     }
 export const pagamentoService={
-    pagamento:async(params:PagamentosParams)=>{
-      const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
+    pagamento:async(token:string|null,params:PagamentosParams)=>{
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
         try {
-          console.log("Dados enviados ao back:", params);
+   
           const res=await api.post('/api/pagamentos',params,{
-            headers: {
-              Authorization: `Bearer ${token}`
-          },
+            headers
           })
           return res.data
         } catch (err:any) {
@@ -25,31 +23,31 @@ export const pagamentoService={
           }; 
         }
       },
-      pagamentos:async(page=1,perPage=10)=>{
+      pagamentos:async(token:string|null,page=1,perPage=10)=>{
         try {
-          const token=sessionStorage.getItem("comandas-token")
+           const headers = token ? { Authorization: `Bearer ${token}` } : {};
           const res=await api.get('/api/pagamentos',{
             params:{page,perPage},
-            headers: {
-              Authorization: `Bearer ${token}`
-          },
+            headers
           })
+       
           return res.data
         } catch (error) {
           return []
         }
         },
         
-        total:async()=>{
+        total:async(token:string|null)=>{
             try {
-              const token=sessionStorage.getItem("comandas-token")
+             const headers = token ? { Authorization: `Bearer ${token}` } : {};
               const res=await api.get('/api/pagamentos/total',{
-                headers: {
-                  Authorization: `Bearer ${token}`
-              },
+                headers
               })
+         
               return res.data
             } catch (error) {
+           
+
               if (error instanceof Error) {
                 console.error("Erro:", {
                   message: error.message,

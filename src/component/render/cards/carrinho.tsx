@@ -1,5 +1,5 @@
 import { Button, Container } from "reactstrap";
-import { Pedido } from "./pedidoList"
+import { Pedido } from "../../../../app/employeeApp/comandas/[id]/pedidoList"
 import styles from "../../../../styles/getStyles.module.scss"
 import Link from "next/link";
 interface CardProps{
@@ -20,7 +20,7 @@ return(
     <Container className={styles.main}>
   
   {
-  pedidos.map((pedido:any) => (
+  pedidos.filter(pedido=>pedido!=null).map((pedido:any) => (
         <div key={pedido.id} className={styles.container}>
           <p className={styles.title}>Produtos:</p> 
           <ul>
@@ -31,10 +31,10 @@ return(
                 : defaultImage;
 
               return (
-                <div key={`${item.produto.id}-${index}`}>
+                <li key={`${item.produto.id}-${index}`}>
                   <img src={imageUrl} alt={item.produto.nome}  className={styles.slide} /><br/>
                   {item.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
-                </div>
+                </li>
               );
             })}
           </ul>

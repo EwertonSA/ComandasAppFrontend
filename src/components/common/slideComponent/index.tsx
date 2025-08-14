@@ -1,20 +1,15 @@
+'use client';
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/splide/dist/css/splide.min.css";
-import { ReactElement } from "react";
+import { ReactNode, Children } from "react";
 
-interface SlideComponentProps<T> {
-  items: T[];
-  renderItem: (item: T) => ReactElement;
+interface SlideComponentProps {
+  children: ReactNode;
+  itemsLength: number;
 }
 
-const SlideComponent = <T,>({ items, renderItem }: SlideComponentProps<T>) => {
-  let slideCount = 0;
-
-  if (items?.length > 4) {
-    slideCount = 4;
-  } else if (items) {
-    slideCount = items.length;
-  }
+const SlideComponent = ({ children, itemsLength }: SlideComponentProps) => {
+  let slideCount = itemsLength > 4 ? 4 : itemsLength;
 
   return (
     <div className="d-flex flex-column align-items-center py-5">
@@ -25,19 +20,19 @@ const SlideComponent = <T,>({ items, renderItem }: SlideComponentProps<T>) => {
           perMove: 1,
           width: slideCount * 300,
           pagination: false,
-          arrows: items?.length > 4,
-          drag: items?.length > 4,
+          arrows: itemsLength > 4,
+          drag: itemsLength > 4,
           breakpoints: {
             1200: {
               perPage: slideCount >= 2 ? 2 : 1,
-              arrows: items?.length > 2,
-              drag: items?.length > 2,
+              arrows: itemsLength > 2,
+              drag: itemsLength > 2,
               width: slideCount >= 2 ? 600 : 300,
             },
             600: {
               perPage: 1,
-              arrows: items?.length > 1,
-              drag: items?.length > 1,
+              arrows: itemsLength > 1,
+              drag: itemsLength > 1,
               width: 300,
             },
             300: {
@@ -47,8 +42,8 @@ const SlideComponent = <T,>({ items, renderItem }: SlideComponentProps<T>) => {
           },
         }}
       >
-        {Array.isArray(items)&&items?.map((item, index) => (
-          <SplideSlide key={index}>{renderItem(item)}</SplideSlide>
+        {Children.map(children, (child) => (
+          <SplideSlide>{child}</SplideSlide>
         ))}
       </Splide>
     </div>

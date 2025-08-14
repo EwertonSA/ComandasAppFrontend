@@ -3,6 +3,7 @@ import styles from '../../../../components/common/slideCard/styles.module.scss'
 import Link from "next/link";
 
 
+
 interface pedidoProps{
     pedido:PedidosType
 }
@@ -11,8 +12,8 @@ interface pedidoProps{
 const PedidoCard=({pedido}:pedidoProps)=>{
     return <>
     <div className={styles.slide}>
-    
-    <img src="/favicon.ico" alt="" className={styles.slideImg} />
+     <Link href={`/employeeApp/comandas/${pedido.comandaId}`}>
+    <img src="/favicon.ico" alt="" className={styles.slideImg} /></Link>
     <p className={styles.slideDescription}>Pedido Id: {pedido.id}</p>
     <p className={styles.slideDescription}>Comanda Id: {pedido.comandaId}</p>
         <p className={styles.slideTitle}>Total pedido: {pedido.total}</p>

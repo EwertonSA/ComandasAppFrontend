@@ -1,6 +1,5 @@
-import clienteService from "@/src/services/clienteService";
-import Head from "next/head";
-import { useRouter } from "next/router";
+
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 import styles from "../../../../styles/register.module.scss";
@@ -18,13 +17,16 @@ const Pagamentos = ({redirectTo}:PagamentosProps) => {
   const [comandaId, setComandaId] = useState("");
   const [valor, setValor] = useState("");
   const [formaPagamento, setFormaPagamento] = useState("");
+  const searchParams=useSearchParams()
 
   useEffect(() => {
-    const comandaId = router.query.comandaId;
+    const comandaId = searchParams.get('comandaId');
     if (!comandaId) return;
-
-    const fetchPagamento = async () => {
-      const comanda = await comandaService.getPedidosComanda(comandaId as string);
+  const token = typeof window !== "undefined"
+    ? sessionStorage.getItem("comandas-token")
+    : null;
+    const fetchPagamento = async (token:string |null) => {
+      const comanda = await comandaService.getPedidosComanda(token,comandaId as string);
       if (comanda && comanda.pedidos && comanda.pedidos.length > 0) {
         const totalCoamnda = comanda.pedidos.reduce((acc: number, pedido: any) => {
           const isEntregue=pedido.status?.toLowerCase()==="entregue"
@@ -40,13 +42,15 @@ const Pagamentos = ({redirectTo}:PagamentosProps) => {
       }
     };
 
-    fetchPagamento();
-  }, [router.query.comandaId]);
+    fetchPagamento(token);
+  }, [searchParams]);
 
   const handleSubmit = async (ev: FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
-
-    const res = await pagamentoService.pagamento({
+  const token = typeof window !== "undefined"
+    ? sessionStorage.getItem("comandas-token")
+    : null;
+    const res = await pagamentoService.pagamento(token,{
       comandaId,
       valor,
       formaPagamento,
@@ -75,10 +79,7 @@ if(redirectTo) redirectTo()
 
   return (
     <>
-      <Head>
-        <title>Registro</title>
-        <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
-      </Head>
+ 
       <main>
         <Container className="py-5">
           <p className={styles.formTitle}>Bem-vindo ao pagamento</p>

@@ -1,7 +1,7 @@
 import { Button, Container } from "reactstrap";
 import Link from "next/link";
 import styles from "../../../../styles/getStyles.module.scss"
-import { useRouter } from "next/router";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 interface ClienteCardProps {
   cliente: any;
@@ -11,13 +11,7 @@ const ClienteCard = ({ cliente }: ClienteCardProps) => {
   const router = useRouter();
 
   const handleNewOrder = (comandaId: number) => {
-    router.push({
-      pathname: "/pedidos",
-      query: {
-        comandaId,
-        registred: "true",
-      },
-    });
+    router.push(`/employeeApp/orders/register?comandaId=${comandaId}&registred=true`);
   };
 
   return (
@@ -25,7 +19,7 @@ const ClienteCard = ({ cliente }: ClienteCardProps) => {
       <div>
        
         {cliente.comandas ? (
-          <div key={cliente.comandas.id} onClick={()=>router.push(`/comandas/${cliente.comandas.id}`)}>
+          <div key={cliente.comandas.id} onClick={()=>router.push(`/employeeApp/comandas/${cliente.comandas.id}`)}>
             
             <p className={styles.title}><strong>Comanda ID:</strong> {cliente.comandas.id}</p>
             <p><strong>Mesa:</strong> {cliente.comandas.mesaId}</p>

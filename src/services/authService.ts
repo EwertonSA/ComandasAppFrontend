@@ -20,9 +20,9 @@ interface LoginParams{
   password:string
 }
 interface clienteParams{
-  name:string
-  phone:string
+  nome:string
   email:string
+  mesaId:string
 }
 const authService={
     register: async (params: RegisterLogin) => {
@@ -47,19 +47,18 @@ const authService={
           }
           return error;
         })
-        if(res.status === 200){
-          sessionStorage.setItem("comandas-token",res.data.token)
-        }
+       
         return res
       },
-   autoLogin:async(params:LoginParams)=>{
+   autoLogin:async(params:clienteParams)=>{
     try {
+
       const res=await api.post("/api/auth/autoLogin",params)
-      if(res.status ===200 || res.status ===201 ){
-        sessionStorage.setItem("cliente-token",res.data.token)
-        return{ ...res.data, status:res.status} 
+      if(res.status ===400 || res.status ===401 ){
+    throw new Error('Impossível logar')
+       
       } 
-    
+     return{ ...res.data, status:res.status} 
     } catch (err:any) {
       console.error("Erro capturado no authService:", err);
       return {

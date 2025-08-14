@@ -7,14 +7,12 @@ export interface RegisterParams {
 }
 
 const clienteService = {
-  getClientes:async(page=1,perPage=10)=>{
-    try {
-      const token=sessionStorage.getItem("comandas-token")
-      const res=await api.get('/clientes',{
+  getClientes:async(token:string|null,page=1,perPage=10)=>{
+    try {    
+      const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res=await api.get('/api/clientes',{
         params:{page,perPage},
-        headers: {
-          Authorization: `Bearer ${token}`
-      },
+        headers
       })
    
       return res.data
@@ -22,16 +20,16 @@ const clienteService = {
       return []
     }
   },
-getClientesInfo: async (page = 1, perPage = 10, status?: string) => {
+getClientesInfo: async ( token: string | null,page = 1, perPage = 10, status?: string) => {
   
   try {
-    const token = sessionStorage.getItem("comandas-token")?.trim() ?? sessionStorage.getItem('cliente-token');
+    
 
     if (!token) {
       throw new Error("Usuário não autenticado: token ausente");
     }
 
-    console.log('Fazendo requisição para /clientes');
+
 
     const res = await api.get('/api/clienteCompleto', {
       params: { page, perPage, status },
@@ -40,7 +38,7 @@ getClientesInfo: async (page = 1, perPage = 10, status?: string) => {
       },
     });
 
-    console.log('Resposta recebida:', res.data);
+  
 
     return {
       clientes: res.data.clientes || [],
@@ -59,15 +57,11 @@ getClientesInfo: async (page = 1, perPage = 10, status?: string) => {
 
 
 
-  register: async (params: RegisterParams) => {
-    const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
+  register: async (token:string |null ,params: RegisterParams) => {
+
     try {
-    
-      const res = await api.post('/api/clientes', params,{
-        headers: {
-          Authorization: `Bearer ${token}`
-      },
-      });
+     const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res = await api.post('/api/clientes', params,{headers});
       return res.data;
     } catch (err: any) {
       return {

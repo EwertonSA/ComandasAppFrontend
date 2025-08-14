@@ -1,14 +1,15 @@
+'use client'
 import { comandaService } from "@/src/services/comandaService";
 import pedidoService from "@/src/services/pedidoService";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import useSWR from "swr";
 
- const fetchPedidos = async (id: string) => {
-  const res = await comandaService.getPedidosComanda(id);
+ const fetchPedidos = async (token:string|null,id: string) => {
+  const res = await comandaService.getPedidosComanda(token,id);
   const details = await Promise.all(
     (res.pedidos || []).map(async (pedido: any) => {
-      const detail = await pedidoService.getOrdersById(pedido.id);
+      const detail = await pedidoService.getOrdersById(token,pedido.id);
       
       return { ...detail, id: pedido.id };
       
@@ -18,14 +19,15 @@ import useSWR from "swr";
   return details;
 };
 
-export const usePedidosComanda = (id: string | undefined) => {
+export const usePedidosComanda = (token:string|null,id: string | undefined) => {
   const router = useRouter();
 
 
   const { data: pedidos, error, mutate } = useSWR(
-    id ? `/comanda/${id}` : null,
-    () => fetchPedidos(id as string)
+    id&&token ? [`/employeeApp/comandas/${id}`,token] : null,
+    () => fetchPedidos(token,id as string)
   );
+
 
   const [abaAtiva, setAbaAtiva] = useState<'pendentes' | 'entregues'>('pendentes');
 
@@ -40,7 +42,7 @@ export const usePedidosComanda = (id: string | undefined) => {
 
   const delivered = async (pedido: any) => {
     try {
-      await pedidoService.updateStatus(pedido.id, 'entregue');
+      await pedidoService.updateStatus(token,pedido.id, 'entregue');
       mutate(); // refaz o fetch para atualizar a tela
     } catch (error) {
       console.error("Erro ao atualizar status", error);
@@ -49,7 +51,7 @@ export const usePedidosComanda = (id: string | undefined) => {
 
   const handleCancel = async (pedido: any) => {
     try {
-      await pedidoService.delete(pedido.id, 'cancelado');
+      await pedidoService.delete(token,pedido.id, 'cancelado');
       mutate(); // refaz o fetch para atualizar a tela
     } catch (error) {
       console.error('Erro ao cancelar pedido');

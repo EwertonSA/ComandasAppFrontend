@@ -5,15 +5,15 @@ export type PedidosType = {
   total: number;
   status: string;
 };
-export interface ProdutoProps{
-produto:{  id: string;
+export interface Produto{  
+  id: string;
   nome: string;
   descricao: string;
   preco: number | string; 
   categoria: string;
   thumbnailUrl:string
 }
-}
+
 export type ProductType = {
   id: string;
   nome: string;
@@ -24,81 +24,70 @@ export type ProductType = {
   thumbnailUrl:string
 };
 
-export type ProductSearchResponse = {
-  produtos: ProductType[];
-  page: number;
-  perPage: number;
-  total: number;
-};
+
 
 const produtService={
    
-      getProduct:async(page=1,perPage=10)=>{
-      
+getProduct: async (
+  token: string | null,
+  page = 1,
+  perPage = 10
+) => {
+  try {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const res = await api.get("/api/produtos", {
+      params: { page, perPage },
+      headers
+    });
+
+     return {
+      data: res.data.produtos || [],
+      total: res.data.total || 0
+    };
+  } catch (error) {
+    console.error("Erro ao buscar produto", error);
+    return { data: [], total: 0 };
+  }
+},
+
+
+    findByName: async (
+  token: string | null,
+  nome: string,
+  page: number = 1,
+  perPage: number = 10)=> {
+  try {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const res = await api.get(`/api/pedidos/search`, {
+      headers,
+      params: { nome, page, perPage }
+    });
+  
+    return {
+      produtos: res.data.produtos || [],
+      total: res.data.total || 0,
+       totalPages: Math.ceil(res.data.total / perPage),
+    };
+  } catch (error) {
+    console.error("Erro ao buscar produtos por nome:", error);
+    return {
+      produtos: [],
+      page,
+      perPage,
+      total: 0,
+    };
+  }
+},
+
+      getByCategories: async (token:string|null,categoria: string) => {
         try {
-         const token=sessionStorage.getItem("comandas-token")
-          const res=await api.get("/api/produtos",{
-            params:{page,perPage},
-            headers:{
-              Authorization:`Bearer ${token}`
-            }
-          });
-          console.log(res.data)
-          return{data:res.data|| [] };
-        } catch (error) {
-          console.error("Erro ao buscar produto",error)
-          return {data:[]}
-        }
-    
-    },
-      findByName: async (
-        nome: string,
-        page: number = 1,
-        perPage: number = 10
-      ): Promise<ProductSearchResponse> => {
-        const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
-        try {
-          const res = await api.get(`/api/pedidos/search`, {
-           
-                headers: {
-                  Authorization: `Bearer ${token}`,
-              
-              } ,params: { nome, page, perPage }
-          });
-          console.log("🔍 Produtos filtrados:", res.data);
-          
-          return res.data;
-        } catch (error) {
-          console.error("Erro ao buscar produtos por nome:", error);
-          return {
-            produtos: [],
-            page,
-            perPage,
-            total: 0,
-          };
-        }
-      },
-      getByCategories: async (categoria: string) => {
-        const token = sessionStorage.getItem("cliente-token");
-      
-        if (!token) {
-          console.error("❌ Token inválido");
-          return []; // <- Adiciona retorno para evitar seguir sem token
-        }
-      
-        try {
+           const headers = token ? { Authorization: `Bearer ${token}` } : {};
           const res = await api.get(`/api/produtos/categoria/${categoria}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers
           });
-      
-          // Verifica se a resposta realmente é um array
           if (Array.isArray(res.data)) {
             return res.data;
           }
-      
-          // Se for um objeto com a chave da categoria, retorna o array correspondente
           if (res.data && res.data[categoria]) {
             return res.data[categoria];
           }
@@ -110,8 +99,8 @@ const produtService={
           console.error("Erro ao buscar produto:", error?.response?.data || error.message);
           return [];
         }
-      },getProductById:async(id:string)=>{
-       const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
+      },getProductById:async(token:string | null,id:string)=>{
+       const headers = token ? { Authorization: `Bearer ${token}` } : {};
         try {
           const res= await api.get(`/api/produtos/${id}`,{
             headers:{
@@ -121,7 +110,7 @@ const produtService={
        
           return res.data
         } catch (error:any) {
-          console.log(error.response.data.messsage)
+        
           return []
         }
       }

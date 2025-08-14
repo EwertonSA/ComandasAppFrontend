@@ -1,15 +1,16 @@
-
-import produtService, { ProductType, ProdutoProps } from "@/src/services/productService"
+'use client'
+import produtService, { ProductType, Produto } from "@/src/services/productService"
 import styles from "../../../../styles/getStyles.module.scss"
 import useSWR from "swr"
-import { useRouter } from "next/router"
+import { useParams, useRouter } from "next/navigation"
 import { Button, Container, Form, Input } from "reactstrap"
 import React, { useState } from "react"
 import { usePedidosForm } from "../../hooks/pedidos/usePedidoForm"
 
 const ProductId=()=>{
     const router=useRouter()
-    const {id}=router.query 
+    const params=useParams()
+    const id=params.id
     const [quantity,setquantity]=useState(1)
     const {data,error}=useSWR(id?id:null,produtService.getProductById)
      const {
@@ -45,15 +46,17 @@ setquantity(isNaN(value)|| value < 1 ? 1 : value)
 
 return(
     <main className={styles.main} style={{
-        backgroundImage:`linear-gradient(to bottom, #6666661a, #151515),url(${imgUrl})`,
-        backgroundSize:"cover",
-        backgroundPosition:'center',
-        height:'100%',
-        minWidth:'100%'
-
-    }} key={data.id}>
+  backgroundImage: imgUrl
+    ? `linear-gradient(to bottom, #6666661a, #151515),url(${imgUrl})`
+    : undefined,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  height: "100%",
+  minWidth: "100%",
+}} key={data.id}>
 <Container className={styles.container}>
-<img src={imgUrl} alt="" className={styles.slide} />
+    {imgUrl &&(
+<img src={imgUrl} alt="Image default" className={styles.slide} />)}
     <p className={styles.subTitle}>{data.nome}</p>
     <p className={styles.subTitle}>{data.descricao}</p>
     <p className={styles.subTitle}>{data.preco}</p>

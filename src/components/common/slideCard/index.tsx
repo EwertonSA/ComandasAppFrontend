@@ -1,4 +1,5 @@
-import { useRouter } from "next/router";
+'use client'
+import { useRouter } from "next/navigation";
 import styles from "./styles.module.scss";
 import { ProductType } from "@/src/services/productService";
 
@@ -9,14 +10,17 @@ export interface props{
 
 
 const SlideCard=({product,disableInternalNavigation}:props)=>{
+    
     const router=useRouter()
     const defaultImage = "/images/default-thumbnail.jpg"; 
-    const imageUrl = product.thumbnailUrl 
-        ? `${process.env.NEXT_PUBLIC_BASEURL}/${product.thumbnailUrl}` 
-        : defaultImage;
+   const correctedPath = product.thumbnailUrl.replace(/\\/g, "/");
+const imageUrl = product.thumbnailUrl 
+  ? `${process.env.NEXT_PUBLIC_BASEURL}/${correctedPath}` 
+  : defaultImage;
+
 const handleClick=()=>{
         if(!disableInternalNavigation){
-router.push(`/produto/${product.id}`)
+router.push(`/employeeApp/products/${product.id}`)
 }
 }
 

@@ -1,16 +1,32 @@
-import produtService, { ProductSearchResponse } from "@/src/services/productService";
 import useSWR from "swr";
+import { useEffect, useState } from "react";
+import api from "@/src/services/api";
 
+
+const fetcher = async ([url, token]: [string, string]) => {
+  const res = await api.get(url, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
+};
 const useProducts = (page: number, perPage: number) => {
-  const { data, error } = useSWR<{ data: ProductSearchResponse }>(
-    [`/produtos?page=${page}&perPage=${perPage}`],
-    () => produtService.getProduct(page, perPage)
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const t = sessionStorage.getItem("comandas-token");
+      setToken(t);
+    }
+  }, []);
+
+  const { data, error } = useSWR(
+    token ? [`/api/produtos?page=${page}&perPage=${perPage}`, token] : null,
+    fetcher
   );
 
   return {
-    produtos: data?.data.produtos || [],
-    total: data?.data.total || 0,
-    totalPages: data ? Math.ceil(data.data.total / perPage) : 1,
+    produtos: data?.produtos || [],
+    total: data?.total || 0,
     error,
   };
 };

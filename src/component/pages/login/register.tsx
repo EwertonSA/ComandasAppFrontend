@@ -40,7 +40,7 @@ const Register=()=>{
         const params = { name, phone, email, password, role: 'user' as const }
         try {
             const response = await authService.register(params)
-            console.log("Resposta do servidor:", response)
+        
         
             if (response.status === 200 || response.status === 201) {
               router.push('/userLogin?registred=true')

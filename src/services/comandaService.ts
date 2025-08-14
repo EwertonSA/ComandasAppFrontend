@@ -7,13 +7,11 @@ interface ComandasParams {
   }
 export const comandaService={
       
-  getComanda:async()=>{
-    const token=sessionStorage.getItem('comandas-token')
+  getComanda:async(token:string|null)=>{ 
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
     try {
     const res=await api.get('/api/comandas',{
-      headers: {
-        Authorization: `Bearer ${token}`
-    },
+      headers
     })
     return res.data.comandas  
     } catch (error:any) {
@@ -21,13 +19,14 @@ export const comandaService={
     }
   },
 
-  getPedidosComanda:async(comandaId:string)=>{
-    const token=sessionStorage.getItem('comandas-token')??sessionStorage.getItem('cliente-token')
+  getPedidosComanda:async(token:string|null,comandaId:string)=>{
+
+  
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
     try {
       const res=await api.get(`/api/comandas/${comandaId}`,{
-        headers: {
-          Authorization: `Bearer ${token}`
-      },
+        headers
       })
      
       return res.data
@@ -36,13 +35,11 @@ export const comandaService={
       return null; 
     }
       },
-      registerComanda: async (params: ComandasParams) => {
-        const token=sessionStorage.getItem('comandas-token')??sessionStorage.getItem('cliente-token')
+      registerComanda: async (token:string |null ,params: ComandasParams) => {
+         const headers = token ? { Authorization: `Bearer ${token}` } : {};
         try {
           const res = await api.post("/api/comandas", params,{
-            headers: {
-              Authorization: `Bearer ${token}`
-          },
+            headers
           });
           return res.data;
         } catch (err: any) {
@@ -52,7 +49,8 @@ export const comandaService={
           }; 
         }
       },
-      registrarTudo: async ({
+      registrarTudo: async (
+          token: string | null,{
         mesaId,
         nome,
      
@@ -62,14 +60,14 @@ export const comandaService={
        
       }) => {
         try {
-          const clienteRes = await clienteService.register({ nome,mesaId });
+          const clienteRes = await clienteService.register(token,{ nome,mesaId });
           if ("error" in clienteRes || !clienteRes.id) {
             return { status: 400, message: "Erro ao registrar cliente." };
           }
       
           const clienteId = clienteRes.id.toString();
       
-          const comandaRes = await comandaService.registerComanda({ clienteId, mesaId });
+          const comandaRes = await comandaService.registerComanda(token,{ clienteId, mesaId });
           if ("error" in comandaRes || !comandaRes.id) {
             return { status: 400, message: "Erro ao criar comanda." };
           }

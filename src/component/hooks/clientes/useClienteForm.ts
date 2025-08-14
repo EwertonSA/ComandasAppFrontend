@@ -1,8 +1,8 @@
-
+'use client'
 
 import { FormEvent, useEffect, useState } from "react";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { mesaService } from "@/src/services/mesaService";
 import { comandaService } from "@/src/services/comandaService";
 
@@ -16,7 +16,10 @@ const UseClienteForm = () => {
 
   useEffect(() => {
   const fetchMesas = async () => {
-    const res = await mesaService.getMesas();
+    const token = typeof window !== "undefined"
+      ? sessionStorage.getItem("comandas-token")
+      : null;
+    const res = await mesaService.getMesas(token);
     if (res && Array.isArray(res.mesas)) {
       setMesas(res.mesas);
     } else {
@@ -35,16 +38,16 @@ const UseClienteForm = () => {
 
     const mesaId = mesaSelecionada;
     const nome = formData.get("nome")?.toString().trim() || "";
-   
+   const token = sessionStorage.getItem("comandas-token") || null;
     
-    const { status, message, comandaId } = await comandaService.registrarTudo({
+    const { status, message, comandaId } = await comandaService.registrarTudo(token,{
         mesaId,
         nome,
    
       });
   
       if (status === 200) {
-        router.push(`/pedidos?comandaId=${comandaId}&registred=true`);
+        router.push(`/employeeApp/orders/register?comandaId=${comandaId}&registred=true`);
       } else {
         setToastColor("bg-danger");
         setToastIsOpen(true);

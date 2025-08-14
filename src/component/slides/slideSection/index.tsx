@@ -1,30 +1,33 @@
-import { ProductType, ProdutoProps } from '@/src/services/productService';
+'use client';
+import { ProductType } from '@/src/services/productService';
 import styles from './styles.module.scss';
 import { Button, Container } from 'reactstrap';
 import SlideComponent from '../../../components/common/slideComponent';
-import SlideCard from '../../../components/common/slideCard'; // certifique-se que o caminho tá certo
+import SlideCard from '../../../components/common/slideCard';
 import Link from 'next/link';
 
-interface props {
-  getproduts: ProductType[]| { produtos: ProductType[]};
+interface Props {
+  getproduts: ProductType[] | { produtos: ProductType[] };
 }
 
-const SlideSection = ({ getproduts }: props) => {
-
- const produtosArray = Array.isArray(getproduts)
+const SlideSection = ({ getproduts }: Props) => {
+  const produtosArray = Array.isArray(getproduts)
     ? getproduts
-    : Array.isArray(getproduts.produtos)
-    ? getproduts.produtos
+    : Array.isArray((getproduts as { produtos: ProductType[] }).produtos)
+    ? (getproduts as { produtos: ProductType[] }).produtos
     : [];
-  return (
-    <Container className="d-flex flex-column align-items-center">
-   <Link href='/allProducts'><p  className={styles.title}>Produtos disponíveis</p></Link>
 
-      <SlideComponent
-        items={produtosArray}
-        renderItem={(product) => <SlideCard product={product} />}
-      />
-      
+  return (
+    <Container className="d-flex flex-column align-items-center justify-content-center">
+      <Link href="/employeeApp/products">
+        <p className={styles.title}>Produtos disponíveis</p>
+      </Link>
+
+      <SlideComponent itemsLength={produtosArray.length}>
+        {produtosArray.map((product, index) => (
+          <SlideCard key={index} product={product} />
+        ))}
+      </SlideComponent>
 
       <Link href="/allProducts">
         <Button outline color="light" className={styles.slideSection}>

@@ -1,12 +1,7 @@
-
 import { Button, Container } from "reactstrap"
-
 import styles from "../../../../styles/getStyles.module.scss"
-import  { Pedido } from "../../render/cards/pedidoList"
-
 import Link from "next/link"
 import { useRouter } from "next/router"
-
 import CardLocal from "../../render/cards/carrinho"
 import TabsSwitcher from "@/src/components/common/switch/switchComponent"
 import { usePedidosComanda } from "../../hooks/pedidos/usePedidosComanda"
@@ -21,8 +16,12 @@ const Card=({id}:CardProps )=>{
   
   const router=useRouter()
   const comandaId=router.query.comandaId as string
+    const token = typeof window !== "undefined"
+    ? sessionStorage.getItem("comandas-token")
+    : null;
   const {
-    pedidos,error,mutate,abaAtiva,setAbaAtiva,pedidosPendentes,pedidosEntregues,handleCancel,delivered,totalDelivered}=usePedidosComanda(id)
+    pedidos,error,mutate,abaAtiva
+    ,setAbaAtiva,pedidosPendentes,pedidosEntregues,handleCancel,delivered,totalDelivered}=usePedidosComanda(token,id)
  
 
 return(

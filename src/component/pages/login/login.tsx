@@ -1,9 +1,9 @@
-import HeaderGeneric from "@/src/components/common/headerGeneric"
+'use client'
 import Head from "next/head"
 import { FormEvent, useEffect, useState } from "react"
 import styles from "../../../../styles/register.module.scss"
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
-import { useRouter } from "next/router"
+import { useRouter, useSearchParams } from "next/navigation"
 import ToastComponent from "@/src/components/common/toast"
 import authService from "@/src/services/authService"
 
@@ -12,10 +12,11 @@ const Login=()=>{
       const [toastMessage, setToastMessage] = useState("");
           const [toastIsOpen, setToastIsOpen] = useState(false);
           const [toastColor, setToastColor] = useState("bg-success");
-
+            const searchParams=useSearchParams()
         
           useEffect(()=>{
-            const registerSuccess=router.query.registred
+          
+            const registerSuccess=searchParams.get('registred')
             if(registerSuccess === "true"){
                 setToastMessage("Criado com sucesso!")
                  setToastColor("bg-success")
@@ -25,7 +26,7 @@ const Login=()=>{
                
                 }, 1000);
             }
-          },[router.query])
+          },[ searchParams])
 
     const handleLogin=async(ev:FormEvent<HTMLFormElement>)=>{
         ev.preventDefault()
@@ -36,9 +37,9 @@ const Login=()=>{
      
         const res=await authService.login(params)
         if(res.status===200|| res.status === 201){
-            router.push('/home')
+            router.push('/employeeApp')
         }else{
-
+alert(  'erro')
         }
     }
     return(

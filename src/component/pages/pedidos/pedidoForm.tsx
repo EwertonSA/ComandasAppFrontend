@@ -1,7 +1,8 @@
-import Head from "next/head";
+'use client'
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 import styles from "../../../../styles/register.module.scss";
 import { usePedidosForm } from "../../hooks/pedidos/usePedidoForm";
+import OrderAction from "@/app/employeeApp/orders/register/action";
 
 
 const Pedidos = () => {
@@ -12,17 +13,14 @@ const Pedidos = () => {
     toastOpen,
     toastColor,
     toastMessage,
-    handleOrders,
+   
     handleEntradaChange,
     handleSuggestionClick
   } = usePedidosForm();
 
   return (
     <>
-      <Head>
-        <title>Realizar pedidos</title>
-        <link rel="shortcut icon" href="/favicon.jpg" type="image/x-icon" />
-      </Head>
+     
       <main>
         <Container className="py-5">
           <p className={styles.formTitle}>Fazer pedidos</p>
@@ -33,7 +31,7 @@ const Pedidos = () => {
             </div>
           )}
 
-          <Form className={styles.form} onSubmit={handleOrders}>
+          <Form className={styles.form} action={OrderAction}>
             <p className="text-center"><strong>Pedido</strong></p>
 
             <FormGroup>

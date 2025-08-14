@@ -1,18 +1,19 @@
-import { ProductType, ProdutoProps } from "@/src/services/productService";
+'use server'
+import { ProductType } from "@/src/services/productService";
 import { Container } from "reactstrap";
 import styles from "../slideSection/styles.module.scss";
 import SlideComponent from "@/src/components/common/slideComponent";
 import SlideCard from "@/src/components/common/slideCard";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
-
-interface SlideCategoriasProps {
+export interface SlideCategoriasProps {
   produtosPorCategoria: { [categoria: string]: ProductType[] } | null;
+   comandaId?: string | null;
 }
 
-const SlideCategorias = ({ produtosPorCategoria }: SlideCategoriasProps) => {
-  const router=useRouter()
+const SlideCategorias = ({ produtosPorCategoria,comandaId }: SlideCategoriasProps) => {
+ 
+
   if (!produtosPorCategoria) {
     return <p>Carregando produtos...</p>; // ou um spinner
   }
@@ -21,23 +22,28 @@ const SlideCategorias = ({ produtosPorCategoria }: SlideCategoriasProps) => {
 
   return (
     <Container className="d-flex flex-column align-items-center">
-      {categorias.map((categoria) => (
-        
-        <section className="text-center" key={categoria}>
-          <p className={styles.sectionTitle}>{categoria}</p>
-         
-          <SlideComponent
-  items={produtosPorCategoria[categoria]}
-  renderItem={(product) => (
-    <Link href={`/produtos/${product.id}?comandaId=${router.query.comandaId}`} key={product.id}>
-      <SlideCard product={product} disableInternalNavigation/>
+      {categorias.map((categoria) => {
+        const produtos = produtosPorCategoria[categoria];
+
+        return (
+          <section className="text-center" key={categoria}>
+            <p className={styles.sectionTitle}>{categoria}</p>
+
+            <SlideComponent itemsLength={produtos.length}>
+              
+{produtos.map((product)=>{
+  const href = `/homeNoAuth/${comandaId}/produto/${product.id}`;
+  
+  return(
+    <Link href={href} key={product.id}>
+      <SlideCard product={product} disableInternalNavigation />
     </Link>
-  )}
-/>
-          
-    
-        </section>
-      ))}
+  )
+})}
+            </SlideComponent>
+          </section>
+        );
+      })}
     </Container>
   );
 };

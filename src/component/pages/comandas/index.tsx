@@ -1,4 +1,6 @@
-import { useRouter } from "next/router";
+
+'use client'
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import {  useMemo, useState } from "react";
 import styles from '../../../../styles/getStyles.module.scss'
 import pedidoService from "@/src/services/pedidoService";
@@ -7,16 +9,20 @@ import Link from "next/link";
 import { comandaService } from "@/src/services/comandaService";
 import useSWR from "swr";
 import TabsSwitcher from "@/src/components/common/switch/switchComponent";
-import PedidosList from "@/src/component/render/cards/pedidoList";
+import PedidosList from "@/app/employeeApp/comandas/[id]/pedidoList";
 import { usePedidosComanda } from "../../hooks/pedidos/usePedidosComanda";
 
 
 
 const Comanda = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const params=useParams()
+
+  const id  = params.id;
+     const token = typeof window !== "undefined"
+        ? sessionStorage.getItem("comandas-token")
+        : null;
   const {
-    pedidos,error,mutate,abaAtiva,setAbaAtiva,pedidosPendentes,pedidosEntregues,handleCancel,delivered,totalDelivered}=usePedidosComanda(id as string)
+    pedidos,error,mutate,abaAtiva,setAbaAtiva,pedidosPendentes,pedidosEntregues,handleCancel,delivered,totalDelivered}=usePedidosComanda(token,id as string)
   
 
   if (error) return <p>Erro ao carregar pedidos</p>;
@@ -37,22 +43,21 @@ const Comanda = () => {
 />
 {abaAtiva === "pendentes" ? (
   <PedidosList
-    pedidos={pedidosPendentes}
-    tipo="pendentes"
-    onEntregar={delivered}
+   pedidos={pedidosEntregues} tipo="pendentes"
     onCancelar={handleCancel}
   />
 ) : (
   <PedidosList
     pedidos={pedidosEntregues}
     tipo="entregues"
+    onCancelar={handleCancel}
   />
 )}
 
 
         <p className={styles.title}>Valor total entregue: R$ {totalDelivered}</p>
 
-        <Link href={`/pagamentos?comandaId=${id}`} className={styles.btn}>
+        <Link href={`/employeeApp/payments/pay?comandaId=${id}`} className={styles.btn}>
           <Button>Pagamento</Button>
         </Link>
 

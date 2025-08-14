@@ -11,42 +11,35 @@ status:string
 }
 
 const pedidoService={
-  pedidos:async()=>{
-const token=sessionStorage.getItem('comandas-token')
+  pedidos:async(token:string|null)=>{
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
 try {
   const res=await api.get('/api/pedidos',{
-    headers:{
-      Authorization:`Bearer ${token}`
-    }
+    headers
   })
   return res.data?.pedidos || [];
 } catch (error) {
    return []
 }
   },
-  getPedidos:async(page=1,perPage=10)=>{
-    const token=sessionStorage.getItem("comandas-token")
+ getPedidos: async (token?: string | null, page = 1, perPage = 10) => {
     try {
-      const res=await api.get('/api/pedidoCompleto',{
-        params:{page,perPage},
-        headers:{
-          Authorization:`Bearer ${token}`
-        }
-      })
-    return res.data
-      
-    } catch (error) {
-      return []
+      const res = await api.get("/api/pedidoCompleto", {
+        params: { page, perPage },
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      return res.data;
+    } catch (error: any) {
+      console.error("Erro em getPedidos:", error.response?.data || error);
+      throw error;
     }
-
   },
-  getOrdersById: async (id: number | string) => {
-    const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
+  getOrdersById: async (token:string|null,id: number | string) => {
+ const headers = token ? { Authorization: `Bearer ${token}` } : {};
 try {
   const response = await api.get(`/api/pedidos/${id}`,{
-    headers: {
-      Authorization: `Bearer ${token}`
-  },
+    headers
   });
    
     return response.data;
@@ -56,57 +49,57 @@ try {
 }
     },
   
-  
-  create:async(params:PedidoParams)=>{
-    const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
-    try {
-        const res=await api.post('/api/pedidos',params,{
-          headers: {
-            Authorization: `Bearer ${token}`
-        },
-        })
-        return res.data
-    } catch (error) {
-        if(error instanceof Error){
-            return{status:500,error:error.message}
-        }
-        
-    }
-  },
+    
+    create:async(token:string|null,params:PedidoParams)=>{
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      try {
+          const res=await api.post('/api/pedidos',params,{
+            headers
+          })
+          return res.data
+      } catch (error) {
+          if(error instanceof Error){
+              return{status:500,error:error.message}
+          }
+          
+      }
+    },
 
-      
-updateStatus: async (id: string, status: string) => {
-  const token=sessionStorage.getItem("comandas-token")
+        
+updateStatus: async (token:string|null,id: string, status: string) => {
+ const headers = token ? { Authorization: `Bearer ${token}` } : {};
   const res = await api.put(`/api/pedidos/${id}`, { status },{
-    headers: {
-      Authorization: `Bearer ${token}`
-  },
+    headers
+
   });
+  
   return res.data;
 },
 
 
 registerAll: async ({
+  token,
   total,
   quantidade,
   comandaId,
   produtoId
 }: {
-  total:any
+  token: string | null;
+  total?: any;
   quantidade: number;
   comandaId: string;
   produtoId: string;
 }) => {
   try {
-    const status = "andamento"; // fixa o status aqui
-    const pedidoRes = await pedidoService.create({ comandaId,total, status });
+    const status = "andamento";
+    const pedidoRes = await pedidoService.create(token, { comandaId, total, status });
 
     if (!pedidoRes || 'error' in pedidoRes || !pedidoRes.id) {
       return { status: 400, message: "Erro ao registrar o pedido." };
     }
 
     const pedidoId = pedidoRes.id;
-    const pedidosProdutos = await pedidosProdutosService.createPedidosProdutos({
+    const pedidosProdutos = await pedidosProdutosService.createPedidosProdutos(token,{
       pedidoId,
       produtoId,
       quantidade
@@ -131,13 +124,11 @@ registerAll: async ({
   }
 }
 ,
-delete:async(id:number,status:string)=>{
-  const token=sessionStorage.getItem("comandas-token")??sessionStorage.getItem('cliente-token')
+delete:async(token:string|null,id:string,status:string)=>{
+ const headers = token ? { Authorization: `Bearer ${token}` } : {};
   try {
     const res=await api.delete(`/api/pedidos/${id}`,{
-      headers: {
-        Authorization: `Bearer ${token}`
-    },
+      headers
     })
     return res.data
   } catch (error) {

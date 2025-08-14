@@ -1,29 +1,43 @@
-
+'use client'
 import styles from './styles.module.scss';
 import Modal from 'react-modal';
-import { useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { handleCloseModal, handleLogout, handleLogoutClientes, handleOpenModal } from "../Modal";
 import Link from "next/link";
 import { Container } from "reactstrap";
+import Image from 'next/image';
 
-Modal.setAppElement("#__next");
 
 const HeaderAuth = ({ logoUrl }: { logoUrl: string }) => {
   const router = useRouter();
-  const comandaId = router.query.comandaId as string;
+  const searchParams=useSearchParams()
+  const pathname=usePathname()
+  const comandaId = searchParams.get('comandaId') as string;
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Mapeia cada rota para um texto
+ useEffect(() => {
+    const checkAndSetAppElement = () => {
+      const modalRoot = document.getElementById('modal-root');
+      if (modalRoot) {
+        Modal.setAppElement('#modal-root');
+      } else {
+        // Se não existe ainda, tenta novamente em 50ms
+        setTimeout(checkAndSetAppElement, 50);
+      }
+    };
+
+    checkAndSetAppElement();
+  }, []);
   const getBtnContent = () => {
-    switch (router.pathname) {
+    switch (pathname) {
       case "/home":
         return "Página inicial";
     
-        case "/allClients":
+        case "/clients":
           return "Cliente Info";
        
-      case "/clienteInfo":
+      case "/comandas":
      
           return "Comandas";
       case "/register":
@@ -37,7 +51,7 @@ const HeaderAuth = ({ logoUrl }: { logoUrl: string }) => {
     <>
       <Container className={styles.nav}>
         <Link href={logoUrl}>
-          <img src="/2.jpg" alt="" className={styles.imgLogoNav} />
+          <Image src="/2.jpg" alt="comandasLogo" className={styles.imgLogoNav}  width={100} height={50}/>
         </Link>
         <div className="d-flex align-items-center">
           <p className={styles.user} onClick={() => handleOpenModal(setModalOpen)}>
@@ -52,16 +66,16 @@ const HeaderAuth = ({ logoUrl }: { logoUrl: string }) => {
           className={styles.modal}
           overlayClassName={styles.overlay}
         >
-          <Link href="/home">
+          <Link href="/employeeApp">
             <p className={styles.modalLink}>Página inicial</p>
           </Link>
-          <Link href="/clienteInfo">
+          <Link href="/employeeApp/comandas">
             <p className={styles.modalLink}>Comandas</p>
           </Link>
-          <Link href="/allClients">
+          <Link href="/employeeApp/clients">
             <p className={styles.modalLink}>Cliente Info</p>
           </Link>
-          <Link href="/register">
+          <Link href="/employeeApp/register">
             <p className={styles.modalLink}>Registrar</p>
           </Link>
           <p className={styles.modalLink} onClick={() => handleLogout(router)}>Sair</p>

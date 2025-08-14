@@ -1,4 +1,5 @@
 import { pagamentoService } from "@/src/services/pagamentoService";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 
 interface PagamentosResponse {
@@ -7,9 +8,18 @@ interface PagamentosResponse {
 }
 
 export const usePagamentos = (page: number, perPage: number) => {
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedToken = sessionStorage.getItem("comandas-token");
+      setToken(storedToken);
+    }
+  }, []);
+
   const { data, error } = useSWR<PagamentosResponse>(
-    ['/pagamentos', page, perPage],
-    () => pagamentoService.pagamentos(page, perPage)
+    token ? ['/pagamentos', page, perPage] : null,
+    () => pagamentoService.pagamentos(token, page, perPage)
   );
 
   return {

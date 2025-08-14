@@ -5,13 +5,11 @@ interface MesasParams {
     capacidade: number;
   }
 export const mesaService={
-    registerMesa: async (params: MesasParams) => {
-      const token=sessionStorage.getItem('comandas-token')
+    registerMesa: async (token:string|null,params: MesasParams) => {
+     const headers = token ? { Authorization: `Bearer ${token}` } : {};
         try {
           const res = await api.post("/api/mesas", params,{
-            headers: {
-              Authorization: `Bearer ${token}`
-          },
+            headers
           });
           return res.data;
         } catch (err: any) {
@@ -21,16 +19,18 @@ export const mesaService={
           };
         }
       },
-      getMesas: async (page=1,perPage=10) => {
+      getMesas: async (token:string|null,page=1,perPage=10) => {
         try {
-          const token=sessionStorage.getItem('comandas-token')
+          const headers = token ? { Authorization: `Bearer ${token}` } : {};
           const response = await api.get("/api/mesas",{
              params:{page,perPage},
-            headers: {
-              Authorization: `Bearer ${token}`
-          },
-          }); // use a URL correta
-          return response.data;
+            headers
+          }); 
+          return {
+                 mesas: response.data.mesas || [],
+      total: response.data.total || 0,
+      totalPages: Math.ceil(response.data.total / perPage),
+          };
         } catch (error) {
           console.error("Erro ao buscar mesas:", error);
           return { error: true };

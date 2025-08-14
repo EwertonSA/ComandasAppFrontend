@@ -8,7 +8,10 @@ import Link from "next/link";
 
 
 const Product=()=>{
-    const {data,error}=useSWR("/produtos",produtService.getProduct);
+       const token = typeof window !== "undefined"
+        ? sessionStorage.getItem("comandas-token")
+        : null;
+    const {data,error}=useSWR("/produtos",()=>produtService.getProduct(token));
     if(error) return error;
     if(!data) return(
         <>

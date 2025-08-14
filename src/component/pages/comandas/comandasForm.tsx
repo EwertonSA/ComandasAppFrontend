@@ -31,7 +31,10 @@ const Comandas =()=>{
         const mesaId= formData.get('mesaId')!.toString()
         const clienteId= formData.get('clienteId')!.toString()
         const params={mesaId,clienteId}
-        const {status}=await comandaService.registerComanda(params)
+            const token = typeof window !== "undefined"
+        ? sessionStorage.getItem("comandas-token")
+        : null;
+        const {status}=await comandaService.registerComanda(token,params)
         if(status===200){
             router.push('/pedidos')
         }else{

@@ -3,32 +3,33 @@ import Head from "next/head"
 import { FormEvent, useEffect, useState } from "react"
 import styles from "../../../../styles/register.module.scss"
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
-import { useRouter } from "next/router"
+import { useRouter, useSearchParams } from "next/navigation"
 import ToastComponent from "@/src/components/common/toast"
 import authService from "@/src/services/authService"
 import { comandaService } from "@/src/services/comandaService"
-import { ClienteFormProps } from "../../render/forms/clienteForm"
+import { ClienteFormProps } from "../../../../app/employeeApp/register/form"
 
 const ClienteLogin=({mesas,mesaSelecionada,setMesaSelecionada}:ClienteFormProps)=>{
-    console.log("Mesas recebidas:", mesas);
+   const searchResults=useSearchParams()
+  
     const router=useRouter()
       const [toastMessage, setToastMessage] = useState("");
           const [toastIsOpen, setToastIsOpen] = useState(false);
           const [toastColor, setToastColor] = useState("bg-success");
 
         
-          useEffect(()=>{
-            const registerSuccess=router.query.registred
-            if(registerSuccess === "true"){
-                setToastMessage("Criado com sucesso!")
-                 setToastColor("bg-success")
-                setToastIsOpen(true)
-                setTimeout(() => {
-                  setToastIsOpen(false)
-               
-                }, 1000);
-            }
-          },[router.query])
+        useEffect(() => {
+ 
+  const registerSuccess = searchResults.get('registred');
+  if (registerSuccess === "true") {
+    setToastMessage("Criado com sucesso!");
+    setToastColor("bg-success");
+    setToastIsOpen(true);
+    const timer = setTimeout(() => setToastIsOpen(false), 1000);
+    return () => clearTimeout(timer);
+  }
+}, [searchResults]);
+
 
     const handleLogin=async(ev:FormEvent<HTMLFormElement>)=>{
         ev.preventDefault()
@@ -39,8 +40,9 @@ const ClienteLogin=({mesas,mesaSelecionada,setMesaSelecionada}:ClienteFormProps)
           const mesaId= formData.get('mesaId')?.toString()|| ''
         const params={email,password}
    const res = await authService.autoLogin(params);
+   const token = sessionStorage.getItem("cliente-token") || null;
 if (res.status === 200 || res.status === 201) {
-  const resRegistrar = await comandaService.registrarTudo({ nome, mesaId });
+  const resRegistrar = await comandaService.registrarTudo(token,{ nome, mesaId });
 
   if (resRegistrar.status !== 200) {
     setToastMessage(resRegistrar.message || "Erro ao registrar comanda");

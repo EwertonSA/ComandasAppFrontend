@@ -10,11 +10,11 @@ return<>
         <p className={styles.subtitle}>Acesse agora como colaborador usando o login 
           usuario@example.com e senha 123123 para ter tenha acesso a aplicação completa.
           Entre como cliente para ter a experiência de fazer seus proprios pedidos.</p>
-      <Link href='/indexLogin'>  
-      <Button className={styles.btnCta} outline>
+      <Link href='/login/index' className={styles.btnCta}>  
+      
         <img src="/buttonPlay.svg" alt="" className={styles.btnImg} />
         Acesse Agora
-      </Button>
+     
       </Link>
         </Col>
         <Col md>
