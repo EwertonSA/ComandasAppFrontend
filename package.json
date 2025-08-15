@@ -27,6 +27,7 @@
     "swr": "^2.3.3"
   },
   "devDependencies": {
+    "@capacitor/cli": "^7.4.2",
     "@types/aos": "^3.0.7",
     "@types/node": "^22.15.29",
     "@types/react": "^19.1.6",

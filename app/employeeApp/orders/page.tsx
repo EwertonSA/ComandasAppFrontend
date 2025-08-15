@@ -4,17 +4,17 @@ import Orders from "@/app/employeeApp/orders/allORders"
 
 
 export interface PageProps {
-  searchParams: { page?: string; perPage?: string };
+  searchParams: Promise<{ page?: string; perPage?: string }>;
 }
-const AllOrders=({searchParams}:PageProps)=>{
-
+const AllOrders=async({searchParams}:PageProps)=>{
+const params=await searchParams
   return <>
  
   <main >
   
        
       
-<Orders searchParams={searchParams}/>
+<Orders searchParams={params}/>
   
   </main>
   </>

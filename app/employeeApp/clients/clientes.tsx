@@ -1,7 +1,7 @@
 'use server'
 
 import { Table } from "reactstrap";
-import styles from "../../../../styles/getStyles.module.scss"
+import styles from "../../../styles/getStyles.module.scss"
 import PaginationComponent from "@/src/components/common/pagination";
 import clienteService from "@/src/services/clienteService";
 import { OrdersPageProps } from "@/app/employeeApp/orders/allORders";

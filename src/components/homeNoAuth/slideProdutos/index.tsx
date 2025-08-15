@@ -1,7 +1,7 @@
 'use server'
 import { ProductType } from "@/src/services/productService";
 import { Container } from "reactstrap";
-import styles from "../slideSection/styles.module.scss";
+import styles from "../../common/slideSection/styles.module.scss";
 import SlideComponent from "@/src/components/common/slideComponent";
 import SlideCard from "@/src/components/common/slideCard";
 import Link from "next/link";

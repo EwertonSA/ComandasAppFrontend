@@ -1,10 +1,10 @@
 'use server'
-import { Props } from "@/app/employeeApp/products/[id]/page"
+
 import ClientOrderForm from "./form"
 import { cookies } from "next/headers";
 import produtService from "@/src/services/productService";
 interface OrderProps{
-  params:{id:string,comandaId:string}
+  params:Promise<{id:string,comandaId:string}>
 }
 const Page=async({params}:OrderProps)=>{
   const token = (await cookies()).get("clientes-token")?.value || "";

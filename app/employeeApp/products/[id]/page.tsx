@@ -1,32 +1,33 @@
 'use server'
 import { cookies } from "next/headers"
 import produtService from "@/src/services/productService"
-
 import { redirect } from "next/navigation"
 import OrderFormView from "./form"
 
-export interface Props {
-  params: { id: string }
-  searchParams?: { comandaId?: string }
+export interface PageProps {
+  params: Promise<{ id: string }>
+  searchParams?: Promise<{ comandaId?: string }>
 }
 
-const Page = async ({ params, searchParams }: Props) => {
-  const cookieStore =await cookies()
+const Page = async ({ params, searchParams }: PageProps) => {
+  const cookieStore = await cookies()
   const token = cookieStore.get("comandas-token")?.value || ""
 
-  const produto = await produtService.getProductById(token, params.id)
+  const { id: produtoId } = await params
+  const search = searchParams ? await searchParams : {}
+  const comandaId = search?.comandaId || ""
+
+  const produto = await produtService.getProductById(token, produtoId )
 
   if (!produto) {
     console.error("Produto não encontrado")
-    redirect("/erro") // ou outro fallback
+    redirect("/erro") // fallback
   }
-
-  const comandaId = searchParams?.comandaId || ""
 
   return (
     <OrderFormView
       produto={produto}
-      produtoId={params.id}
+      produtoId={produtoId}
       comandaId={comandaId}
     />
   )

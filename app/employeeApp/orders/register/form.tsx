@@ -2,13 +2,19 @@
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
 import styles from '../../../../styles/register.module.scss'
 
-import { usePedidosForm } from "@/src/component/hooks/pedidos/usePedidoForm"
+
 import OrderAction from "./action"
-import { useSearchParams } from "next/navigation"
+
+import { usePedidosForm } from "./usePedidoForm"
+import { useEffect, useState } from "react"
 
 const OrderForm = () => {
-  const searchParams = useSearchParams()
-  const comandaId = searchParams.get('comandaId') || ''
+  const [comandaId, setComandaId] = useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setComandaId(params.get('comandaId') || '');
+  }, []);
 
   const {
     entrada,

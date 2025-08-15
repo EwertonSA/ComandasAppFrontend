@@ -1,10 +1,11 @@
 'use client'
-import { usePedidosForm } from "@/src/component/hooks/pedidos/usePedidoForm";
+
 import Link from "next/link"
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
 import styles from '../../../../styles/register.module.scss'
 import { useParams } from "next/navigation";
 import SearchOrderAction from "./action";
+import { usePedidosForm } from "@/app/employeeApp/orders/register/usePedidoForm";
 
 
   const {

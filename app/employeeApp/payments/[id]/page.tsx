@@ -5,11 +5,11 @@ import PaymentForm from "./form"
 
 
 interface Props {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 const Page = async ({ params }: Props) => {
-  const comandaId = params.id
+  const {id:comandaId} = await params
   const cookieStore =await cookies()
   const token = cookieStore.get('comandas-token')?.value || ''
 

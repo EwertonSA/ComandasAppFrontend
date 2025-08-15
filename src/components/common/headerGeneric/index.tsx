@@ -4,10 +4,11 @@ import { Button, Container } from 'reactstrap';
 import Modal from 'react-modal';
 import styles from './styles.module.scss';
 import Link from 'next/link';
-import { useRouter, useSearchParams, usePathname, useParams } from 'next/navigation';
+import { useRouter, usePathname, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { handleCloseModal, handleLogoutClientes, handleOpenModal } from '../Modal';
-import { usePedidosComanda } from '@/src/component/hooks/pedidos/usePedidosComanda';
+import { usePedidosComanda } from '../hooks/pedidos/usePedidosComanda';
+
 
 interface props {
   logoUrl: string;

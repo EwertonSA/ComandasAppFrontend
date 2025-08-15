@@ -1,7 +1,7 @@
+'use client'
 import { Button, Container } from "reactstrap";
-import Link from "next/link";
-import styles from "../../../../styles/getStyles.module.scss"
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import styles from "../../../styles/getStyles.module.scss"
+import { useRouter } from "next/navigation";
 
 interface ClienteCardProps {
   cliente: any;

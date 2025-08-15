@@ -3,14 +3,14 @@ import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
 import Pay from "./action"
 
 import styles from '../../../../styles/register.module.scss'
-import { useSearchParams } from "next/navigation"
+
 import { useState } from "react"
 interface PaymentFormProps {
   comandaId: string
   totalDelivered: string
 }
 const PaymentForm=({comandaId,totalDelivered}:PaymentFormProps)=>{
-      const searchParams=useSearchParams()
+  
       
         const [valor, setValor] = useState<number>(0)
   const [formaPagamento, setFormaPagamento] = useState("")

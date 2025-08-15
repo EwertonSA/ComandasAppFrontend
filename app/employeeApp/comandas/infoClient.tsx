@@ -1,9 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
 import TabsSwitcher from "@/src/components/common/switch/switchComponent";
-import ClienteCard from "../../../src/component/render/cards/clienteCard";
+
 import PaginationComponent from "@/src/components/common/pagination";
 import styles from "../../../styles/getStyles.module.scss";
+import ClienteCard from "./clienteCard";
 
 interface Props {
   clientes: any[];

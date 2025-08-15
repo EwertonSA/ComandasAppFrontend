@@ -1,11 +1,12 @@
 'use server'
-import SlidePagamentos from "@/src/component/slides/slidePagamentos";
-import SlidePedidos from "@/src/component/slides/slidePedido";
-import SlideSection from "@/src/component/slides/slideSection";
+
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import produtService, { ProductType } from "@/src/services/productService";
 import GoogleStateValidator from "../login/user/OauthGoogle";
+import SlideSection from "@/src/components/common/slideSection";
+import SlidePagamentos from "@/src/components/common/slidePagamentos";
+import SlidePedidos from "@/src/components/common/slidePedido";
 
 const HomeAuth = async () => {
   const cookieStore =await cookies();

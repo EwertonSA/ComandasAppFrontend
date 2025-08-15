@@ -1,6 +1,7 @@
-import IndexLogin from "@/src/component/pages/login"
+
 import Footer from "@/src/components/common/footer"
 import HeaderGeneric from "@/src/components/common/headerGeneric"
+import IndexLogin from "."
 
 const indexPage=()=>{
     return <>

@@ -2,9 +2,10 @@
 import TabsSwitcher from "@/src/components/common/switch/switchComponent"
 import { useState } from "react"
 import { Container } from "reactstrap"
-import CardLocal from "@/src/component/render/cards/carrinho"
+
 import pedidoService from "@/src/services/pedidoService"
 import { Pedido } from "@/app/employeeApp/comandas/[id]/pedidoList"
+import CardLocal from "@/src/components/homeNoAuth/cards/carrinho"
 
 interface CardProps {
   token: string

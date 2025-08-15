@@ -2,7 +2,7 @@
 import styles from '../../../../styles/getStyles.module.scss'
 import { Container, Input, Button, Form} from 'reactstrap'
 import handleOrderAction from './actions'
-import { useParams } from 'next/navigation'
+
 import Image from 'next/image'
 
 export interface OrderProductProps {
@@ -10,7 +10,7 @@ export interface OrderProductProps {
     id: number
     nome: string
     descricao: string
-    preco: string
+    preco: number
     categoria: string
     thumbnailUrl?: string
   }

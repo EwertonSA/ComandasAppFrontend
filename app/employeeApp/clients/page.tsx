@@ -1,18 +1,23 @@
-import Clientes from "@/src/component/pages/clientes/clientes"
-import Footer from "@/src/components/common/footer"
-import HeaderAuth from "@/src/components/common/headerAuth"
-import { PageProps } from "../orders/page"
+import Clientes from "./clientes";
 
 
-const AllOrders=({searchParams}:PageProps)=>{
 
-  return <>
- 
-  <main >
- 
-<Clientes searchParams={searchParams}/>
- 
-  </main>
-  </>
+interface PageProps {
+  searchParams: Promise<{ page?: string; perPage?: string }>
 }
+
+const AllOrders = async ({ searchParams }: PageProps) => {
+  const params = await searchParams // await obrigatório
+
+  return (
+    <>
+
+      <main>
+        <Clientes searchParams={params} />
+      </main>
+  
+    </>
+  )
+}
+
 export default AllOrders

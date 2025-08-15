@@ -1,8 +1,9 @@
 'use server'
 import { cookies } from "next/headers";
 import SearchHomeNoAuth from "./form2";
-import SlideCategorias, { SlideCategoriasProps } from "@/src/component/slides/slideProdutos";
+
 import produtService from "@/src/services/productService";
+import SlideCategorias, { SlideCategoriasProps } from "@/src/components/homeNoAuth/slideProdutos";
 interface PageProps {
   params:Promise<{ comandaId: string }>;
 }

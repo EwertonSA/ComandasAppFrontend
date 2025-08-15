@@ -1,4 +1,4 @@
-import { usePedidosComanda } from "@/src/component/hooks/pedidos/usePedidosComanda"
+
 import { comandaService } from "@/src/services/comandaService"
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime"
 import { NextRouter } from "next/router"

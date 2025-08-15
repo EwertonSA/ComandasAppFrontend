@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link"
 import { Button, Container } from "reactstrap"
-import styles from '../../../../styles/getStyles.module.scss'
+import styles from '../../../styles/getStyles.module.scss'
 const IndexLogin=()=>{
 
     return(

@@ -3,7 +3,7 @@ import { OrdersPageProps } from "../allORders"
 import OrderForm from "./form"
 
 
-const Pedido=async({searchParams}:OrdersPageProps)=>{
+const Pedido=async()=>{
 
   
 

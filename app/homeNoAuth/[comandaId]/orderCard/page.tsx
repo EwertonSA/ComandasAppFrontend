@@ -2,7 +2,7 @@ import { comandaService } from "@/src/services/comandaService"
 import pedidoService from "@/src/services/pedidoService"
 import { cookies } from "next/headers"
 import OrderStatus from "./abaAtiva"
-import OrdersStatus from "./serverAbaAtiva"
+
 interface OrderCardProps{
     params:Promise<{comandaId:string}>
 }

@@ -1,13 +1,16 @@
 
 
 import Payments from "@/app/employeeApp/payments/AllPayments"
-
-const allPayments=({searchParams}:{searchParams:{page?:string,perPage?:string}})=>{
+interface PageProps{
+    searchParams:Promise<{page?:string,perPage?:string}>
+}
+const allPayments=async({searchParams}:PageProps)=>{
+    const params=await searchParams
 return<>
 
 <main>
  
-<Payments searchParams={searchParams}/>
+<Payments searchParams={params}/>
 
 </main>
 

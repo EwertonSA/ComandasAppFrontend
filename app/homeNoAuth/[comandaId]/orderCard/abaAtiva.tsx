@@ -1,6 +1,6 @@
 'use client'
-import CardLocal from "@/src/component/render/cards/carrinho"
 import TabsSwitcher from "@/src/components/common/switch/switchComponent"
+import CardLocal from "@/src/components/homeNoAuth/cards/carrinho"
 import { comandaService } from "@/src/services/comandaService"
 import pedidoService from "@/src/services/pedidoService"
 import { useEffect, useMemo, useState } from "react"

@@ -1,10 +1,11 @@
 'use client'
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
-import { usePedidosForm } from "../../../src/component/hooks/pedidos/usePedidoForm"
+
 import styles from '../../../styles/register.module.scss'
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import SearchOrderAction from "./action";
+import { usePedidosForm } from "@/app/employeeApp/orders/register/usePedidoForm";
 const SearchHomeNoAuth=()=>{
   
     const {

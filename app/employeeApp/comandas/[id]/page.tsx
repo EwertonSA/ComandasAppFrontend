@@ -6,12 +6,13 @@ import PedidosList from "@/app/employeeApp/comandas/[id]/pedidoList"
 import { cancelOrder } from "./deleteAction"
 import ClientOrders from "./clientOrders"
 interface Props {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
+
 
 const Page=async({params}:Props)=>{
         const cookie=await cookies()
- const id = params.id;
+ const {id} = await params;
     const token=cookie.get('comandas-token')?.value||''
      const res = await comandaService.getPedidosComanda(token,id);
   const details = await Promise.all(

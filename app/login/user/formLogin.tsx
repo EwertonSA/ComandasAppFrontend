@@ -10,10 +10,10 @@ import FacebookButton from "./faceBtn"
 
 const FormLogin=()=>{
       const handleLogin = () => {
-    window.location.href = "http://localhost:3001/api/auth/linkedin/callback/";
+    window.location.href = "https://esadev.com.br/api/auth/linkedin/callback/";
   };
 const handleLoginGoogle = () => {
-  window.location.href = 'https://2d768010c2e2.ngrok-free.app/api/auth/google';
+  window.location.href = 'https://esadev.com.br/api/auth/google';
 };
 
 return(
