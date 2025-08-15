@@ -13,7 +13,7 @@ const HomeAuth = async () => {
   const token = cookieStore.get("comandas-token")?.value;
 
   if (!token) {
-    redirect("/userLogin"); // redireciona no servidor
+    redirect("/login/user"); // redireciona no servidor
   }
 
   let products: ProductType[] = [];
