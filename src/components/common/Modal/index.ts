@@ -9,7 +9,7 @@ try {
   credentials:'include'
  })
  if(res.ok){
- router.push('login/index')
+ router.push('/login/index')
  }else{
   console.error('Erro ao deslogar')
  }
