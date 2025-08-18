@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { handleCloseModal, handleLogout, handleLogoutClientes, handleOpenModal } from "../Modal";
 import Link from "next/link";
-import { Container } from "reactstrap";
+import { Container, Form } from "reactstrap";
 import Image from 'next/image';
+import LogoutAction from '@/app/login/user/logoutAction';
 
 const HeaderAuth = ({ logoUrl }: { logoUrl: string }) => {
   const router = useRouter();
@@ -72,7 +73,8 @@ const HeaderAuth = ({ logoUrl }: { logoUrl: string }) => {
         <Link href="/employeeApp/register">
           <p className={styles.modalLink}>Registrar</p>
         </Link>
-        <p className={styles.modalLink} onClick={() => handleLogout(router)}>Sair</p>
+        <Form action={LogoutAction}>
+        <p className={styles.modalLink}>Sair</p></Form>
       </Modal>
     </Container>
   );
