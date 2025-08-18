@@ -3,8 +3,11 @@ import { comandaService } from "@/src/services/comandaService"
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime"
 import { NextRouter } from "next/router"
 export async function handleLogout(router: AppRouterInstance) {
-  sessionStorage.clear();
-  await router.push('/login/index');
+ await fetch('/api/auth/logout',{
+  method:"POST",
+  credentials:'include'
+ })
+ router.push('login/index')
 }
 
 export const handleOpenModal=(setModalOpen:(v:boolean)=>void)=>{
