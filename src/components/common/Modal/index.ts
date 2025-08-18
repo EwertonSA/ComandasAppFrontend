@@ -7,7 +7,7 @@ export async function handleLogout(router: AppRouterInstance) {
   method:"POST",
   credentials:'include'
  })
- router.push('login/index')
+ router.push('/index')
 }
 
 export const handleOpenModal=(setModalOpen:(v:boolean)=>void)=>{
