@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { handleCloseModal, handleLogout, handleLogoutClientes, handleOpenModal } from "../Modal";
 import Link from "next/link";
-import { Container, Form } from "reactstrap";
+import { Button, Container, Form } from "reactstrap";
 import Image from 'next/image';
 import LogoutAction from '@/app/login/user/logoutAction';
 
@@ -74,7 +74,7 @@ const HeaderAuth = ({ logoUrl }: { logoUrl: string }) => {
           <p className={styles.modalLink}>Registrar</p>
         </Link>
         <Form action={LogoutAction}>
-        <p className={styles.modalLink}>Sair</p></Form>
+        <Button type='submit' className={styles.modalLink}>Sair</Button></Form>
       </Modal>
     </Container>
   );
