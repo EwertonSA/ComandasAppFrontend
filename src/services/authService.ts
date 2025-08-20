@@ -24,6 +24,7 @@ interface clienteParams{
   email:string
   mesaId:string
 }
+interface verirfy{userId:number,token:string|null}
 const authService={
     register: async (params: RegisterLogin) => {
         try {
@@ -67,6 +68,17 @@ const authService={
       };
     }
     
+   },
+   verify2fa:async({ userId,token}: { userId: number,token:string|null})=>{
+    try {
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      const res=await api.post('/api/auth/verify',{
+       userId,token
+      })
+      return res
+    } catch (error) {
+      console.error(error)
+    }
    }
       
     }

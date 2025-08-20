@@ -20,6 +20,18 @@ const clienteService = {
       return []
     }
   },
+  userInfo:async(id:string,token:string|null,)=>{
+     try {
+     
+     const headers = token ? { Authorization: `Bearer ${token}` } : {};
+     const res=await api.get('/api/users',{
+      headers
+     })
+   return res.data
+    } catch (error) {
+       return []
+    }
+  },
 getClientesInfo: async ( token: string | null,page = 1, perPage = 10, status?: string) => {
   
   try {
