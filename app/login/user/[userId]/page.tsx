@@ -2,13 +2,16 @@
 import Image from "next/image";
 import authService from "@/src/services/authService";
 import { Verify2FAAction } from "../verify2fa";
+import { ParsedUrlQuery } from "querystring";
 
-
-
+interface Params extends ParsedUrlQuery {
+  userId: string;
+}
 
 // Componente Server-side
-export default async function Google2FA({ params }: { params: { userId: string } }) {
+export default async function Google2FA({ params }: { params: Params }) {
   const { userId } = params;
+
 
   // Pegar QR Code direto do backend
   const res = await authService.setup2faService(userId);
