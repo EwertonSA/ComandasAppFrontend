@@ -1,38 +1,29 @@
-'use client'
-
+import authService from "@/src/services/authService";
 import { useEffect, useState } from "react";
 import { Verify2FAAction } from "../verify2fa";
 import Image from "next/image";
-import authService from "@/src/services/authService";
 
-export default function Google2FA() {
-  const [userId, setUserId] = useState<string | null>(null);
-  const [mode, setMode] = useState<string | null>(null);
+interface Params {
+  params: { userId: string };
+}
+
+export default function Google2FA({ params }: Params) {
+  const userId = params.userId;
+
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [token, setToken] = useState("");
   const [showTokenInput, setShowTokenInput] = useState(false);
 
-  // Pega os parâmetros direto da URL
   useEffect(() => {
-    const query = new URLSearchParams(window.location.search);
-    setUserId(query.get("userId"));
-    setMode(query.get("mode"));
-  }, []);
-
-  // Busca o QR Code se for modo "setup"
-  useEffect(() => {
-    if (!userId) return;
-
     async function fetchQR() {
-      if (mode === "setup") {
-        const res = await authService.setup2faService(userId!);
-        setQrCode(res.qrCodeDataURL);
-      }
+      if (!userId) return;
+      const res = await authService.setup2faService(userId);
+      setQrCode(res.qrCodeDataURL);
       setShowTokenInput(true);
     }
 
     fetchQR();
-  }, [userId, mode]);
+  }, [userId]);
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
@@ -63,5 +54,3 @@ export default function Google2FA() {
     </form>
   );
 }
-
-
