@@ -1,23 +1,19 @@
-// app/login/user/[userId]/page.tsx
 import Image from "next/image";
 import authService from "@/src/services/authService";
 import { Verify2FAAction } from "../verify2fa";
-import { ParsedUrlQuery } from "querystring";
 
-interface Params extends ParsedUrlQuery {
-  userId: string;
+interface PageProps {
+  params: {
+    userId: string;
+  };
 }
 
-// Componente Server-side
-export default async function Google2FA({ params }: { params: Params }) {
+export default async function Google2FA({ params }: PageProps) {
   const { userId } = params;
 
-
-  // Pegar QR Code direto do backend
   const res = await authService.setup2faService(userId);
   const qrCode = res.qrCodeDataURL;
 
-  // Aqui você pode decidir se quer renderizar o input de token diretamente ou passar para Client Component
   return (
     <div>
       <h1>2FA para usuário {userId}</h1>
