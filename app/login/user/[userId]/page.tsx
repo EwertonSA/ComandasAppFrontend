@@ -1,8 +1,11 @@
-'use client';
+// app/login/user/[userId]/page.tsx
+'use client'
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Verify2FAAction } from "../verify2fa";
 import authService from "@/src/services/authService";
+import { Verify2FAAction } from "../verify2fa";
+
 
 
 export default function Google2FA({ params }: any) {
@@ -10,45 +13,64 @@ export default function Google2FA({ params }: any) {
 
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [token, setToken] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
+  // Buscar QR Code do backend
   useEffect(() => {
-    async function fetchQR() {
-      if (!userId) return;
-      const res = await authService.setup2faService(userId);
-      setQrCode(res.qrCodeDataURL); // usa o qrCode retornado do serviço
+    async function fetchQRCode() {
+      try {
+        const res = await authService.setup2faService(userId);
+        if (res.qrCodeDataURL) {
+          setQrCode(res.qrCodeDataURL);
+        } else {
+          setError("Falha ao carregar QR Code");
+        }
+      } catch (err) {
+        console.error(err);
+        setError("Erro ao buscar QR Code");
+      } finally {
+        setLoading(false);
+      }
     }
-    fetchQR();
+
+    fetchQRCode();
   }, [userId]);
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault();
-    if (!userId) return;
-    await Verify2FAAction(Number(userId), token);
+    try {
+      await Verify2FAAction(Number(userId), token);
+      // redirecionamento ocorre dentro do Verify2FAAction
+    } catch (err: any) {
+      setError(err.message || "Código inválido");
+    }
   }
 
-  return (
-    <form onSubmit={handleVerify}>
-      <h1>2FA para usuário {userId}</h1>
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
 
+  return (
+    <div>
+      <h1>Autenticação 2FA</h1>
       {qrCode && (
         <div>
-          <p>Escaneie o QR Code no Authenticator:</p>
-          <Image src={qrCode} alt="QR Code 2FA" width={200} height={200}/>
+          <p>Escaneie este QR Code no seu Authenticator:</p>
+          <Image src={qrCode} alt="QR Code 2FA" width={200} height={200} />
         </div>
       )}
-
-      <div>
+      <form onSubmit={handleVerify}>
         <label>Código 2FA</label>
         <input
+          type="text"
           name="token"
           value={token}
           onChange={(e) => setToken(e.target.value)}
           maxLength={6}
           required
         />
-      </div>
-
-      <button type="submit">Confirmar</button>
-    </form>
+        <button type="submit">Confirmar</button>
+      </form>
+    </div>
   );
 }
