@@ -9,7 +9,7 @@ interface Params {
 }
 
 export default function Google2FA({ params }: Params) {
-  const userId = params.userId;
+  const {userId} = params;
 
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [token, setToken] = useState("");
