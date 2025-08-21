@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Verify2FAAction } from "./verify2fa";
+import { Verify2FAAction } from "../verify2fa";
 
 import Image from "next/image";
 import authService from "@/src/services/authService";
