@@ -1,21 +1,25 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { Verify2FAAction } from "../verify2fa";
-
 import Image from "next/image";
 import authService from "@/src/services/authService";
 
 export default function Google2FA() {
-  const params = useSearchParams();
-  const userId = params.get("userId");
-  const mode = params.get("mode"); // "setup" ou "verify"
-
+  const [userId, setUserId] = useState<string | null>(null);
+  const [mode, setMode] = useState<string | null>(null);
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [token, setToken] = useState("");
   const [showTokenInput, setShowTokenInput] = useState(false);
 
+  // Pega os parâmetros direto da URL
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+    setUserId(query.get("userId"));
+    setMode(query.get("mode"));
+  }, []);
+
+  // Busca o QR Code se for modo "setup"
   useEffect(() => {
     if (!userId) return;
 
@@ -59,3 +63,5 @@ export default function Google2FA() {
     </form>
   );
 }
+
+
