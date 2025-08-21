@@ -1,3 +1,4 @@
+'use client'
 import authService from "@/src/services/authService";
 import { useEffect, useState } from "react";
 import { Verify2FAAction } from "../verify2fa";
