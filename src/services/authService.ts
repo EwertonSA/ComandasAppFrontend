@@ -79,7 +79,17 @@ const authService={
     } catch (error) {
       console.error(error)
     }
-   }
+   },
+ setup2faService:async(userId: string) =>{
+  try {
+    const res = await api.get(`/api/auth/verify-2fa/setup?userId=${userId}`);
+    return res.data; // { qrCodeDataURL, secret? }
+  } catch (err) {
+    console.error(err);
+    return { qrCodeDataURL: null };
+  }
+}
+
       
     }
 export default authService
