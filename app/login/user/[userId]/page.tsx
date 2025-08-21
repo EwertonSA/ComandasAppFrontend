@@ -4,12 +4,10 @@ import authService from "@/src/services/authService";
 import { Verify2FAAction } from "../verify2fa";
 
 
-interface Props {
-  params: { userId: string };
-}
+
 
 // Componente Server-side
-export default async function Google2FA({ params }: Props) {
+export default async function Google2FA({ params }: { params: { userId: string } }) {
   const { userId } = params;
 
   // Pegar QR Code direto do backend
