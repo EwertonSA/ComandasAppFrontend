@@ -1,56 +1,31 @@
-'use client'
-import authService from "@/src/services/authService";
-import { useEffect, useState } from "react";
-import { Verify2FAAction } from "../verify2fa";
+// app/login/user/2fa-oauth/[userId]/page.tsx
 import Image from "next/image";
+import { Verify2FAAction } from "../verify2fa";
+import authService from "@/src/services/authService";
 
-interface Params {
+interface PageProps {
   params: { userId: string };
 }
 
-export default function Google2FA({ params }: Params) {
-  const {userId} = params;
+export default async function Google2FA({ params }: PageProps) {
+  const userId = params.userId;
 
-  const [qrCode, setQrCode] = useState<string | null>(null);
-  const [token, setToken] = useState("");
-  const [showTokenInput, setShowTokenInput] = useState(false);
-
-  useEffect(() => {
-    async function fetchQR() {
-      if (!userId) return;
-      const res = await authService.setup2faService(userId);
-      setQrCode(res.qrCodeDataURL);
-      setShowTokenInput(true);
-    }
-
-    fetchQR();
-  }, [userId]);
-
-  async function handleVerify(e: React.FormEvent) {
-    e.preventDefault();
-    if (!userId) return;
-    await Verify2FAAction(Number(userId), token);
-  }
+  // 🔹 Chama serviço no servidor direto
+  const res = await authService.setup2faService(userId);
+  const qrCode = res.qrCodeDataURL;
 
   return (
-    <form onSubmit={handleVerify}>
+    <form method="post">
       {qrCode && (
         <div>
           <p>Escaneie o QR Code no Authenticator:</p>
-          <Image src={qrCode} alt="QR Code 2FA" width={200} height={200}/>
+          <Image src={qrCode} alt="QR Code 2FA" width={200} height={200} />
         </div>
       )}
-      {showTokenInput && (
-        <div>
-          <label>Código 2FA</label>
-          <input
-            value={token}
-            onChange={e => setToken(e.target.value)}
-            maxLength={6}
-            required
-          />
-        </div>
-      )}
+      <div>
+        <label>Código 2FA</label>
+        <input name="token" maxLength={6} required />
+      </div>
       <button type="submit">Confirmar</button>
     </form>
   );
