@@ -7,8 +7,8 @@ import authService from "@/src/services/authService";
 export async function LoginAction(formData: FormData) {
   const email = formData.get("email")?.toString() || "";
   const password = formData.get("password")?.toString() || "";
-const recaptchaToken = formData.get("recaptchaToken")?.toString() || "";
-  const res = await authService.login({ email, password,recaptchaToken });
+const reCaptchaToken = formData.get("recaptchaToken")?.toString() || "";
+  const res = await authService.login({ email, password,reCaptchaToken });
 
   if (res.status === 200) {
     const setcookie=await cookies()
