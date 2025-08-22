@@ -11,10 +11,9 @@ export async function LoginAction2fa(formData: FormData) {
   const recaptchaToken = formData.get("recaptchaToken")?.toString() || "";
 
   const res = await authService.login({ email, password,recaptchaToken });
-if (res.status !== 200|| res.data?.error) {
+if (res.status !== 200) {
   console.error("❌ Erro no login:", res);
-  console.log("🔍 Status da resposta:", res.status);
-  return { error: true, message: res.data?.message || "Erro no login" };
+ redirect('/login/index')
 }
 
 

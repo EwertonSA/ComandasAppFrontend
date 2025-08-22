@@ -43,7 +43,10 @@ const authService={
         }
       },
       login:async(params:LoginParams)=>{
+        console.log("🔎 Função login chamada com:", params);
         const res=await api.post('/api/auth/login',params).catch((error)=>{
+            console.log("✅ Resposta do login:", res.status, res.data);
+
           if(error.response.status === 400 || error.response.status === 401){
             return error.response
           }
