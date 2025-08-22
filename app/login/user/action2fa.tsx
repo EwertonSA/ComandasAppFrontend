@@ -11,11 +11,11 @@ export async function LoginAction2fa(formData: FormData) {
   const recaptchaToken = formData.get("recaptchaToken")?.toString() || "";
 
   const res = await authService.login({ email, password,recaptchaToken });
+if (res.status !== 200) {
+  console.error("❌ Erro no login:", res);
+  return { error: true, message: res.data?.message || "Erro no login" };
+}
 
-  if (res.status !== 200) {
-      console.error("❌ Erro no login:", res);
-    redirect("/login/index");
-  }
 
   // 🔹 3. Se backend pediu 2FA → front mostra QR ou input de código
   if (res.data.twoFARequired) {

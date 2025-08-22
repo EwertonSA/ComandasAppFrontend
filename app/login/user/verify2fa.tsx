@@ -15,5 +15,5 @@ export async function Verify2FAAction(userId: number, token: string) {
  const cookie=await cookies()
  cookie.set("comandas-token", res.data.token, { httpOnly: true });
 
-  redirect("/employeeApp");
+  redirect("/employeeApp")
 }
