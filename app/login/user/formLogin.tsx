@@ -10,6 +10,7 @@ import { LoginAction2fa } from "./action2fa";
 import { Verify2FAAction } from "./verify2fa";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
+import authService from "@/src/services/authService";
 
 const FormLogin = () => {
   const [email, setEmail] = useState(""); 
@@ -28,6 +29,13 @@ const FormLogin = () => {
   const handleLoginGoogle = () => {
     window.location.href = "https://esadev.com.br/api/auth/google";
   };
+  const handleResetQrCode=async()=>{
+    try{
+    const res=await authService.reset2fa({userId})
+    setQrCode(res?.data.qrCodeDataURL)
+  }catch(error){
+      console.error("Erro ao gerar novo QR:", error);
+  }}
 
   return (
     <main className={styles.main}>
@@ -48,7 +56,7 @@ const FormLogin = () => {
               const res = await LoginAction2fa(formData);
               if (res?.twoFARequired) { console.log(formData)
                 setTwoFARequired(true);
-                setUserId(res.userId);
+                setUserId(res.userId); 
                 setQrCode(res.qrCode);
                 setShowTokenInput(true);
               }
@@ -130,6 +138,7 @@ const FormLogin = () => {
                   maxLength={6}
                   required
                 />
+                <Button outline onClick={()=>handleResetQrCode}>Gerar novo</Button>
               </FormGroup>
             )}
 
@@ -141,4 +150,4 @@ const FormLogin = () => {
   );
 };
 
-export default FormLogin;
+export default FormLogin
