@@ -8,9 +8,9 @@ import authService from "@/src/services/authService";
 export async function LoginAction2fa(formData: FormData) {
   const email = formData.get("email")?.toString() || "";
   const password = formData.get("password")?.toString() || "";
-  const reCaptchaToken = formData.get("recaptchaToken")?.toString() || "";
+  const recaptchaToken = formData.get("recaptchaToken")?.toString() || "";
 
-  const res = await authService.login({ email, password,reCaptchaToken });
+  const res = await authService.login({ email, password,recaptchaToken });
 if (res.status !== 200) {
   console.error("❌ Erro no login:", res);
  redirect('/login/index')
