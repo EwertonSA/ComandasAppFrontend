@@ -108,10 +108,14 @@ background-color: transparent;
 }
 }
   .recaptcha {
+     display: flex;
+  justify-content: center; // centraliza horizontalmente
+  margin-bottom: 1rem;
   transform: scale(1) !important;
   width: 304px !important;
   height: 78px !important;
   margin: auto;
+    z-index: 10;
 }
 @media(max-width:550px){
     .form{
