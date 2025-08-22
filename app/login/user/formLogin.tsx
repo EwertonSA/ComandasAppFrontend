@@ -30,8 +30,12 @@ const FormLogin = () => {
     window.location.href = "https://esadev.com.br/api/auth/google";
   };
   const handleResetQrCode=async()=>{
+      if (!userId) {
+    console.error("userId não definido!");
+    return;
+  }
     try{
-    const res=await authService.reset2fa({userId})
+    const res=await authService.reset2fa({userId:userId.toString()})
     setQrCode(res?.data.qrCodeDataURL)
   }catch(error){
       console.error("Erro ao gerar novo QR:", error);

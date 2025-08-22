@@ -59,7 +59,7 @@ const authService={
   }
 }
 ,
-reset2fa:async({userId}:{userId:number | null})=>{
+reset2fa:async({userId}:{userId:string})=>{
 try {
   const res=await api.post('/api/auth/reset2fa',{userId})
   return res
