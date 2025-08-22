@@ -36,12 +36,20 @@ const FormLogin = () => {
           <Form
             className={styles.form}
             action={async (formData: FormData) => {
+               const recaptchaToken = (window as any).grecaptcha.getResponse();
+
+    if (!recaptchaToken) {
+      alert("Por favor, marque o reCAPTCHA");
+      return;
+    }
+
+    // 2️⃣ adicionar token ao FormData
+    formData.append("recaptchaToken", recaptchaToken);
               const res = await LoginAction2fa(formData);
               if (res?.twoFARequired) {
                 setTwoFARequired(true);
                 setUserId(res.userId);
                 setQrCode(res.qrCode);
-                // mostra o input do token somente após QRCode carregado
                 setShowTokenInput(true);
               }
             }}
@@ -114,6 +122,12 @@ const FormLogin = () => {
                 />
               </FormGroup>
             )}
+           <div
+  className="g-recaptcha"
+  data-sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+/>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 
             <Button outline className={styles.formBtn} type="submit">Confirmar</Button>
           </Form>

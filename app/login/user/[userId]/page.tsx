@@ -1,11 +1,11 @@
-// app/login/user/[userId]/page.tsx
 'use client'
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import authService from "@/src/services/authService";
 import { Verify2FAAction } from "../verify2fa";
-
+import styles from "../../../../styles/getStyles.module.scss"
+import { Form } from "reactstrap";
 
 
 export default function Google2FA({ params }: any) {
@@ -51,7 +51,7 @@ export default function Google2FA({ params }: any) {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <div>
+    <main className={styles.main}>
       <h1>Autenticação 2FA</h1>
       {qrCode && (
         <div>
@@ -59,7 +59,7 @@ export default function Google2FA({ params }: any) {
           <Image src={qrCode} alt="QR Code 2FA" width={200} height={200} />
         </div>
       )}
-      <form onSubmit={handleVerify}>
+      <Form onSubmit={handleVerify}>
         <label>Código 2FA</label>
         <input
           type="text"
@@ -70,7 +70,7 @@ export default function Google2FA({ params }: any) {
           required
         />
         <button type="submit">Confirmar</button>
-      </form>
-    </div>
+      </Form>
+    </main>
   );
 }

@@ -17,7 +17,8 @@ interface ClienteLogin{
   }
 interface LoginParams{
   email:string
-  password:string
+  password:string,
+  recaptchaToken: string;
 }
 interface clienteParams{
   nome:string
