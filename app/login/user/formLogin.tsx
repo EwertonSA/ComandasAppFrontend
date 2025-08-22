@@ -95,7 +95,6 @@ const FormLogin = () => {
               <ReCAPTCHA
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
                  onChange={(token) => {
-    console.log("token do reCAPTCHA:", token);
     setRecaptchaToken(token);
   }}
               />
