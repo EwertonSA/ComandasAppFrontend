@@ -61,7 +61,7 @@ const authService={
 ,
 reset2fa:async({userId}:{userId:number | null})=>{
 try {
-  const res=await api.post('/api/auth/reset2fa',userId)
+  const res=await api.post('/api/auth/reset2fa',{userId})
   return res
 } catch (error) {
   console.error(error)
