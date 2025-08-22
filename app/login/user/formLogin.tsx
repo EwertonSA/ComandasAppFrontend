@@ -91,7 +91,7 @@ const FormLogin = () => {
             </FormGroup>
 
             {/* 🔹 reCAPTCHA v2 visível */}
-            <FormGroup>
+            <FormGroup className={styles.recaptcha}>
               <ReCAPTCHA
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
                 onChange={(token) => setRecaptchaToken(token)}
