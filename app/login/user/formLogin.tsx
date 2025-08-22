@@ -90,7 +90,7 @@ const FormLogin = () => {
               <Button onClick={handleLoginGoogle}>Login com Google</Button>
             </FormGroup>
 
-            {/* 🔹 reCAPTCHA v2 */}
+            {/* 🔹 reCAPTCHA v2 visível */}
             <FormGroup>
               <ReCAPTCHA
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
