@@ -42,19 +42,23 @@ const authService={
           };
         }
       },
-      login:async(params:LoginParams)=>{
-        console.log("🔎 Função login chamada com:", params);
-        const res=await api.post('/api/auth/login',params).catch((error)=>{
-            console.log("✅ Resposta do login:", res.status, res.data);
+     login: async (params: LoginParams) => {
+  try {
+    const res = await api.post('/api/auth/login', params);
+    console.log("✅ Resposta do login:", res.status, res.data);
+    return res;
+  } catch (error: any) {
+    console.log("🔎 Função login chamada com:", params);
 
-          if(error.response.status === 400 || error.response.status === 401){
-            return error.response
-          }
-          return error;
-        })
-       
-        return res
-      },
+    if (error.response && (error.response.status === 400 || error.response.status === 401)) {
+      console.log("❌ Erro no login:", error.response.status, error.response.data);
+      return error.response;
+    }
+
+    return error;
+  }
+}
+,
    autoLogin:async(params:clienteParams)=>{
     try {
 

@@ -46,7 +46,7 @@ const FormLogin = () => {
               formData.append("recaptchaToken", recaptchaToken);
 
               const res = await LoginAction2fa(formData);
-              if (res?.twoFARequired) {
+              if (res?.twoFARequired) { console.log(formData)
                 setTwoFARequired(true);
                 setUserId(res.userId);
                 setQrCode(res.qrCode);
