@@ -94,7 +94,10 @@ const FormLogin = () => {
             <FormGroup className={styles.recaptcha}>
               <ReCAPTCHA
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                onChange={(token) => setRecaptchaToken(token)}
+                 onChange={(token) => {
+    console.log("token do reCAPTCHA:", token);
+    setRecaptchaToken(token);
+  }}
               />
             </FormGroup>
 
