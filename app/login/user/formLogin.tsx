@@ -138,10 +138,11 @@ const FormLogin = () => {
                   maxLength={6}
                   required
                 />
-                <Button outline onClick={()=>handleResetQrCode}>Gerar novo</Button>
+               
               </FormGroup>
             )}
-
+            
+            <Button outline onClick={()=>handleResetQrCode}>Gerar novo</Button>
             <Button outline className={styles.formBtn} type="submit">Confirmar</Button>
           </Form>
         )}
