@@ -24,7 +24,7 @@ const FormLogin = () => {
 
   // Login OAuth externos
   const handleLoginLinkedIn = () => {
-    window.location.href = "https://esadev.com.br/api/auth/linkedin/callback/";
+    window.location.href = "https://esadev.com.br/api/auth/linkedin/redirect/";
   };
 
   const handleLoginGoogle = () => {
