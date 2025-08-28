@@ -21,9 +21,7 @@ const FormLogin = () => {
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [showTokenInput, setShowTokenInput] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-const handleFaceLogin=()=>{
-  window.location.href="https://esadev.com.br/api/auth/instagram/redirect"
-}
+
   // Login OAuth externos
   const handleLoginLinkedIn = () => {
     window.location.href = "https://esadev.com.br/api/auth/linkedin/redirect/";
@@ -107,7 +105,7 @@ const handleFaceLogin=()=>{
 
             {/* Logins sociais */}
             <FormGroup>
-              <Button onClick={handleFaceLogin}><FacebookButton /></Button>
+              <Link href={FACEBOOK_AUTH_URL}><FacebookButton /></Link>
               <Button onClick={handleLoginLinkedIn}>Login com LinkedIn</Button>
               <Button onClick={handleLoginGoogle}>Login com Google</Button>
             </FormGroup>
