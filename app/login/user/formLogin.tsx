@@ -22,7 +22,7 @@ const FormLogin = () => {
   const [showTokenInput, setShowTokenInput] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 const handleFaceLogin=()=>{
-  window.location.href="https://esadev.com.br/api/auth/instagram/redirect"
+  window.location.href="https://esadev.com.br/api/auth/facebook/redirect"
 }
   // Login OAuth externos
   const handleLoginLinkedIn = () => {
