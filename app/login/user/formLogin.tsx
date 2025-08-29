@@ -107,9 +107,11 @@ const handleFaceLogin=()=>{
 
             {/* Logins sociais */}
             <FormGroup>
+              <div className={styles.main}>
               <Button onClick={handleFaceLogin}><FacebookButton /></Button>
               <Button onClick={handleLoginLinkedIn}>Login com LinkedIn</Button>
               <Button onClick={handleLoginGoogle}>Login com Google</Button>
+              </div>
             </FormGroup>
 
             {/* 🔹 reCAPTCHA v2 */}
