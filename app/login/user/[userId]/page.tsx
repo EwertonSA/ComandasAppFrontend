@@ -51,7 +51,7 @@ export default function Google2FA({ params }: any) {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <main className={styles.main}>
+    <main className={styles.qrContainer}>
       <h1>Autenticação 2FA</h1>
       {qrCode && (
         <div className={styles.container}>
@@ -59,7 +59,7 @@ export default function Google2FA({ params }: any) {
           <Image src={qrCode} alt="QR Code 2FA" width={300} height={300}  className={styles.main}/>
         </div>
       )}
-      <Form onSubmit={handleVerify} className={styles.main}>
+      <Form onSubmit={handleVerify} >
         <label>Código 2FA</label>
         <input
           type="text"
