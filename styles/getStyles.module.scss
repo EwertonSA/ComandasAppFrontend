@@ -286,6 +286,7 @@ color: colors.$lightBlue;
     border-radius: 8px;
     width: 400px;
     max-height: 600px;
+    margin-top: 20px;
 }
 .center{
     display: flex;
@@ -297,6 +298,7 @@ color: colors.$lightBlue;
 border-color: colors.$darkGray;
 color: white;
 background-color: transparent;
+margin-bottom: 8px;
 
 &::placeholder{
     color: colors.$lightGray;

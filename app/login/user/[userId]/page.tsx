@@ -5,7 +5,7 @@ import Image from "next/image";
 import authService from "@/src/services/authService";
 import { Verify2FAAction } from "../verify2fa";
 import styles from "../../../../styles/getStyles.module.scss"
-import { Form } from "reactstrap";
+import { Button, Form, Input } from "reactstrap";
 
 
 export default function Google2FA({ params }: any) {
@@ -63,7 +63,7 @@ export default function Google2FA({ params }: any) {
       <Form onSubmit={handleVerify} >
         <div className={styles.center}>
         <label>Código 2FA</label>
-        <input
+        <Input
           type="text"
           name="token"
           value={token}
@@ -71,7 +71,7 @@ export default function Google2FA({ params }: any) {
           maxLength={6}
           required
         />
-        <button type="submit">Confirmar</button>
+        <Button type="submit">Confirmar</Button>
         </div>
       </Form>
       </div>
