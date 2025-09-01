@@ -286,7 +286,15 @@ color: colors.$lightBlue;
     background-color: yellow;
     border:2px solid orange
   }
+.input{
+border-color: colors.$darkGray;
+color: white;
+background-color: transparent;
 
+&::placeholder{
+    color: colors.$lightGray;
+    text-transform: none;
+}}
 @media(max-width:766px){
     .row{
         font-size: 10px;
