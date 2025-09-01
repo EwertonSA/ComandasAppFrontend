@@ -55,9 +55,9 @@ export default function Google2FA({ params }: any) {
       <div className={styles.qrContainer}>
       <h1>Autenticação 2FA</h1>
       {qrCode && (
-        <div>
+        <div className={styles.center}>
           <p className={styles.subtitle}>Escaneie este QR Code no seu Authenticator:</p>
-          <Image src={qrCode} alt="QR Code 2FA" width={300} height={300} className={styles.center}/>
+          <Image src={qrCode} alt="QR Code 2FA" width={300} height={300} />
         </div>
       )}
       <Form onSubmit={handleVerify} >
