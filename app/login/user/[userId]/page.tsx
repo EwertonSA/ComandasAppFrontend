@@ -67,11 +67,12 @@ export default function Google2FA({ params }: any) {
           type="text"
           name="token"
           value={token}
+          className={styles.input}
           onChange={(e) => setToken(e.target.value)}
           maxLength={6}
           required
         />
-        <Button type="submit">Confirmar</Button>
+        <Button outline type="submit">Confirmar</Button>
         </div>
       </Form>
       </div>
