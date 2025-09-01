@@ -269,14 +269,19 @@ color: colors.$lightBlue;
     padding-top: 30px;
     padding-bottom: 50px;
 }
-.faceBtn{
-    background-color: transparent;
-    border: none;
-    &:hover{
-        background-color: transparent;
-        border: none;
-    }
+.oauthbtn{
+    width: 250px;
+    height: 70px;
+    border-radius: 20px;
+    margin-bottom: 20px;
 }
+.linkedinBtn{
+    width: 400px;
+    background-color: transparent;
+    border: 4px solid blue;
+
+}
+
 .qrContainer{
     display: flex;
     flex-direction: column;

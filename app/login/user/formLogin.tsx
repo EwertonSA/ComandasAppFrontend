@@ -11,7 +11,8 @@ import { Verify2FAAction } from "./verify2fa";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
 import authService from "@/src/services/authService";
-import OauthButton from "./OauthButton";
+import OauthButton from "./faceBtn";
+
 
 const FormLogin = () => {
   const [email, setEmail] = useState(""); 
@@ -97,7 +98,7 @@ const FormLogin = () => {
             </FormGroup>
 
             {/* Logins sociais */}
-           <OauthButton/>
+ <OauthButton/>
 
             {/* 🔹 reCAPTCHA v2 */}
             <FormGroup className={styles.recaptcha}>
