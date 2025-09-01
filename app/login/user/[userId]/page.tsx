@@ -51,7 +51,8 @@ export default function Google2FA({ params }: any) {
   if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
-    <main className={styles.qrContainer}>
+    <main >
+      <div className={styles.qrContainer}>
       <h1>Autenticação 2FA</h1>
       {qrCode && (
         <div className={styles.container}>
@@ -71,6 +72,7 @@ export default function Google2FA({ params }: any) {
         />
         <button type="submit">Confirmar</button>
       </Form>
+      </div>
     </main>
   );
 }
