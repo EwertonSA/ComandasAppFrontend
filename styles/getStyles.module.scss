@@ -277,14 +277,14 @@ color: colors.$lightBlue;
         border: none;
     }
 }
-.qrContaienr{
+.qrContainer{
     display: flex;
     flex-direction: column;
     border: 2px solid gray;
     border-radius: 8px;
     width: 400px;
     height: 600px;
-    
+
 }
 .input{
 border-color: colors.$darkGray;
