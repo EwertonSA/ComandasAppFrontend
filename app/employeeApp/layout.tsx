@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     title: "EmployeeApp - Restaurante",
     description:
       "Facilite o atendimento do seu restaurante: app para colaboradores registrarem pedidos de clientes.",
-    url: "https://https://esadev.com.br/indexComandas",
+    url: "https://esadev.com.br/indexComandas",
     siteName: "EmployeeApp",
     images: [
       {
@@ -42,18 +42,19 @@ export const metadata: Metadata = {
       "App para colaboradores de restaurantes registrarem pedidos de clientes.",
     images: ["https://esadev.com.br/og-image.jpg"],
   },
-  metadataBase: new URL("https://https://esadev.com.br/indexComandas"),
+  metadataBase: new URL("https://esadev.com.br"),
 };
 
-const RootLayoutEmployeeApp=({children}:{children:ReactNode})=>{
-    return(
-        <div >
+const RootLayoutEmployeeApp = ({children}:{children:ReactNode}) => {
+    return (
+        <div>
             <HeaderAuth logoUrl="/employeeApp"/>
             <main className="d-flex flex-column align-items-center justify-content-center">
-            {children}
+                {children}
             </main>
             <Footer/>
         </div>
     )
 }
+
 export default RootLayoutEmployeeApp
