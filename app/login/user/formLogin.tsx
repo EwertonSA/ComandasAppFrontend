@@ -11,6 +11,8 @@ import { Verify2FAAction } from "./verify2fa";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
 import authService from "@/src/services/authService";
+import OauthButton from "./OauthButton";
+import Form2fa from "./form2fa";
 
 const FormLogin = () => {
   const [email, setEmail] = useState(""); 
@@ -21,32 +23,9 @@ const FormLogin = () => {
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [showTokenInput, setShowTokenInput] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-const handleFaceLogin=()=>{
-  window.location.href="https://esadev.com.br/api/auth/facebook/redirect"
-}
-  // Login OAuth externos
-  const handleLoginLinkedIn = () => {
-    window.location.href = "https://esadev.com.br/api/auth/linkedin/redirect/";
-  };
 
-  const handleLoginGoogle = () => {
-    window.location.href = "https://esadev.com.br/api/auth/google";
-  };
 
   // 🔹 Resetar o QR Code / 2FA
-  const handleResetQrCode = async () => {
-    if (!userId) {
-      console.error("userId não definido!");
-      return;
-    }
-    try {
-      const res = await authService.reset2fa({ userId: userId.toString() });
-      setQrCode(res?.data.qrCodeDataURL); // atualiza QR
-      setShowTokenInput(true);            // mostra o campo do token também
-    } catch (error) {
-      console.error("Erro ao gerar novo QR:", error);
-    }
-  };
 
   return (
     <main className={styles.main}>
@@ -106,13 +85,7 @@ const handleFaceLogin=()=>{
             </FormGroup>
 
             {/* Logins sociais */}
-            <FormGroup>
-              <div className={styles.main}>
-              <Button onClick={handleFaceLogin}><FacebookButton /></Button>
-              <Button onClick={handleLoginLinkedIn}>Login com LinkedIn</Button>
-              <Button onClick={handleLoginGoogle}>Login com Google</Button>
-              </div>
-            </FormGroup>
+           <OauthButton/>
 
             {/* 🔹 reCAPTCHA v2 */}
             <FormGroup className={styles.recaptcha}>
@@ -125,46 +98,7 @@ const handleFaceLogin=()=>{
             <Button outline className={styles.formBtn} type="submit">Entrar</Button>
           </Form>
         ) : (
-
-        /* ================= LOGIN COM 2FA ================= */
-          <Form
-            className={styles.form}
-            action={async (formData: FormData) => {
-              if (!userId) return;
-              const tokenValue = formData.get("token")?.toString() || "";
-              await Verify2FAAction(Number(userId), tokenValue);
-            }}
-          >
-            {/* Só mostra QR se o backend mandar OU se resetar */}
-            {qrCode && (
-              <div className={styles.qrContainer}>
-                <p>Escaneie o QR Code no seu Authenticator antes de inserir o código:</p>
-                <Image src={qrCode} alt="QR Code 2FA" height={400} width={400}/>
-              </div>
-            )}
-
-            {/* Sempre mostra o input do token se 2FA ativo */}
-            {showTokenInput && (
-              <FormGroup>
-                <Label for="token" className={styles.label}>Código 2FA</Label>
-                <Input
-                  id="token"
-                  name="token"
-                  value={token}
-                  onChange={e => setToken(e.target.value)}
-                  placeholder="000000"
-                  maxLength={6}
-                  required
-                />
-              </FormGroup>
-            )}
-
-            {/* 🔹 Botão opcional de reset */}
-            <div className="d-flex gap-2">
-              <Button outline onClick={handleResetQrCode}>Gerar novo QR</Button>
-              <Button outline className={styles.formBtn} type="submit">Confirmar</Button>
-            </div>
-          </Form>
+<Form2fa/>
         )}
       </Container>
     </main>
