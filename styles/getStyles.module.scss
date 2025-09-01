@@ -286,7 +286,12 @@ color: colors.$lightBlue;
     border-radius: 8px;
     width: 400px;
     max-height: 600px;
-
+}
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .input{
 border-color: colors.$darkGray;
