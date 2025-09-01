@@ -37,7 +37,7 @@ return(
       
             {qrCode && (
               <div className={styles.auth}>
-                <p className={styles.title}>Escaneie o QR Code no seu Authenticator antes de inserir o código:</p>
+                <p className={styles.title}>Escaneie o QR Code no seu Authenticator antes de inserir o códigodsfdsfdsagfdsgfdsgfsd:</p>
                 <Image src={qrCode} alt="QR Code 2FA" height={600} width={600}/>
               </div>
             )}
