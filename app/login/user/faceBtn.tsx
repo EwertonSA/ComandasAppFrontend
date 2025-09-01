@@ -21,7 +21,7 @@ export default function OauthButton() {
     <Button className={styles.oauthbtn}outline color='primary' onClick={handleFaceLogin}>
       <FontAwesomeIcon icon={faFacebook} className={styles.faceIcon}/> Login com Facebook
     </Button>
-    <Button className={styles.oauthbtn} outline onClick={handleLoginLinkedIn}>
+    <Button className={styles.oauthbtnLinkedin} outline onClick={handleLoginLinkedIn}>
       <FontAwesomeIcon icon={faLinkedin} /> Login com LinkedIn
     </Button>
     <Button  color='success' className={styles.oauthbtn} outline onClick={handleLoginGoogle}>

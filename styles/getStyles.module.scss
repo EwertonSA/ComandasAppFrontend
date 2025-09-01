@@ -275,6 +275,14 @@ color: colors.$lightBlue;
     border-radius: 20px;
     margin-bottom: 20px;
 }
+.oauthbtnLinkedin{
+    @extend .oauthbtn;
+    color: rgb(21, 175, 227);
+    border-color:rgb(21, 175, 227) ;
+    &:hover{
+        background-color: rgb(21, 175, 227);
+    }
+}
 .linkedinBtn{
     width: 400px;
     background-color: transparent;
