@@ -122,8 +122,8 @@ const FormLogin = () => {
           >
             {/* Só mostra QR se o backend mandar OU se resetar */}
             {qrCode && (
-              <div className={styles.container}>
-                <p className={styles.test}>Escaneie o QR Code no seu Authenticator antes de inserir o códigodsadsadsadsadsa:</p>
+              <div className={styles.qrContainer}>
+                <p>Escaneie o QR Code no seu Authenticator antes de inserir o código:</p>
                 <Image src={qrCode} alt="QR Code 2FA" height={400} width={400}/>
               </div>
             )}
