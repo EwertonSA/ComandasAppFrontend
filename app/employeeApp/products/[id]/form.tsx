@@ -20,7 +20,7 @@ export interface OrderProductProps {
 
 const OrderFormView = ({ produto,produtoId }: OrderProductProps) => {
 const imgUrl = produto.thumbnailUrl
-  ? `${process.env.NEXT_PUBLIC_BASEURL}/uploads/${produto.thumbnailUrl}`
+  ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`
   : null;
 
 
