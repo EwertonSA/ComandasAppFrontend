@@ -41,9 +41,9 @@ const AllProducts =async ({searchParams}:OrdersPageProps) => {
         <tbody>
           {produtos.map((produto: any) => {
             const defaultImg = "images/deafult-thumbnail.jpg";
-const imgUrl = produto.thumbnailUrl
-  ? `/uploads/${produto.thumbnailUrl}`
-  : defaultImg;
+            const imgUrl = produto.thumbnailUrl&& produto.thumbnailUrl.trim() !== ""
+              ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`
+              : defaultImg;
             return (
             
                <tr key={produto.id} className={styles.clickableRow}>

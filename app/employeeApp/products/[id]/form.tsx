@@ -20,8 +20,9 @@ export interface OrderProductProps {
 
 const OrderFormView = ({ produto,produtoId }: OrderProductProps) => {
 const imgUrl = produto.thumbnailUrl
-  ? `http://localhost:3001/${produto.thumbnailUrl}`
-  : null
+  ? `${process.env.NEXT_PUBLIC_BASEURL}/uploads/${produto.thumbnailUrl}`
+  : null;
+
 
   return (
     <main className={styles.main} style={{
