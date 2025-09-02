@@ -94,6 +94,7 @@ const FormLogin = () => {
                 required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
+                autocomplete="current-password"
               />
             </FormGroup>
 

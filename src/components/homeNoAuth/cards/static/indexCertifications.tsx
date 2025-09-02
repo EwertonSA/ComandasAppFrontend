@@ -16,7 +16,7 @@ return(
 <Link href={"certificado_JavaScriptV.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Javascript V</p></Link>
 <Link href={"certificado_JavaScriptVI.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Javascript VI</p></Link>
 <Link href={"certificado_JavaScriptVI.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Typescript</p></Link>
-<Link href={"certificado_GiteGithub.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Git&GitHub</p></Link>
+<Link href={"certificado_GiteGitHub.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Git&GitHub</p></Link>
 <Link href={"certificado_FundamentosdoReact.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>React</p></Link>
 <Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Next</p></Link>
 <Link href={"certificado_Node.js.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Node</p></Link>
