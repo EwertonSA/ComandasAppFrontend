@@ -8,6 +8,7 @@ import Link from "next/link";
 import PaginationComponent from "@/src/components/common/pagination";
 import { cookies } from "next/headers";
 import { OrdersPageProps } from "../orders/allORders";
+import Image from "next/image";
 
 const AllProducts =async ({searchParams}:OrdersPageProps) => {
   const setCookie = await cookies()
@@ -50,7 +51,7 @@ const AllProducts =async ({searchParams}:OrdersPageProps) => {
                <tr key={produto.id} className={styles.clickableRow}>
         <td className={styles.rowImg}>
           <Link href={`/employeeApp/products/${produto.id}`}>
-            <img src={imgUrl} alt={produto.nome} className={styles.Img} />
+            <Image src={imgUrl} alt={produto.nome} className={styles.Img} />
           </Link>
         </td>
         <td className={styles.row}>
