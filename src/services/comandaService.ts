@@ -19,22 +19,30 @@ export const comandaService={
     }
   },
 
-  getPedidosComanda:async(token:string|null,comandaId:string)=>{
-
-  
+getPedidosComanda: async (token: string | null, comandaId: string) => {
   const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
-    try {
-      const res=await api.get(`/api/comandas/${comandaId}`,{
-        headers
-      })
-     
-      return res.data
-    } catch (error:any) {
-      console.error("Erro ao buscar dados da comanda:", error);
-      return null; 
+  try {
+    const res = await api.get(`/api/comandas/${comandaId}`, { headers });
+
+    // se o backend retornar 404, res.data pode estar vazio
+    if (!res.data) {
+      console.warn(`Comanda ${comandaId} não encontrada para o cliente logado.`);
+      return null;
     }
-      },
+
+    return res.data; // contém a comanda e pedidos do cliente
+  } catch (error: any) {
+    if (error.response?.status === 401) {
+      console.error("Cliente não autorizado");
+    } else if (error.response?.status === 404) {
+      console.error("Comanda não encontrada");
+    } else {
+      console.error("Erro ao buscar dados da comanda:", error);
+    }
+    return null;
+  }
+},
       registerComanda: async (token:string |null ,params: ComandasParams) => {
          const headers = token ? { Authorization: `Bearer ${token}` } : {};
         try {
