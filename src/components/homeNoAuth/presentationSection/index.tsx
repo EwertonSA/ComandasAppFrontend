@@ -18,7 +18,7 @@ return<>
       </Link>
         </Col>
         <Col md>
-        <img className={styles.imgPresentation} src="/1.jpg" alt="" />
+        <img className={styles.imgPresentation} src="/og-image.jpg" alt="" />
         </Col>
     </Row>
     <Row>

@@ -17,7 +17,7 @@ const IndexProjects = () => {
 
         <div className={styles.projects}>
           <div className={styles.container}>
-            <img src="/comandasApp.jpg" alt="" className={styles.slideImg} />
+            <img src="/ComandasApp.jpg" alt="" className={styles.slideImg} />
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam,
               quas sit eligendi, quis saepe vitae iusto inventore architecto
@@ -38,7 +38,7 @@ const IndexProjects = () => {
             target="_blank"
             className={styles.container}
           >
-            <img src="/comandasApp.jpg" alt="" className={styles.slideImg} />
+            <img src="/ComandasApp.jpg" alt="" className={styles.slideImg} />
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam,
               quas sit eligendi, quis saepe vitae iusto inventore architecto
