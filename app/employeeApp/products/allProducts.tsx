@@ -51,7 +51,7 @@ const AllProducts =async ({searchParams}:OrdersPageProps) => {
                <tr key={produto.id} className={styles.clickableRow}>
         <td className={styles.rowImg}>
           <Link href={`/employeeApp/products/${produto.id}`}>
-            <Image src={imgUrl} alt={produto.nome} className={styles.Img} />
+            <Image src={imgUrl} alt={produto.nome} className={styles.Img} width={50} height={50}/>
           </Link>
         </td>
         <td className={styles.row}>
