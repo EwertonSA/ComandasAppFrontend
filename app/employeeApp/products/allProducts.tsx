@@ -41,8 +41,8 @@ const AllProducts =async ({searchParams}:OrdersPageProps) => {
         <tbody>
           {produtos.map((produto: any) => {
             const defaultImg = "images/deafult-thumbnail.jpg";
-            const imgUrl = produto.thumbnailUrl?.trim()
-  ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl.replace(/^\/+/, "")}`
+       const imgUrl = produto.thumbnailUrl
+  ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`
   : defaultImg;
 
             return (
