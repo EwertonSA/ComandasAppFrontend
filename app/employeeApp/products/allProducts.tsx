@@ -41,9 +41,8 @@ const AllProducts =async ({searchParams}:OrdersPageProps) => {
         <tbody>
           {produtos.map((produto: any) => {
             const defaultImg = "images/deafult-thumbnail.jpg";
-         const imgUrl = produto.thumbnailUrl && produto.thumbnailUrl.trim() !== ""
-  ? `/uploads/${produto.thumbnailUrl}`  // usa rota servida pelo Nginx
-  : defaultImg;
+const thumbnailPath = produto.thumbnailUrl?.replace(/^https?:\/\/localhost:3001\/uploads\//, "") || "";
+const imgUrl = thumbnailPath ? `/uploads/${thumbnailPath}` : defaultImg;
             return (
             
                <tr key={produto.id} className={styles.clickableRow}>
