@@ -41,17 +41,17 @@ const AllProducts =async ({searchParams}:OrdersPageProps) => {
         </thead>
         <tbody>
           {produtos.map((produto: any) => {
-            const defaultImg = "images/deafult-thumbnail.jpg";
+         
        const imgUrl = produto.thumbnailUrl
   ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`
-  : defaultImg;
+  : null;
 
             return (
             
                <tr key={produto.id} className={styles.clickableRow}>
         <td className={styles.rowImg}>
           <Link href={`/employeeApp/products/${produto.id}`}>
-            <Image src={imgUrl} alt={produto.nome} className={styles.Img} width={50} height={50}/>
+           {imgUrl&& <Image src={imgUrl} alt={produto.nome} className={styles.Img} width={50} height={50}/>}
           </Link>
         </td>
         <td className={styles.row}>
