@@ -237,8 +237,14 @@ color: colors.$lightBlue;
 }
 .navBtn{
 border: 2px solid white;
+border-radius: 5px;
 margin: 10px;
 padding: 10px;
+}
+.navBtnDisabled{
+@extend .navBtn;
+color:gray;
+border-color: gray;
 }
 .pageInfo{
 font-size: 20px;
