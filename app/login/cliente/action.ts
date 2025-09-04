@@ -13,12 +13,12 @@ const LoginAction=async(formData:FormData)=>{
      const token=res.token
      if(res.status===200|| res.status === 201) {
         cookie.set('clientes-token',token,{httpOnly:true});
-       const response= await comandaService.registrarTudo(token,{nome,mesaId})
+       const response= await comandaService.registerAllForClient(token,{nome,mesaId})
        if(!response.status){
         throw new Error('Impossível registrar comanda')
        }else{
-        const comandaId=response.comandaId
-            redirect(`/homeNoAuth/${comandaId}`)
+        const {comandaId,state}=response
+            redirect(`/homeNoAuth/${comandaId}?state=${state}`)
        }
      } 
     

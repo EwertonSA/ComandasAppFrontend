@@ -25,7 +25,15 @@ interface clienteParams{
   email:string
   mesaId:string
 }
-interface verirfy{userId:number,token:string|null}
+interface stateParams{
+  comandaId:string,state:string
+}
+
+interface VerifyStateResponse {
+  valid: boolean;
+}
+
+
 const authService={
     register: async (params: RegisterLogin) => {
         try {
@@ -103,6 +111,17 @@ try {
   } catch (err) {
     console.error(err);
     return { qrCodeDataURL: null };
+  }
+},
+verifyStateClient:async({comandaId,state}: stateParams): Promise<boolean>=>{
+  try {
+    const res=await api.get<VerifyStateResponse>(`/api/auth/verifystate/${comandaId}`,{
+      params:{state}
+    })
+    return res.data.valid
+  } catch (error) {
+    console.error("Erro ao verificar state:", error);
+    return false;
   }
 }
 

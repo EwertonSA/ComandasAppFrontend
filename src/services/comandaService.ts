@@ -35,6 +35,19 @@ export const comandaService={
       return null; 
     }
       },
+  getClientOrders: async (token: string) => {
+  try {
+     const res = await api.get("/api/comandasCliente", {
+       headers: { Authorization: `Bearer ${token}` },
+      });
+          console.log('data:',res.data)
+    return res.data;
+
+  } catch (error) {
+    console.error("Erro ao buscar dados da comanda:", error);
+  }
+},
+
       registerComanda: async (token:string |null ,params: ComandasParams) => {
          const headers = token ? { Authorization: `Bearer ${token}` } : {};
         try {
@@ -47,6 +60,46 @@ export const comandaService={
             error: err.response?.data?.message || err.message || "Erro desconhecido",
             status: err.response?.status || 500
           }; 
+        }
+      },
+      registerClientComanda:async(token:string |null ,params:ComandasParams)=>{
+ const headers = token ? { Authorization: `Bearer ${token}` } : {};
+ try {
+  const res=await api.post('/api/clientComanda',params,{
+    headers
+  })
+  return res.data;
+ } catch (error) {
+    console.error("Erro ao buscar dados da comanda:", error);
+      return null; 
+ }
+      },
+
+      registerAllForClient:async(
+          token: string | null,{
+        mesaId,
+        nome,
+     
+      }: {
+        mesaId: string;
+        nome: string;
+       
+      })=>{
+        try {
+          const clienteRes=await clienteService.register(token,{nome,mesaId});
+             if ("error" in clienteRes || !clienteRes.id) {
+            return { status: 400, message: "Erro ao registrar cliente." };
+          }
+           const clienteId = clienteRes.id.toString();
+           const comandaRes=await comandaService.registerClientComanda(token,{clienteId,mesaId})
+             if ("error" in comandaRes || !comandaRes.id) {
+            return { status: 400, message: "Erro ao criar comanda." };
+          }
+          const comandaId=comandaRes.id.toString()
+      return { status: 200, message: "Tudo registrado com sucesso!", comandaId, state: comandaRes.state };
+        } catch (error) {
+            console.error("Erro no registrarTudo:", error);
+          return { status: 500, message: "Erro interno no servidor." };
         }
       },
       registrarTudo: async (
