@@ -1,7 +1,7 @@
 'use client'
 import { OrderProductProps } from "@/app/employeeApp/products/[id]/form"
 
-import styles from '../../../../../styles/getStyles.module.scss'
+import styles from '../../../../styles/getStyles.module.scss'
 import { Button, Container, Form, Input } from "reactstrap"
 import Image from "next/image"
 import OrderClientAction from "./action"

@@ -1,7 +1,7 @@
 'use client'
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
 import PaymentAction from "./action"
-import styles from "../../../../styles/register.module.scss"
+import styles from "../../../styles/register.module.scss"
 interface PaymentClientProps{
     params:{comandaId:string}
     valor:string    
