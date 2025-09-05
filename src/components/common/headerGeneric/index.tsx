@@ -12,10 +12,10 @@ import { usePedidosComanda } from '../hooks/pedidos/usePedidosComanda';
 
 interface props {
   logoUrl: string;
-  state:string
+  
 }
 
-const HeaderGeneric = ({ logoUrl,state }: props) => {
+const HeaderGeneric = ({ logoUrl }: props) => {
   const router = useRouter();
   const pathname = usePathname();
 const params=useParams()
