@@ -76,10 +76,10 @@ const comandaId=params.comandaId as string
               <Link href={`/homeNoAuth/${comandaId}`} legacyBehavior>
                 <a className={styles.modalLink}>Página inicial</a>
               </Link>
-              <Link href={`/homeNoAuth/orderCard/${comandaId}`} legacyBehavior>
+              <Link href={`/homeNoAuth/${comandaId}/orderCard`} legacyBehavior>
                 <a className={styles.modalLink}>Carrinho</a>
               </Link>
-              <Link href={`/homeNoAuth/payment/${comandaId}`} legacyBehavior>
+              <Link href={`/homeNoAuth/${comandaId}/payment`} legacyBehavior>
                 <a className={styles.modalLink}>Pagamento</a>
               </Link>
               <a
