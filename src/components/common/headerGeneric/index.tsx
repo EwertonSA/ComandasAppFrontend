@@ -12,9 +12,10 @@ import { usePedidosComanda } from '../hooks/pedidos/usePedidosComanda';
 
 interface props {
   logoUrl: string;
+  state:string
 }
 
-const HeaderGeneric = ({ logoUrl }: props) => {
+const HeaderGeneric = ({ logoUrl,state }: props) => {
   const router = useRouter();
   const pathname = usePathname();
 const params=useParams()
@@ -78,7 +79,7 @@ const comandaId=params.comandaId as string
               <Link href={`/homeNoAuth/${comandaId}/orderCard`} legacyBehavior>
                 <a className={styles.modalLink}>Carrinho</a>
               </Link>
-              <Link href={`/homeNoAuth/${comandaId}/payment`} legacyBehavior>
+              <Link href={`/homeNoAuth/${comandaId}`} legacyBehavior>
                 <a className={styles.modalLink}>Pagamento</a>
               </Link>
               <a

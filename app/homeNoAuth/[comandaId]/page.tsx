@@ -1,40 +1,35 @@
-'use server'
-import { cookies } from "next/headers";
-import SearchHomeNoAuth from "./form2";
+  'use server'
+  import { cookies } from "next/headers";
+  import SearchHomeNoAuth from "./form2";
 
-import produtService from "@/src/services/productService";
-import SlideCategorias, { SlideCategoriasProps } from "@/src/components/homeNoAuth/slideProdutos";
-import authService from "@/src/services/authService";
-interface PageProps {
-  params:Promise<{ comandaId: string }>;
- searchParams: Promise<{ state?: string }>;
-}
-
-const HomeNoAuth=async({params,searchParams}:PageProps)=>{
-   const { comandaId } = await params;
- const cookie= await cookies()
-const token=cookie.get('clientes-token')?.value||'';
-const {state=''}=await searchParams;
-  console.log("comanda rota:", comandaId);
-  console.log("state recebido:", state);
-const isValid=await authService.verifyStateClient({comandaId,state})
-  if (!isValid) {
-    return <p>Acesso inválido à comanda</p>;
+  import produtService from "@/src/services/productService";
+  import SlideCategorias, { SlideCategoriasProps } from "@/src/components/homeNoAuth/slideProdutos";
+  import authService from "@/src/services/authService";
+  interface PageProps {
+    params:Promise<{ comandaId: string }>;
+  searchParams: Promise<{ state?: string }>;
   }
-const categorias = ["Bebidas", "Entradas", "Pratos", "Sobremesas"];
-const produtosPorCategoria: SlideCategoriasProps["produtosPorCategoria"] = {};
-for (const categoria of categorias) {
-    const produtos = await produtService.getByCategories(token, categoria);
-    produtosPorCategoria[categoria] = produtos;
-}
 
-return <>
- <main >
-<div className="d-flex flex-column align-items-center justify-content-center">
-<SearchHomeNoAuth />
-<SlideCategorias produtosPorCategoria={produtosPorCategoria}  comandaId={comandaId}/>
-</div>
-</main>
-  </>
-}
-export default HomeNoAuth
+  const HomeNoAuth=async({params,searchParams}:PageProps)=>{
+    const { comandaId } = await params;
+  const cookie= await cookies()
+  const token=cookie.get('clientes-token')?.value||'';
+ 
+
+  const categorias = ["Bebidas", "Entradas", "Pratos", "Sobremesas"];
+  const produtosPorCategoria: SlideCategoriasProps["produtosPorCategoria"] = {};
+  for (const categoria of categorias) {
+      const produtos = await produtService.getByCategories(token, categoria);
+      produtosPorCategoria[categoria] = produtos;
+  }
+
+  return <>
+  <main >
+  <div className="d-flex flex-column align-items-center justify-content-center">
+  <SearchHomeNoAuth />
+  <SlideCategorias produtosPorCategoria={produtosPorCategoria}  comandaId={comandaId}/>
+  </div>
+  </main>
+    </>
+  }
+  export default HomeNoAuth

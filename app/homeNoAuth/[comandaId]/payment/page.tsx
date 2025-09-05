@@ -13,7 +13,7 @@ const Page = async ({ params, searchParams }: PageProps) => {
   const cookieStore = await cookies()
   const token = cookieStore.get('clientes-token')?.value || ''
  const search = searchParams ? await searchParams : {}
-  const comanda = await comandaService.getPedidosComanda(token, comandaId)
+  const comanda = await comandaService.getClientOrders(token)
   if (!comanda) throw new Error("Comanda inexistente.")
 
   const delivered = comanda.pedidos.reduce((acc: number, pedido: any) => {

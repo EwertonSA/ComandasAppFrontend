@@ -35,18 +35,23 @@ export const comandaService={
       return null; 
     }
       },
-  getClientOrders: async (token: string) => {
+getClientOrders: async (token: string) => {
   try {
-     const res = await api.get("/api/comandasCliente", {
-       headers: { Authorization: `Bearer ${token}` },
-      });
-          console.log('data:',res.data)
-    return res.data;
+    const res = await api.get("/api/comandasCliente", {
+      headers: {
+        Authorization: `Bearer ${token}`, // se você ainda quiser enviar o token
+      },
+      withCredentials: true, // <- isso garante que cookies sejam enviados
+    });
 
-  } catch (error) {
-    console.error("Erro ao buscar dados da comanda:", error);
+    console.log("data:", res.data);
+    return res.data;
+  } catch (error: any) {
+    console.error("Erro ao buscar dados da comanda:", error.response?.data || error.message);
+    return null;
   }
 },
+ 
 
       registerComanda: async (token:string |null ,params: ComandasParams) => {
          const headers = token ? { Authorization: `Bearer ${token}` } : {};
@@ -91,11 +96,13 @@ export const comandaService={
             return { status: 400, message: "Erro ao registrar cliente." };
           }
            const clienteId = clienteRes.id.toString();
-           const comandaRes=await comandaService.registerClientComanda(token,{clienteId,mesaId})
-             if ("error" in comandaRes || !comandaRes.id) {
-            return { status: 400, message: "Erro ao criar comanda." };
-          }
+        const comandaRes = await comandaService.registerClientComanda(token, { clienteId, mesaId });
+
+if (!comandaRes || "error" in comandaRes || !comandaRes.id) {
+  return { status: 400, message: "Erro ao criar comanda." };
+}
           const comandaId=comandaRes.id.toString()
+          console.log("ComandaIdFront:",comandaId)
       return { status: 200, message: "Tudo registrado com sucesso!", comandaId, state: comandaRes.state };
         } catch (error) {
             console.error("Erro no registrarTudo:", error);

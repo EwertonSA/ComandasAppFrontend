@@ -1,20 +1,21 @@
+import HeaderGeneric from "@/src/components/common/headerGeneric";
+import { ReactNode } from "react";
 
-import HeaderGeneric from "@/src/components/common/headerGeneric"
-import { ReactNode } from "react"
-interface params{
-    params:Promise<{comandaId:string}>
-    children:ReactNode
+interface Params {
+  params: Promise<{ comandaId: string; state:string }>;
+  children: ReactNode;
 }
-const RootLayoutClientApp=async({children,params}:params)=>{
-    const param=await params
-return(
+
+const RootLayoutClientApp = async ({ children, params }: Params) => {
+  const { comandaId,state} = await params;
+
+  return (
     <div>
-<HeaderGeneric logoUrl={`/homeNoAuth/${param.comandaId}`}/>
-<main>
-    {children}
-</main>
-
+      {/* Passa todos os valores via props */}
+      <HeaderGeneric logoUrl={`/homeNoAuth/${comandaId}`} state={state} />
+      <main>{children}</main>
     </div>
-)
-}
-export default RootLayoutClientApp
+  );
+};
+
+export default RootLayoutClientApp;
