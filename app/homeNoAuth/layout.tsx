@@ -12,7 +12,7 @@ const RootLayoutClientApp = async ({ children, params }: Params) => {
   return (
     <div>
       {/* Passa todos os valores via props */}
-      <HeaderGeneric logoUrl={`/homeNoAuth/${comandaId}`} state={state} />
+      <HeaderGeneric logoUrl={`/homeNoAuth/${comandaId}`} />
       <main>{children}</main>
     </div>
   );
