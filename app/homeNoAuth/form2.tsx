@@ -1,7 +1,7 @@
 'use client'
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
 
-import styles from '../../../styles/register.module.scss'
+import styles from '../../styles/register.module.scss'
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import SearchOrderAction from "./action";
