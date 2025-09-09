@@ -67,30 +67,30 @@ getClientOrders: async (token: string) => {
           }; 
         }
       },
-      registerClientComanda:async(token:string |null)=>{
+   registerClientComanda: async () => {
+    try {
+      const res = await api.post("/api/clientComanda", {}, { withCredentials: true });
+      return res.data;
+    } catch (error) {
+      console.error("Erro ao criar comanda:", error);
+      return { error: "Erro ao criar comanda" };
+    }
+  },
 
- try {
-  const res=await api.post('/api/clientComanda',{},{ withCredentials: true })
-  return res.data;
- } catch (error) {
-    console.error("Erro ao buscar dados da comanda:", error);
-      return null; 
- }
-      },
-
-    registerAllForClient: async (
-  token: string | null,
-  { mesaId, nome }: { mesaId: string; nome: string }
-) => {
+ registerAllForClient: async ({ nome, mesaId }: { nome: string; mesaId: string }) => {
   try {
-    // registra cliente (já vincula cliente à mesa)
-    const clienteRes = await clienteService.register(token, { nome, mesaId });
+    // 1. registra cliente
+    const clienteRes = await clienteService.register({ nome, mesaId });
     if ("error" in clienteRes || !clienteRes.id) {
       return { status: 400, message: "Erro ao registrar cliente." };
     }
 
-    // registra comanda → backend já atualiza o cookie com o novo token (com comandaId)
-    const comandaRes = await comandaService.registerClientComanda(token);
+    // 2. registra comanda → backend devolve cookie atualizado
+    const comandaRes = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/clientComanda`, {
+      method: "POST",
+      credentials: "include", // 🔑 garante envio/recebimento de cookies
+    }).then(r => r.json());
+
     if (!comandaRes || "error" in comandaRes || !comandaRes.id) {
       return { status: 400, message: "Erro ao criar comanda." };
     }
@@ -106,6 +106,7 @@ getClientOrders: async (token: string) => {
   }
 },
 
+
       registrarTudo: async (
           token: string | null,{
         mesaId,
@@ -117,7 +118,7 @@ getClientOrders: async (token: string) => {
        
       }) => {
         try {
-          const clienteRes = await clienteService.register(token,{ nome,mesaId });
+          const clienteRes = await clienteService.register({ nome,mesaId });
           if ("error" in clienteRes || !clienteRes.id) {
             return { status: 400, message: "Erro ao registrar cliente." };
           }

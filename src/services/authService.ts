@@ -75,24 +75,32 @@ try {
   console.error(error)
 }
 },
-   autoLogin:async(params:clienteParams)=>{
-    try {
+  autoLogin: async (params: clienteParams) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/auth/autoLogin`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(params), // ✅ manda direto os campos
+      credentials: "include", // 🔑 garante cookies
+    })
 
-      const res=await api.post("/api/auth/autoLogin",params,{withCredentials:true})
-      if(res.status ===400 || res.status ===401 ){
-    throw new Error('Impossível logar')
-       
-      } 
-     return{ ...res.data, status:res.status} 
-    } catch (err:any) {
-      console.error("Erro capturado no authService:", err);
-      return {
-        error: err.response?.data?.message || err.message || "Erro desconhecido",
-        status: err.response?.status || 500
-      };
+    if (res.status === 400 || res.status === 401) {
+      throw new Error("Impossível logar")
     }
-    
-   },
+
+    const data = await res.json() // ✅ pega resposta em JSON
+
+    return { ...data, status: res.status } // ✅ retorna dados + status
+  } catch (err: any) {
+    console.error("Erro capturado no authService:", err)
+
+    return {
+      error: err.message || "Erro desconhecido",
+      status: 500,
+    }
+  }
+},
+
    verify2fa:async({ userId,token}: { userId: number,token:string|null})=>{
     try {
         const headers = token ? { Authorization: `Bearer ${token}` } : {};

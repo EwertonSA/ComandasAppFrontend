@@ -16,7 +16,7 @@ const LoginAction = async (formData: FormData) => {
   if (res.status === 200 || res.status === 201) {
 
     // Continua registrando cliente e comanda
-    const response = await comandaService.registerAllForClient(token, { nome, mesaId })
+    const response = await comandaService.registerAllForClient({ nome, mesaId })
     if (!response.status) {
       throw new Error('Impossível registrar comanda')
     }

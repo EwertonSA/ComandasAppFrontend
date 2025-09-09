@@ -69,11 +69,11 @@ getClientesInfo: async ( token: string | null,page = 1, perPage = 10, status?: s
 
 
 
-  register: async (token:string |null ,params: RegisterParams) => {
+  register: async (params: RegisterParams) => {
 
     try {
-     const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      const res = await api.post('/api/clientes', params,{headers});
+     
+      const res = await api.post('/api/clientes', params);
       return res.data;
     } catch (err: any) {
       return {

@@ -79,23 +79,31 @@ getProduct: async (
   }
 },
 
-    getByCategories: async (categoria: string) => {
+ getByCategories: async (token: string | null, categoria: string): Promise<ProductType[]> => {
   try {
-    const res = await api.get(`/api/produtos/categoria/${categoria}`, {
-      withCredentials: true, // ✅ envia cookies automaticamente
+    const API_URL = process.env.NEXT_PUBLIC_BASEURL;
+    if (!API_URL) throw new Error("NEXT_PUBLIC_API_URL não definido");
+
+    const res = await fetch(`${API_URL}/api/produtos/categoria/${categoria}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+      cache: "no-store",
     });
 
-    if (Array.isArray(res.data)) return res.data;
-    if (res.data && res.data[categoria]) return res.data[categoria];
+    if (!res.ok) {
+      throw new Error("Erro ao buscar produtos");
+    }
 
-    console.warn('⚠️ Resposta inesperada da API:', res.data);
-    return [];
-
-  } catch (error: any) {
-    console.error('Erro ao buscar produto:', error?.response?.data || error.message);
-    return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : []; // ✅ sempre retorna array
+  } catch (error) {
+    console.error("Erro ao buscar produto:", error);
+    return []; // ✅ retorna array vazio em caso de erro
   }
 }
+
 ,getProductById:async(token:string | null,id:string)=>{
        const headers = token ? { Authorization: `Bearer ${token}` } : {};
         try {
