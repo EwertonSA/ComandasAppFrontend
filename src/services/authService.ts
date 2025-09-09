@@ -78,7 +78,7 @@ try {
    autoLogin:async(params:clienteParams)=>{
     try {
 
-      const res=await api.post("/api/auth/autoLogin",params)
+      const res=await api.post("/api/auth/autoLogin",params,{withCredentials:true})
       if(res.status ===400 || res.status ===401 ){
     throw new Error('Impossível logar')
        

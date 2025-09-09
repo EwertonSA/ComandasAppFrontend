@@ -73,13 +73,13 @@ const comandaId=params.comandaId as string
               className={styles.modal}
               overlayClassName={styles.overlay}
             >
-              <Link href={`/homeNoAuth/${comandaId}`} legacyBehavior>
+              <Link href={`/homeNoAuth`} legacyBehavior>
                 <a className={styles.modalLink}>Página inicial</a>
               </Link>
-              <Link href={`/homeNoAuth/${comandaId}/orderCard`} legacyBehavior>
+              <Link href={`/homeNoAuth/orderCard`} legacyBehavior>
                 <a className={styles.modalLink}>Carrinho</a>
               </Link>
-              <Link href={`/homeNoAuth/${comandaId}/payment`} legacyBehavior>
+              <Link href={`/homeNoAuth/payment`} legacyBehavior>
                 <a className={styles.modalLink}>Pagamento</a>
               </Link>
               <a

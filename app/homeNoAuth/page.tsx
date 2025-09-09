@@ -19,7 +19,7 @@
   const categorias = ["Bebidas", "Entradas", "Pratos", "Sobremesas"];
   const produtosPorCategoria: SlideCategoriasProps["produtosPorCategoria"] = {};
   for (const categoria of categorias) {
-      const produtos = await produtService.getByCategories(token, categoria);
+      const produtos = await produtService.getByCategories( token,categoria);
       produtosPorCategoria[categoria] = produtos;
   }
 

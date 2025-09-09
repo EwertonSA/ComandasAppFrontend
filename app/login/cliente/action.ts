@@ -14,7 +14,6 @@ const LoginAction = async (formData: FormData) => {
   const token = res.token
 
   if (res.status === 200 || res.status === 201) {
-    cookie.set('clientes-token', token, { httpOnly: true })
 
     // Continua registrando cliente e comanda
     const response = await comandaService.registerAllForClient(token, { nome, mesaId })

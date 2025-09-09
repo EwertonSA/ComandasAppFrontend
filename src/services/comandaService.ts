@@ -67,12 +67,10 @@ getClientOrders: async (token: string) => {
           }; 
         }
       },
-      registerClientComanda:async(token:string |null ,params:ComandasParams)=>{
- const headers = token ? { Authorization: `Bearer ${token}` } : {};
+      registerClientComanda:async(token:string |null)=>{
+
  try {
-  const res=await api.post('/api/clientComanda',params,{
-    headers
-  })
+  const res=await api.post('/api/clientComanda',{},{ withCredentials: true })
   return res.data;
  } catch (error) {
     console.error("Erro ao buscar dados da comanda:", error);
@@ -80,35 +78,34 @@ getClientOrders: async (token: string) => {
  }
       },
 
-      registerAllForClient:async(
-          token: string | null,{
-        mesaId,
-        nome,
-     
-      }: {
-        mesaId: string;
-        nome: string;
-       
-      })=>{
-        try {
-          const clienteRes=await clienteService.register(token,{nome,mesaId});
-             if ("error" in clienteRes || !clienteRes.id) {
-            return { status: 400, message: "Erro ao registrar cliente." };
-          }
-           const clienteId = clienteRes.id.toString();
-        const comandaRes = await comandaService.registerClientComanda(token, { clienteId, mesaId });
+    registerAllForClient: async (
+  token: string | null,
+  { mesaId, nome }: { mesaId: string; nome: string }
+) => {
+  try {
+    // registra cliente (já vincula cliente à mesa)
+    const clienteRes = await clienteService.register(token, { nome, mesaId });
+    if ("error" in clienteRes || !clienteRes.id) {
+      return { status: 400, message: "Erro ao registrar cliente." };
+    }
 
-if (!comandaRes || "error" in comandaRes || !comandaRes.id) {
-  return { status: 400, message: "Erro ao criar comanda." };
-}
-          const comandaId=comandaRes.id.toString()
-          console.log("ComandaIdFront:",comandaId)
-      return { status: 200, message: "Tudo registrado com sucesso!", comandaId, state: comandaRes.state };
-        } catch (error) {
-            console.error("Erro no registrarTudo:", error);
-          return { status: 500, message: "Erro interno no servidor." };
-        }
-      },
+    // registra comanda → backend já atualiza o cookie com o novo token (com comandaId)
+    const comandaRes = await comandaService.registerClientComanda(token);
+    if (!comandaRes || "error" in comandaRes || !comandaRes.id) {
+      return { status: 400, message: "Erro ao criar comanda." };
+    }
+
+    return {
+      status: 200,
+      message: "Tudo registrado com sucesso!",
+      comandaId: comandaRes.id,
+    };
+  } catch (error) {
+    console.error("Erro no registrarTudo:", error);
+    return { status: 500, message: "Erro interno no servidor." };
+  }
+},
+
       registrarTudo: async (
           token: string | null,{
         mesaId,
