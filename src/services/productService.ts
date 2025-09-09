@@ -79,14 +79,10 @@ getProduct: async (
   }
 },
 
-// productService.ts
-getByCategories: async (token: string, categoria: string) => {
+    getByCategories: async (categoria: string) => {
   try {
-    // Passa o token no header apenas se estiver no client
-    const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
-
     const res = await api.get(`/api/produtos/categoria/${categoria}`, {
-      headers
+      withCredentials: true, // ✅ envia cookies automaticamente
     });
 
     if (Array.isArray(res.data)) return res.data;
@@ -94,12 +90,12 @@ getByCategories: async (token: string, categoria: string) => {
 
     console.warn('⚠️ Resposta inesperada da API:', res.data);
     return [];
+
   } catch (error: any) {
     console.error('Erro ao buscar produto:', error?.response?.data || error.message);
     return [];
   }
 }
-
 ,getProductById:async(token:string | null,id:string)=>{
        const headers = token ? { Authorization: `Bearer ${token}` } : {};
         try {
