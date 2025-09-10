@@ -2,6 +2,8 @@
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
 import styles from '../../../styles/register.module.scss'
 import LoginAction from "./action"
+import authService from "@/src/services/authService";
+
 
 const ClientForm=({mesas}:{mesas:any[]})=>{
 return(

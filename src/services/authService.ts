@@ -75,33 +75,47 @@ try {
   console.error(error)
 }
 },
-  autoLogin: async (params: clienteParams) => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/auth/autoLogin`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(params), // ✅ manda direto os campos
-      credentials: "include", // 🔑 garante cookies
-    })
+autoLogin: async (params:clienteParams) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/autoLogin`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include", // 🔑 envia/recebe cookies
+    body: JSON.stringify(params),
+  });
 
-    if (res.status === 400 || res.status === 401) {
-      throw new Error("Impossível logar")
-    }
+  if (!res.ok) throw new Error("Falha no login");
+  return await res.json(); // retorna { authenticated, clienteId, email, role, mesaId }
+}
 
-    const data = await res.json() // ✅ pega resposta em JSON
 
-    return { ...data, status: res.status } // ✅ retorna dados + status
-  } catch (err: any) {
-    console.error("Erro capturado no authService:", err)
+ ,
+loginAndRegister : async (email: string, nome: string, mesaId: string) => {
+  // 1️⃣ login / criação do cliente
+  const loginRes = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/auth/autoLogin`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, nome, mesaId }),
+    credentials: "include", // 🔑 importante para enviar e receber cookies
+  });
 
-    return {
-      error: err.message || "Erro desconhecido",
-      status: 500,
-    }
+  if (!loginRes.ok) {
+    throw new Error('Não foi possível logar');
   }
-},
 
-   verify2fa:async({ userId,token}: { userId: number,token:string|null})=>{
+  // 2️⃣ registra comanda
+  const comandaRes = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/clientComanda`, {
+    method: "POST",
+    credentials: "include", // 🔑 cookie enviado automaticamente
+  });
+
+  if (!comandaRes.ok) {
+    throw new Error('Não foi possível criar comanda');
+  }
+
+  const comandaData = await comandaRes.json();
+  return comandaData.id;
+},
+ verify2fa:async({ userId,token}: { userId: number,token:string|null})=>{
     try {
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const res=await api.post('/api/auth/verify',{

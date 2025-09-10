@@ -67,20 +67,24 @@ getClientOrders: async (token: string) => {
           }; 
         }
       },
-   registerClientComanda: async () => {
-    try {
-      const res = await api.post("/api/clientComanda", {}, { withCredentials: true });
-      return res.data;
-    } catch (error) {
-      console.error("Erro ao criar comanda:", error);
-      return { error: "Erro ao criar comanda" };
-    }
-  },
+  registerClientComanda :async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/registerClientComanda`, {
+    method: "POST",
+    credentials: "include", // 🔑 cookie será enviado
+  });
+
+  if (!res.ok) {
+    const err = await res.json();
+    throw new Error(err.error || "Erro ao criar comanda");
+  }
+
+  return await res.json(); // retorna { id: comandaId }
+},
 
  registerAllForClient: async ({ nome, mesaId }: { nome: string; mesaId: string }) => {
   try {
     // 1. registra cliente
-    const clienteRes = await clienteService.register({ nome, mesaId });
+    const clienteRes = await clienteService.registerClient({ nome, mesaId });
     if ("error" in clienteRes || !clienteRes.id) {
       return { status: 400, message: "Erro ao registrar cliente." };
     }

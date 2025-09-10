@@ -1,29 +1,59 @@
-'use server'
-import authService from "@/src/services/authService"
-import { redirect } from "next/navigation"
-import { cookies } from "next/headers"
-import { comandaService } from "@/src/services/comandaService"
+'use client';
+import { redirect } from "next/navigation";
 
 const LoginAction = async (formData: FormData) => {
-  const mesaId = formData.get('mesaId') as string
-  const nome = formData.get('nome') as string
-  const email = formData.get('email') as string
+  const nome = formData.get("nome") as string;
+  const email = formData.get("email") as string;
+  const mesaId = formData.get("mesaId") as string;
 
-  const cookie = await cookies()
-  const res = await authService.autoLogin({ nome, email, mesaId })
-  const token = res.token
+  if (!nome || !email || !mesaId) throw new Error("Todos os campos são obrigatórios");
 
-  if (res.status === 200 || res.status === 201) {
+  const BASE = process.env.NEXT_PUBLIC_BASEURL;
 
-    // Continua registrando cliente e comanda
-    const response = await comandaService.registerAllForClient({ nome, mesaId })
-    if (!response.status) {
-      throw new Error('Impossível registrar comanda')
-    }
+  // 1️⃣ AutoLogin
+  const loginRes = await fetch(`${BASE}/api/auth/autoLogin`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nome, email, mesaId }),
+  });
+  if (!loginRes.ok) throw new Error("Falha no login");
 
-    // Redireciona para a home sem expor comandaId
-    redirect('/homeNoAuth')
+  const loginData = await loginRes.json();
+  let token = loginData.token;
+
+  // 2️⃣ Registrar cliente
+  const registerRes = await fetch(`${BASE}/api/cliente`, {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}` 
+    },
+    body: JSON.stringify({ nome, mesaId }),
+  });
+  if (!registerRes.ok) {
+    const err = await registerRes.text();
+    console.error("Erro register:", err);
+    throw new Error("Falha no registro de cliente na mesa");
   }
-}
+  const registerData = await registerRes.json();
+  token = registerData.token; // token atualizado
 
-export default LoginAction
+  // 3️⃣ Criar comanda
+  const comandaRes = await fetch(`${BASE}/api/clientComanda`, {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}` 
+    },
+  });
+  if (!comandaRes.ok) {
+    const err = await comandaRes.text();
+    console.error("Erro comanda:", err);
+    throw new Error("Falha na criação da comanda");
+  }
+
+  // 4️⃣ Redireciona
+  redirect("/homeNoAuth");
+};
+
+export default LoginAction;

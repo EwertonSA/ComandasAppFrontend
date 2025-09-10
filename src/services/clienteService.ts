@@ -82,6 +82,31 @@ getClientesInfo: async ( token: string | null,page = 1, perPage = 10, status?: s
       };
     }
   },
+ registerClient: async (params:RegisterParams) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/cliente`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", // 🔑 mantém o cookie
+      body: JSON.stringify(params), // envia dados
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.message || "Erro ao registrar cliente");
+    }
+
+    const data = await res.json();
+    console.log("Cliente registrado:", data);
+    return data;
+  } catch (error) {
+    console.error("Erro no registerClient:", error);
+    throw error;
+  }
+}
+
 
  
 

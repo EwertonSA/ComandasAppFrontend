@@ -79,31 +79,33 @@ getProduct: async (
   }
 },
 
- getByCategories: async (token: string | null, categoria: string): Promise<ProductType[]> => {
-  try {
-    const API_URL = process.env.NEXT_PUBLIC_BASEURL;
-    if (!API_URL) throw new Error("NEXT_PUBLIC_API_URL não definido");
+  getByCategories: async (token: string, categoria: string): Promise<ProductType[]> => {
+    try {
+      const API_URL = process.env.NEXT_PUBLIC_BASEURL;
+      if (!API_URL) throw new Error("NEXT_PUBLIC_BASEURL não definido");
 
-    const res = await fetch(`${API_URL}/api/produtos/categoria/${categoria}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token ? `Bearer ${token}` : "",
-      },
-      cache: "no-store",
-    });
+      const res = await fetch(`${API_URL}/api/produtos/categoria/${categoria}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        cache: "no-store",
+      });
 
-    if (!res.ok) {
-      throw new Error("Erro ao buscar produtos");
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("Erro fetch produtos:", text);
+        throw new Error("Erro ao buscar produtos");
+      }
+
+      const data = await res.json();
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      console.error("Erro fetch produtos:", error);
+      return [];
     }
-
-    const data = await res.json();
-    return Array.isArray(data) ? data : []; // ✅ sempre retorna array
-  } catch (error) {
-    console.error("Erro ao buscar produto:", error);
-    return []; // ✅ retorna array vazio em caso de erro
   }
-}
-
 ,getProductById:async(token:string | null,id:string)=>{
        const headers = token ? { Authorization: `Bearer ${token}` } : {};
         try {
