@@ -1,4 +1,6 @@
-'use client';
+'use server'
+
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 const LoginAction = async (formData: FormData) => {
@@ -17,9 +19,7 @@ const LoginAction = async (formData: FormData) => {
     body: JSON.stringify({ nome, email, mesaId }),
   });
   if (!loginRes.ok) throw new Error("Falha no login");
-
-  const loginData = await loginRes.json();
-  let token = loginData.token;
+  let { token } = await loginRes.json();
 
   // 2️⃣ Registrar cliente
   const registerRes = await fetch(`${BASE}/api/cliente`, {
@@ -36,7 +36,7 @@ const LoginAction = async (formData: FormData) => {
     throw new Error("Falha no registro de cliente na mesa");
   }
   const registerData = await registerRes.json();
-  token = registerData.token; // token atualizado
+  token = registerData.token; // token atualizado com clienteId
 
   // 3️⃣ Criar comanda
   const comandaRes = await fetch(`${BASE}/api/clientComanda`, {
@@ -51,8 +51,20 @@ const LoginAction = async (formData: FormData) => {
     console.error("Erro comanda:", err);
     throw new Error("Falha na criação da comanda");
   }
+  const comandaData = await comandaRes.json();
+  token = comandaData.token; // token atualizado com comandaId
 
-  // 4️⃣ Redireciona
+  // 4️⃣ Salvar token no cookie via API server-side
+  const cookieStore = await cookies();
+  cookieStore.set({
+    name: 'clientes-token',
+    value: token,
+    path: '/',
+    maxAge: 7 * 24 * 60 * 60, // 7 dias
+    httpOnly: true,
+  });
+
+  // 5️⃣ Redireciona
   redirect("/homeNoAuth");
 };
 

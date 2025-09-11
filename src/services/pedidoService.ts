@@ -64,6 +64,26 @@ try {
           
       }
     },
+    createforClient:async(token:string|null,params:{total:number,status:string})=>{
+try {
+     const API_URL = process.env.NEXT_PUBLIC_BASEURL;
+     const res=await fetch(`${API_URL}/api/pedidosCliente`,{
+        method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  cache: "no-store",
+  credentials: "include", 
+   body: JSON.stringify( params )
+  
+     })
+      return await res.json();
+} catch (error) {
+   console.error("Erro fetch clientComanda:", error);
+    return null;
+}
+    },
 
         
 updateStatus: async (token:string|null,id: string, status: string) => {
@@ -75,7 +95,44 @@ updateStatus: async (token:string|null,id: string, status: string) => {
   
   return res.data;
 },
+registerAllForClient:async({token,
+  total,
+  quantidade,
+  comandaId,
+  produtoId
+}: {
+  token: string | null;
+  total?: any;
+  quantidade: number;
+  comandaId: string;
+  produtoId: string;})=>{
+try {
+  const status = "andamento";
+    const pedidoRes = await pedidoService.createforClient(token, { total, status });
+   if (!pedidoRes || 'error' in pedidoRes || !pedidoRes.id) {
+      return { status: 400, message: "Erro ao registrar o pedido." };
+    }
 
+    const pedidoId = pedidoRes.id;
+    const pedidosProdutos = await pedidosProdutosService.createPedidosProdutos(token,{
+      pedidoId,
+      produtoId,
+      quantidade
+    });
+    return { status: 200, message: "Pedido com produto cadastrado com sucesso." };
+} catch (error) {
+   if (error instanceof Error) {
+      console.error("Erro no registerAll:", {
+        message: error.message,
+        stack: error.stack
+      });
+    } else {
+      console.error("Erro desconhecido no registerAll:", error);
+    }
+
+    return { status: 500, message: "Erro interno no servidor." };
+}
+},
 
 registerAll: async ({
   token,

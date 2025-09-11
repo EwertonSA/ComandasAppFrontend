@@ -10,6 +10,7 @@ export const comandaService={
   getComanda:async(token:string|null)=>{ 
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
     try {
+     
     const res=await api.get('/api/comandas',{
       headers
     })
@@ -37,17 +38,20 @@ export const comandaService={
       },
 getClientOrders: async (token: string) => {
   try {
-    const res = await api.get("/api/comandasCliente", {
-      headers: {
-        Authorization: `Bearer ${token}`, // se você ainda quiser enviar o token
-      },
-      withCredentials: true, // <- isso garante que cookies sejam enviados
-    });
+       const API_URL = process.env.NEXT_PUBLIC_BASEURL;
+const res = await fetch(`${API_URL}/api/comandasCliente`, {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`, // se estiver guardando manualmente
+  },
+  cache: "no-store",
+  credentials: "include", // 🔑 envia cookies cross-site
+});
 
-    console.log("data:", res.data);
-    return res.data;
-  } catch (error: any) {
-    console.error("Erro ao buscar dados da comanda:", error.response?.data || error.message);
+    return await res.json();
+  } catch (err) {
+    console.error("Erro fetch clientComanda:", err);
     return null;
   }
 },

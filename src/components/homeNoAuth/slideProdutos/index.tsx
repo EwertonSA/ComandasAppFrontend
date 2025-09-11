@@ -32,7 +32,7 @@ const SlideCategorias = ({ produtosPorCategoria,comandaId }: SlideCategoriasProp
             <SlideComponent itemsLength={produtos.length}>
               
 {produtos.map((product)=>{
-  const href = `/homeNoAuth/${comandaId}/produto/${product.id}`;
+  const href = `/homeNoAuth/produto/${product.id}`;
   
   return(
     <Link href={href} key={product.id}>

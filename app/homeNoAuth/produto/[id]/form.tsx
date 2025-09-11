@@ -8,7 +8,7 @@ import OrderClientAction from "./action"
 
 const ClientOrderForm=({produto,comandaId,produtoId}:OrderProductProps)=>{
     const imgUrl=produto.thumbnailUrl
-    ? `http://localhost:3001/${produto.thumbnailUrl}`:null
+    ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`:null
    
 return(
 <main className={styles.main} style={{
@@ -27,12 +27,13 @@ return(
         <p className={styles.subTitle}>{produto.descricao}</p>
         <p className={styles.subTitle}>{produto.preco}</p>
         <p className={styles.subTitle}>{produto.categoria}</p>
-        <Form action={OrderClientAction}>
-            <Input hidden name="comandaId" value={comandaId} readOnly/>
-            <Input hidden  name="produtoId" value={produtoId} readOnly/>
-            <Input type="number" id="quantidade" name="quantidade" min={1} defaultValue={1} className={styles.input}/>
-            <Button type="submit" color="primary" className="mt-3">Pedir</Button>
-        </Form>
+       <Form action={OrderClientAction}>
+    <Input hidden name="produtoId" value={produtoId} readOnly/>
+    
+    <Input type="number" id="quantidade" name="quantidade" min={1} defaultValue={1} className={styles.input}/>
+    <Button type="submit" color="primary" className="mt-3">Pedir</Button>
+</Form>
+
 
     </Container>
 
