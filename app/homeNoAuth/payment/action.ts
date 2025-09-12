@@ -32,10 +32,10 @@ console.log("TOKEN:", token)
       status: "Pago"
     })
 
-    if (!payResult) {
-      console.error("Erro no pagamento:", payResult)
-      throw new Error("Erro no pagamento")
-    }
+if (!payResult || payResult.error) {
+  console.error("Erro no pagamento:", payResult.error)
+  throw new Error(payResult?.error || "Erro no pagamento")
+}
 
   } catch (err: any) {
     console.error("Erro ao registrar pagamento:", err.message || err)

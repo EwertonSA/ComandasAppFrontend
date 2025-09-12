@@ -32,7 +32,7 @@ export const pagamentoService={
           paymentClient:async(token:string,params:paymentClient)=>{
       try {       
             const API_URL = process.env.NEXT_PUBLIC_BASEURL;
-await fetch(`${API_URL}/api/pagamento`, {
+const res=await fetch(`${API_URL}/api/pagamento`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
@@ -44,6 +44,7 @@ await fetch(`${API_URL}/api/pagamento`, {
   params
   })
 })
+ return await res.json()  
         } catch (err:any) {
           return {
             error: err.response?.data?.message || err.message || "Erro desconhecido",
