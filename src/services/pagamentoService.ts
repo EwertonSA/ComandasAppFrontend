@@ -7,6 +7,11 @@ export interface PagamentosParams{
     formaPagamento:string
     status:string
     }
+    interface paymentClient{
+         valor:string
+    formaPagamento:string
+    status:string
+    }
 export const pagamentoService={
     pagamento:async(token:string|null,params:PagamentosParams)=>{
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
@@ -16,6 +21,29 @@ export const pagamentoService={
             headers
           })
           return res.data
+        } catch (err:any) {
+          return {
+            error: err.response?.data?.message || err.message || "Erro desconhecido",
+            status: err.response?.status || 500
+          }; 
+        }
+      },
+      
+          paymentClient:async(token:string,params:paymentClient)=>{
+      try {       
+            const API_URL = process.env.NEXT_PUBLIC_BASEURL;
+await fetch(`${API_URL}/api/pagamento`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  cache: "no-store",
+  credentials: "include",
+  body: JSON.stringify({
+  params
+  })
+})
         } catch (err:any) {
           return {
             error: err.response?.data?.message || err.message || "Erro desconhecido",
