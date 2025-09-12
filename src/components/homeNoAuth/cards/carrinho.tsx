@@ -1,29 +1,12 @@
-import { Button, Container } from "reactstrap";
-import styles from "../../../../styles/getStyles.module.scss";
+import { Button, Container } from "reactstrap"
+import styles from "../../../../styles/getStyles.module.scss"
+import { Pedido } from "@/src/types/pedido"
 
-export interface Produto {
-  id: string;
-  nome: string;
-  preco: number;
-  thumbnailUrl?: string;
-}
-
-export interface PedidoProduto {
-  produto: Produto;
-  quantidade: number;
-}
-
-export interface Pedido {
-  id: string;
-  pedidosProdutos?: PedidoProduto[];
-  total: number;
-  status: string;
-}
 
 interface CardProps {
-  pedidos: Pedido[];
-  tipo: "pendentes" | "entregues";
-  cancelar: (pedido: Pedido) => void;
+  pedidos: Pedido[]
+  tipo: "pendentes" | "entregues"
+  cancelar: (pedido: Pedido) => void
 }
 
 const CardLocal = ({ pedidos, tipo, cancelar }: CardProps) => {
@@ -32,7 +15,7 @@ const CardLocal = ({ pedidos, tipo, cancelar }: CardProps) => {
       <p className={styles.subtitle}>
         Nenhum pedido {tipo === "pendentes" ? "pendente" : "entregue"}
       </p>
-    );
+    )
   }
 
   return (
@@ -42,10 +25,10 @@ const CardLocal = ({ pedidos, tipo, cancelar }: CardProps) => {
           <p className={styles.title}>Produtos:</p>
           <ul>
             {pedido.pedidosProdutos?.map((item, index) => {
-              const defaultImage = "/images/default-thumbnail.jpg";
+              const defaultImage = "/images/default-thumbnail.jpg"
               const imageUrl = item.produto.thumbnailUrl
                 ? `${process.env.NEXT_PUBLIC_BASEURL}/${item.produto.thumbnailUrl}`
-                : defaultImage;
+                : defaultImage
 
               return (
                 <li key={`${item.produto.id}-${index}`}>
@@ -57,7 +40,7 @@ const CardLocal = ({ pedidos, tipo, cancelar }: CardProps) => {
                   <br />
                   {item.quantidade} x {item.produto.nome} - R$ {item.produto.preco}
                 </li>
-              );
+              )
             })}
           </ul>
 
@@ -81,7 +64,7 @@ const CardLocal = ({ pedidos, tipo, cancelar }: CardProps) => {
         </div>
       ))}
     </Container>
-  );
-};
+  )
+}
 
-export default CardLocal;
+export default CardLocal

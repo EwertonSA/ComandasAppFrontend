@@ -1,11 +1,13 @@
 'use client'
+
 import TabsSwitcher from "@/src/components/common/switch/switchComponent"
 import { useState } from "react"
 import { Container } from "reactstrap"
 
 import pedidoService from "@/src/services/pedidoService"
-import { Pedido } from "@/app/employeeApp/comandas/[id]/pedidoList"
+
 import CardLocal from "@/src/components/homeNoAuth/cards/carrinho"
+import { Pedido } from "@/src/types/pedido"
 
 interface CardProps {
   token: string
@@ -15,13 +17,13 @@ interface CardProps {
 const Switcher = ({ token, pedidos }: CardProps) => {
   const [abaAtiva, setAbaAtiva] = useState<'pendentes' | 'entregues'>('pendentes')
 
-  // Filtra os pedidos com base na aba ativa (pendentes ou entregues)
+  // Filtra os pedidos com base na aba ativa
   const pedidosFiltrados = pedidos.filter(p => p.status === abaAtiva)
 
   const handleCancel = (pedido: Pedido) => {
-    pedidoService.delete(token, pedido.id, "Cancelado")
+    pedidoService.delete(token, pedido.id.toString(), "Cancelado")
       .then(() => {
-        // Pode adicionar aqui um mecanismo para atualizar a lista após cancelar, ex: refetch
+        // Atualizar lista, ex: refetch, setState etc
         console.log("Pedido cancelado:", pedido.id)
       })
       .catch(err => {
