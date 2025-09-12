@@ -36,22 +36,23 @@ export const comandaService={
       return null; 
     }
       },
-getClientOrders: async (token: string) => {
+getClientOrders: async (token: string | null) => {
+  if (!token) return null;
+
   try {
-       const API_URL = process.env.NEXT_PUBLIC_BASEURL;
-const res = await fetch(`${API_URL}/api/comandasCliente`, {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`, // se estiver guardando manualmente
-  },
-  cache: "no-store",
-  credentials: "include", // 🔑 envia cookies cross-site
-});
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/comanda`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      console.error("Erro ao buscar dados da comanda:", await res.text());
+      return null;
+    }
 
     return await res.json();
-  } catch (err) {
-    console.error("Erro fetch clientComanda:", err);
+  } catch (error: any) {
+    console.error("Erro ao buscar dados da comanda:", error);
     return null;
   }
 },

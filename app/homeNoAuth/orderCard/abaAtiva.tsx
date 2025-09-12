@@ -16,7 +16,7 @@ const [ordersTodeliver,setOrdersToDelivered]=useState<any[]>([])
 
 useEffect(()=>{
     const fetchData=async()=>{
-const res=await comandaService.getPedidosComanda(token,id)
+const res=await comandaService.getClientOrders(token)
 if(!res){
     throw new Error('Nenhum pedido registrado nesa comnanda')
 }
