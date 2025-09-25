@@ -52,12 +52,12 @@ const FormLogin = () => {
           <Form
             className={styles.form}
             action={async (formData: FormData) => {
-          {{/*    if (!recaptchaToken) {
+              if (!recaptchaToken) {
                 alert("Por favor, marque o reCAPTCHA");
                 return;
               }
 
-              formData.append("recaptchaToken", recaptchaToken);*/ }}
+              formData.append("recaptchaToken", recaptchaToken)
 
               const res = await LoginAction2fa(formData);
 
