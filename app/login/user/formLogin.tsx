@@ -17,12 +17,14 @@ import OauthButton from "./faceBtn";
 const FormLogin = () => {
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
+  const [role,setRole]=useState<string>('')
   const [twoFARequired, setTwoFARequired] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [token, setToken] = useState("");
   const [qrCode, setQrCode] = useState<string | null>(null);
   const [showTokenInput, setShowTokenInput] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+
 
 
   // 🔹 Resetar o QR Code / 2FA
@@ -50,12 +52,12 @@ const FormLogin = () => {
           <Form
             className={styles.form}
             action={async (formData: FormData) => {
-              if (!recaptchaToken) {
+          {{/*    if (!recaptchaToken) {
                 alert("Por favor, marque o reCAPTCHA");
                 return;
               }
 
-              formData.append("recaptchaToken", recaptchaToken);
+              formData.append("recaptchaToken", recaptchaToken);*/ }}
 
               const res = await LoginAction2fa(formData);
 
@@ -94,9 +96,26 @@ const FormLogin = () => {
                 required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                autocomplete="current-password"
+                autoComplete="current-password"
               />
             </FormGroup>
+            <FormGroup>
+  <Label for="role" className={styles.label}>TIPO DE USUÁRIO</Label>
+  <Input
+    type="select"
+    id="role"
+    name="role"
+    className={styles.input}
+    value={role}
+    onChange={e => setRole(e.target.value)}
+    required
+  >
+    <option value="">Selecione</option>
+    <option value="admin">Admin</option>
+    <option value="user">Colaborador</option>
+    <option value="cliente">Cliente</option>
+  </Input>
+</FormGroup>
 
             {/* Logins sociais */}
  <OauthButton/>

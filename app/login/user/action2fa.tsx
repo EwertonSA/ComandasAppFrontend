@@ -4,30 +4,50 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import authService from "@/src/services/authService";
 
-
 export async function LoginAction2fa(formData: FormData) {
-  const email = formData.get("email")?.toString() || "";
-  const password = formData.get("password")?.toString() || "";
-  const recaptchaToken = formData.get("recaptchaToken")?.toString() || "";
+  try {
+    // 🔹 1. Pega campos do formulário
+    const email = formData.get("email")?.toString() || "";
+    const password = formData.get("password")?.toString() || "";
+    const recaptchaToken = formData.get("recaptchaToken")?.toString() || "";
+    const role = formData.get("role")?.toString() as "admin" | "user" | "cliente";
 
-  const res = await authService.login({ email, password,recaptchaToken });
-if (res.status !== 200) {
-  console.error("❌ Erro no login:", res);
- redirect('/login/index')
-}
+    // 🔹 2. Chama backend para login
+    const res = await authService.login({ email, password,recaptchaToken, role });
 
+    if (res.status !== 200) {
+      console.error("❌ Erro no login:", res);
+      redirect("/login/index"); // redireciona para página de login
+    }
 
-  // 🔹 3. Se backend pediu 2FA → front mostra QR ou input de código
-  if (res.data.twoFARequired) {
-    return {
-      twoFARequired: true,
-      qrCode: res.data.qrCodeDataURL || null,
-      userId: res.data.userId,
-    };
+    // 🔹 3. Backend pediu 2FA → retorna info para o frontend
+    if (res.data.twoFARequired) {
+      return {
+        twoFARequired: true,
+        qrCode: res.data.qrCodeDataURL || null,
+        userId: res.data.userId,
+      };
+    }
+
+    // 🔹 4. 2FA já validada → salva JWT no cookie HttpOnly
+    const cookieStore = await cookies();
+    cookieStore.set("comandas-token", res.data.token, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60, // 1 dia
+      sameSite: "lax",
+      path: "/",
+    });
+
+    // 🔹 5. Redireciona de acordo com a role
+    const userRole = res.data.user.role;
+    if (userRole === "admin") {
+      redirect("/admin"); // painel AdminJS
+    } else {
+      redirect("/employeeApp"); // dashboard do frontend
+    }
+  } catch (err: any) {
+    console.error("Erro no login 2FA:", err);
+    redirect("/login/index"); // fallback para login em caso de erro
   }
-
-  // 🔹 4. Se não precisa 2FA → salva JWT direto
-  const cookie = await cookies();
-  cookie.set("comandas-token", res.data.token, { httpOnly: true });
-  redirect("/employeeApp");
 }

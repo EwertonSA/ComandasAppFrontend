@@ -19,6 +19,7 @@ interface LoginParams{
   email:string
   password:string,
   recaptchaToken: string;
+  role: "admin" | "user" | "cliente"
 }
 interface clienteParams{
   nome:string

@@ -34,7 +34,8 @@ console.log("TOKEN:", token)
 
 if (!payResult || payResult.error) {
   console.error("Erro no pagamento:", payResult.error)
-  throw new Error(payResult?.error || "Erro no pagamento")
+  throw new
+  (payResult?.error || "Erro no pagamento")
 }
 
   } catch (err: any) {
