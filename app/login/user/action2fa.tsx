@@ -40,14 +40,18 @@ export async function LoginAction2fa(formData: FormData) {
     });
 
     // 🔹 5. Redireciona de acordo com a role
-    const userRole = res.data.user.role;
+   const userRole = res.data.user.role;
     if (userRole === "admin") {
-      redirect("/admin"); // painel AdminJS
+      redirect("/admin");
+    } else if (userRole === "user") {
+      redirect("/employeeApp");
+    } else if (userRole === "cliente") {
+      redirect("/clientApp");
     } else {
-      redirect("/employeeApp"); // dashboard do frontend
+      redirect("/login/index");
     }
-  } catch (err: any) {
-    console.error("Erro no login 2FA:", err);
-    redirect("/login/index"); // fallback para login em caso de erro
+  } catch (err) {
+    console.error("Erro ao verificar 2FA:", err);
+    redirect("/login/index");
   }
 }
