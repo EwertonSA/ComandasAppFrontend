@@ -12,6 +12,7 @@ import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
 import authService from "@/src/services/authService";
 import OauthButton from "./faceBtn";
+import { LoginAction } from "./action";
 
 
 const FormLogin = () => {
@@ -59,7 +60,7 @@ const FormLogin = () => {
 
               formData.append("recaptchaToken", recaptchaToken)
 
-              const res = await LoginAction2fa(formData);
+              const res = await LoginAction(formData);
 
               if (res?.twoFARequired) {
                 setTwoFARequired(true);
