@@ -15,10 +15,7 @@ export async function LoginAction2fa(formData: FormData) {
     // 🔹 2. Chama backend para login
     const res = await authService.login({ email, password,recaptchaToken, role });
 
-    if (res.status !== 200) {
-      console.error("❌ Erro no login:", res);
-      redirect("/login/index"); // redireciona para página de login
-    }
+
 
     // 🔹 3. Backend pediu 2FA → retorna info para o frontend
     if (res.data.twoFARequired) {
