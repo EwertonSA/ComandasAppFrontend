@@ -53,12 +53,12 @@ const FormLogin = () => {
           <Form
             className={styles.form}
             action={async (formData: FormData) => {
-              if (!recaptchaToken) {
-                alert("Por favor, marque o reCAPTCHA");
-                return;
-              }
+           //   if (!recaptchaToken) {
+           //     alert("Por favor, marque o reCAPTCHA");
+           //     return;
+           //   }
 
-              formData.append("recaptchaToken", recaptchaToken)
+           //   formData.append("recaptchaToken", recaptchaToken)
 
               const res = await LoginAction(formData);
 
@@ -122,12 +122,12 @@ const FormLogin = () => {
  <OauthButton/>
 
             {/* 🔹 reCAPTCHA v2 */}
-            <FormGroup className={styles.recaptcha}>
-              <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-                onChange={(token) => setRecaptchaToken(token)}
-              />
-            </FormGroup>
+            {/* <FormGroup className={styles.recaptcha}> */}
+            {/*  <ReCAPTCHA */}
+             {/*   sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!} */}
+             {/*   onChange={(token) => setRecaptchaToken(token)} */}
+            {/*  /> */}
+          {/*  </FormGroup> */}
 
             <Button outline className={styles.formBtn} type="submit">Entrar</Button>
           </Form>
@@ -139,6 +139,7 @@ const FormLogin = () => {
             action={async (formData: FormData) => {
               if (!userId) return;
               const tokenValue = formData.get("token")?.toString() || "";
+              console.log("Enviando 2FA para backend:", { userId, token: tokenValue });
               await Verify2FAAction(Number(userId), tokenValue);
             }}
           >

@@ -21,6 +21,12 @@ interface LoginParams{
   recaptchaToken: string;
   role: "admin" | "user" | "cliente"
 }
+interface LoginParamsTest{
+  email:string
+  password:string,
+
+  role: "admin" | "user" | "cliente"
+}
 interface clienteParams{
   nome:string
   email:string
@@ -51,20 +57,22 @@ const authService={
           };
         }
       },
-     login: async (params: LoginParams) => {
+login: async (params: LoginParamsTest) => {
   try {
-    const res = await api.post('/api/auth/login', params);
+    const res = await api.post("/api/auth/login", params);
     console.log("✅ Resposta do login:", res.status, res.data);
-    return res;
+    console.log("Role::",params.role)
+    return { status: res.status, data: res.data };
   } catch (error: any) {
     console.log("🔎 Função login chamada com:", params);
 
-    if (error.response && (error.response.status === 400 || error.response.status === 401)) {
+    if (error.response) {
       console.log("❌ Erro no login:", error.response.status, error.response.data);
-      return error.response;
+      return { status: error.response.status, data: error.response.data };
     }
 
-    return error;
+    // Retorno garantido mesmo sem error.response
+    return { status: 500, data: { message: "Erro inesperado no login" } };
   }
 }
 ,
@@ -122,6 +130,7 @@ loginAndRegister : async (email: string, nome: string, mesaId: string) => {
       const res=await api.post('/api/auth/verify',{
        userId,token
       })
+     console.log("Verificando 2FA para userId:", userId, "com token:", token);
       return res
     } catch (error) {
       console.error(error)

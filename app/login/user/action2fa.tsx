@@ -9,11 +9,11 @@ export async function LoginAction2fa(formData: FormData) {
     // 🔹 1. Pega campos do formulário
     const email = formData.get("email")?.toString() || "";
     const password = formData.get("password")?.toString() || "";
-    const recaptchaToken = formData.get("recaptchaToken")?.toString() || "";
+   // const recaptchaToken = formData.get("recaptchaToken")?.toString() || "";
     const role = formData.get("role")?.toString() as "admin" | "user" | "cliente";
 
     // 🔹 2. Chama backend para login
-    const res = await authService.login({ email, password,recaptchaToken, role });
+    const res = await authService.login({ email, password, role });
 
 
 
