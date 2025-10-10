@@ -10,10 +10,13 @@ export async function Verify2FAAction(userId: number, token: string) {
   if (res?.status !== 200) {
     throw new Error("Código inválido");
   }
- const setcookie = await cookies();
-    setcookie.set("comandas-token", res.data.token, { httpOnly: true });
+
+
+  // ✅ Agora o cookie já foi setado pelo navegador.
+  const cookieToken = (await cookies()).get("comandas-token");
+  console.log("Token no cookie:", cookieToken?.value);
    const userRole = res.data.user.role;
-   console.log('userRole:', res.data.user.role)
+  
     if (userRole === "admin") redirect("/admin");
     if (userRole === "user") redirect("/employeeApp");
     if (userRole === "cliente") redirect("/clientApp");

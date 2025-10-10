@@ -24,7 +24,7 @@ export async function LoginAction(formData: FormData) {
   // 🔹 Se o login for normal (sem 2FA)
   if (res.status === 200 && res.data.token) {
     const setcookie = await cookies();
-    setcookie.set("comandas-token", res.data.token, { httpOnly: true });
-
+  setcookie.set("comandas-token", res.data.token, { httpOnly: true });
+ 
   }
 }

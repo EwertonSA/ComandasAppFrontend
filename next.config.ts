@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
@@ -7,16 +9,27 @@ const nextConfig: NextConfig = {
     domains: ['localhost', 'esadev.com.br'],
   },
 
-   async rewrites() {
+  async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: process.env.NODE_ENV === 'production'
-          ? '/api/:path*'             // prod: mesmo domínio
-          : 'http://localhost:5000/api/:path*', // dev: proxy para backend
+        source: "/api/:path*",
+        destination: isProd
+          ? "https://esadev.com.br/api/:path*" // ✅ aponta pro domínio do backend em prod
+          : "http://localhost:3001/api/:path*", // ✅ backend local
       },
     ];
-  }
+  },
+
+  // ⚠️ Isso garante que as requisições SSR usem cookies e credenciais corretamente
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+      allowedOrigins: [
+        "http://localhost:3000",
+        "https://esadev.com.br",
+      ],
+    },
+  },
 };
 
 export default nextConfig;

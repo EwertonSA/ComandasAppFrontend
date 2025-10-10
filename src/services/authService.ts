@@ -129,7 +129,7 @@ loginAndRegister : async (email: string, nome: string, mesaId: string) => {
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
       const res=await api.post('/api/auth/verify',{
        userId,token
-      })
+      }, { withCredentials: true })
      console.log("Verificando 2FA para userId:", userId, "com token:", token);
       return res
     } catch (error) {
