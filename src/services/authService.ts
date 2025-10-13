@@ -1,3 +1,4 @@
+import axios from "axios"
 import api from "./api"
 
 interface RegisterLogin{
@@ -124,18 +125,34 @@ loginAndRegister : async (email: string, nome: string, mesaId: string) => {
   const comandaData = await comandaRes.json();
   return comandaData.id;
 },
- verify2fa:async({ userId,token}: { userId: number,token:string|null})=>{
-    try {
-        const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      const res=await api.post('/api/auth/verify',{
-       userId,token
-      }, { withCredentials: true })
-     console.log("Verificando 2FA para userId:", userId, "com token:", token);
-      return res
-    } catch (error) {
-      console.error(error)
+verify2fa : async ({
+  userId,
+  token,
+  cookieHeader // <- aqui você passa os cookies que vieram do navegador
+}: {
+  userId: number;
+  token: string | null;
+  cookieHeader?: string;
+}) => {
+  try {
+    const headers: any = token ? { Authorization: `Bearer ${token}` } : {};
+    
+    if (cookieHeader) {
+      headers.Cookie = cookieHeader; // envia cookie do navegador
     }
-   },
+
+    const res = await axios.post(
+      'https://esadev.com.br/api/auth/verify',
+      { userId, token },
+      { headers, withCredentials: true }
+    );
+
+    console.log("Verificando 2FA para userId:", userId, "com token:", token);
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+},
  setup2faService:async(userId: string) =>{
   try {
     const res = await api.get(`/api/auth/verify-2fa/setup?userId=${userId}`);
