@@ -1,6 +1,6 @@
 'use client'
 
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 import styles from "../../../styles/register.module.scss";
 import Link from "next/link";
@@ -13,8 +13,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 import authService from "@/src/services/authService";
 import OauthButton from "./faceBtn";
 import { LoginAction } from "./action";
-import { redirect } from "next/navigation";
-import { useRouter } from "next/router";
 
 
 const FormLogin = () => {
@@ -28,8 +26,6 @@ const FormLogin = () => {
   const [showTokenInput, setShowTokenInput] = useState(false);
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
-  const [error, setError] = useState("");
-  const router = useRouter();
 
 
   // 🔹 Resetar o QR Code / 2FA
@@ -47,32 +43,6 @@ const FormLogin = () => {
     }
   };
 
-
-  const handle2faSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError("");
-
-    try {
-      const res = await authService.verify2fa({ userId:Number(userId), token });
-
-      if (!res || res.status !== 200) {
-        throw new Error("Código 2FA inválido");
-      }
-
-      const userRole = res.data.user.role;
-
-      // ✅ Redireciona no client
-      if (userRole === "admin") return router.push("/admin");
-      if (userRole === "user") return router.push("/employeeApp");
-      if (userRole === "cliente") return router.push("/clientApp");
-
-      // fallback
-      router.push("/login/index");
-    } catch (err: any) {
-      console.error("Erro ao verificar 2FA:", err);
-      setError(err.message || "Erro inesperado");
-    }
-  };
   return (
     <main className={styles.main}>
       <Container className="py-5">
@@ -164,9 +134,14 @@ const FormLogin = () => {
         ) : (
 
         /* ================= LOGIN COM 2FA ================= */
-          <Form onSubmit={handle2faSubmit}
+          <Form
             className={styles.form}
-           
+            action={async (formData: FormData) => {
+              if (!userId) return;
+              const tokenValue = formData.get("token")?.toString() || "";
+              console.log("Enviando 2FA para backend:", { userId, token: tokenValue });
+              await Verify2FAAction(Number(userId), tokenValue);
+            }}
           >
             {/* Só mostra QR se o backend mandar OU se resetar */}
             {qrCode && (
@@ -183,8 +158,8 @@ const FormLogin = () => {
                 <Input
                   id="token"
                   name="token"
-                   value={token}
-        onChange={(e) => setToken(e.target.value)}
+                  value={token}
+                  onChange={e => setToken(e.target.value)}
                   placeholder="000000"
                   maxLength={6}
                   required
