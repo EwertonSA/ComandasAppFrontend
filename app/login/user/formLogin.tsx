@@ -14,7 +14,7 @@ import authService from "@/src/services/authService";
 import OauthButton from "./faceBtn";
 import { LoginAction } from "./action";
 import { redirect } from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 
 const FormLogin = () => {

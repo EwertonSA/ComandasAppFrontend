@@ -141,7 +141,7 @@ verify2fa : async ({
       headers.Cookie = cookieHeader; // envia cookie do navegador
     }
 
-    const res = await axios.post('/api/auth/verify',
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_BASEURL}/api/auth/verify`,
       { userId, token },
       { headers, withCredentials: true }
     );
