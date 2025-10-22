@@ -59,10 +59,10 @@ getClientOrders: async (token: string | null) => {
  
 
       registerComanda: async (token:string |null ,params: ComandasParams) => {
-         const headers = token ? { Authorization: `Bearer ${token}` } : {};
+   
         try {
           const res = await api.post("/api/comandas", params,{
-            headers
+            withCredentials:true
           });
           return res.data;
         } catch (err: any) {
@@ -128,7 +128,8 @@ getClientOrders: async (token: string | null) => {
       }) => {
         try {
           const clienteRes = await clienteService.register({ nome,mesaId });
-          if ("error" in clienteRes || !clienteRes.id) {
+          console.log('ClienteRes:',clienteRes)
+          if (!clienteRes.id) {
             return { status: 400, message: "Erro ao registrar cliente." };
           }
       

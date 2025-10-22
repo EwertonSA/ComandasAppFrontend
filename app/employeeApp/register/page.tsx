@@ -16,6 +16,7 @@ const RegisterClient=async()=>{
 
   const cookie=await cookies()
   const token=cookie.get('comandas-token')?.value ||''
+
   const {mesas}=await mesaService.getMesas(token)
 
 

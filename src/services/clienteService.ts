@@ -73,7 +73,8 @@ getClientesInfo: async ( token: string | null,page = 1, perPage = 10, status?: s
 
     try {
      
-      const res = await api.post('/api/clientes', params);
+      const res = await api.post('/api/clientes', params,{withCredentials:true});
+      console.log('respostado Front',res)
       return res.data;
     } catch (err: any) {
       return {

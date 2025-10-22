@@ -13,6 +13,7 @@ const token=cookie.get('comandas-token')?.value || ''
     console.error("Campos obrigatórios")
   }
 const res=await comandaService.registrarTudo(token,{mesaId,nome})
+console.log( 'Resposta:',res)
 if(res.status===200){
     redirect(`/employeeApp/orders/register?comandaId=${res.comandaId}&registred=true`)
 }
