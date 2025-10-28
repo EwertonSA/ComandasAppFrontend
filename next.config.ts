@@ -9,16 +9,7 @@ const nextConfig: NextConfig = {
     domains: ['localhost', 'esadev.com.br'],
   },
 
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: isProd
-          ? "https://esadev.com.br/api/:path*" // ✅ aponta pro domínio do backend em prod
-          : "http://localhost:3001/api/:path*", // ✅ backend local
-      },
-    ];
-  },
+
 
   // ⚠️ Isso garante que as requisições SSR usem cookies e credenciais corretamente
   experimental: {

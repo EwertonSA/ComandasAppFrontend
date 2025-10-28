@@ -64,6 +64,7 @@ getClientOrders: async (token: string | null) => {
           const res = await api.post("/api/comandas", params,{
             withCredentials:true
           });
+          console.log("Resposta da rota:",res)
           return res.data;
         } catch (err: any) {
           return{
@@ -136,6 +137,7 @@ getClientOrders: async (token: string | null) => {
           const clienteId = clienteRes.id.toString();
       
           const comandaRes = await comandaService.registerComanda(token,{ clienteId, mesaId });
+          console.log('comandaRes:',comandaRes)
           if ("error" in comandaRes || !comandaRes.id) {
             return { status: 400, message: "Erro ao criar comanda." };
           }
