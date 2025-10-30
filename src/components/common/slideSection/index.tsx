@@ -29,7 +29,7 @@ const SlideSection = ({ getproduts }: Props) => {
         ))}
       </SlideComponent>
 
-      <Link href="employeeApp/allProducts">
+      <Link href="employeeApp/products">
         <Button outline color="light" className={styles.slideSection}>
           Veja todos os produtos
         </Button>
