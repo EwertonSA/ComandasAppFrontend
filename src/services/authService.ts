@@ -61,8 +61,7 @@ const authService={
 login: async (params: LoginParamsTest) => {
   try {
     const res = await api.post("/api/auth/login", params);
-    console.log("✅ Resposta do login:", res.status, res.data);
-    console.log("Role::",params.role)
+
     return { status: res.status, data: res.data };
   } catch (error: any) {
     console.log("🔎 Função login chamada com:", params);
@@ -128,22 +127,17 @@ loginAndRegister : async (email: string, nome: string, mesaId: string) => {
 verify2fa : async ({
   userId,
   token,
-  cookieHeader // <- aqui você passa os cookies que vieram do navegador
+ // <- aqui você passa os cookies que vieram do navegador
 }: {
   userId: number;
   token: string | null;
-  cookieHeader?: string;
+ 
 }) => {
   try {
-    const headers: any = token ? { Authorization: `Bearer ${token}` } : {};
-    
-    if (cookieHeader) {
-      headers.Cookie = cookieHeader; // envia cookie do navegador
-    }
 
     const res = await axios.post(`${process.env.NEXT_PUBLIC_BASEURL}/api/auth/verify`,
       { userId, token },
-      { headers, withCredentials: true }
+      { withCredentials: true }
     );
 
     console.log("Verificando 2FA para userId:", userId, "com token:", token);
@@ -171,6 +165,31 @@ verifyStateClient:async({comandaId,state}: stateParams): Promise<boolean>=>{
     console.error("Erro ao verificar state:", error);
     return false;
   }
+},
+forgotPassword:async(email:string)=>{
+  try {
+    const res=await api.post('/api/forgotpassword',{email})
+return res.data
+  } catch (error) {
+    return console.error(error)
+  }
+
+},
+updatePassword:async(token:string|null,newPassword:string, confirmPassword:string)=>{
+     const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  try {
+    
+    const res = await api.put(
+  '/api/updatepassword',
+   {newPassword, confirmPassword },{headers}
+);
+console.log("newPassword:",newPassword)
+console.log("confirmPassword:",confirmPassword)
+    return res.data
+  } catch (error) {
+    return console.error(error)
+  }
+  
 }
 
       

@@ -51,6 +51,7 @@ return(
     const imageUrl = produto.thumbnailUrl
       ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`
       : defaultImage;
+    const ingredients=produto.pedidosProdutosIngredients?.filter((ing:any)=>ing.include)?.map((ing:any)=>ing.ingredient.name)?.join(', ')||'Nenhum ingrediente!'
     return (
      <tr key={`${pedido.id}-${produto.id}-${index}`} className={styles.clickableRow}>
   <td className={styles.rowImg}>
@@ -69,6 +70,9 @@ return(
   </td>
   <td className={styles.row}>
     <Link href={`/employeeApp/comandas/${pedido.comandaId}`}>{produto.pedidos_produtos.quantidade}</Link>
+  </td>
+   <td className={styles.row}>
+    <Link href={`/employeeApp/comandas/${pedido.comandaId}`}>{ingredients}</Link>
   </td>
   <td className={styles.row}>
     <Link href={`/employeeApp/comandas/${pedido.comandaId}`}>R$ {Number(produto.preco).toFixed(2)}</Link>

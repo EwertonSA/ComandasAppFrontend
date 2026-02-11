@@ -2,7 +2,6 @@
 import { cookies } from "next/headers"
 import { comandaService } from "@/src/services/comandaService"
 import pedidoService from "@/src/services/pedidoService"
-import PedidosList from "@/app/employeeApp/comandas/[id]/pedidoList"
 import { cancelOrder } from "./deleteAction"
 import ClientOrders from "./clientOrders"
 interface Props {

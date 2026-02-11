@@ -1,38 +1,59 @@
 'use server'
 import produtService from "@/src/services/productService"
-import { cookies } from "next/headers"
-import { OrdersPageProps } from "../allORders"
 import pedidoService from "@/src/services/pedidoService"
+import { IngredientService } from "@/src/services/ingredientService"
+import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 
-const OrderAction=async(formdata:FormData)=>{
-const entrada = formdata.get("entrada") as string | null;
-const comandaId = formdata.get("comandaId") as string;
-if (!entrada || !entrada.includes("*")) {
-    throw new Error("Entrada inválida: valor ausente ou formato incorreto");
-}
+const OrderAction = async (formData: FormData) => {
+  const entrada = formData.get("entrada") as string | null;
+  const comandaId = formData.get("comandaId") as string;
+  const ingredientesRaw = formData.getAll("ingredientes[]");
+  const ingredientes = ingredientesRaw.map(v => v.toString());
 
-const [produto, quant] = entrada.split("*");
-const quantidade = parseInt(quant, 10);
-if(isNaN (quantidade)){
-   throw new Error('Quatidade inválida')
-}
-  const cookie=await cookies()
-  const token=cookie.get('comandas-token')?.value||''
-const page=1;
-const perPage=10
-const res=await produtService.findByName(token,produto.trim(),page,perPage)
-  if (!res.produtos || res.produtos.length === 0) {
-    console.error("Produto não encontrado");
-    return;
+  if (!entrada || !entrada.includes("*")) {
+    throw new Error("Entrada inválida: valor ausente ou formato incorreto");
   }
 
+  const [produtoNome, quant] = entrada.split("*");
+  const quantidade = parseInt(quant, 10);
+  if (isNaN(quantidade)) throw new Error("Quantidade inválida");
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get("comandas-token")?.value || "";
+console.log("TokenNaaction:",token)
+  // Buscar produto pelo nome
+  const res = await produtService.findByName(token, produtoNome.trim(), 1, 10);
+  if (!res.produtos || res.produtos.length === 0) {
+    throw new Error("Produto não encontrado");
+  }
+console.log("ResNaAction:",res)
   const produtoEncontrado = res.produtos[0];
   const produtoId = produtoEncontrado.id;
   const total = produtoEncontrado.preco * quantidade;
-  
-const resOrder=await pedidoService.registerAll({token,total,quantidade,comandaId,produtoId})
-  redirect(`/employeeApp/comandas`);
+const produtoComIngredientes = await produtService.getProductById(token, produtoEncontrado.id);
+  // Criar pedidoProduto
+  const resOrder = await pedidoService.registerAll({ token, total, quantidade, comandaId, produtoId });
+  const pedidoProdutoId = resOrder.pedidosProdutos.id;
 
+  // Filtrar e preparar payload de ingredientes opcionais
+const ingredientsToAdd = produtoComIngredientes.ingredients?.filter((ing: any) =>
+  ingredientes.includes(ing.id.toString())
+) || [];
+
+  if (ingredientsToAdd.length > 0) {
+    const payload = {
+      pedidoProdutoId,
+      ingredientes: ingredientsToAdd.map((ing: any) => ({
+        ingredientId: ing.id,
+        include: true
+      }))
+    };
+
+    await IngredientService.saveOrderWithIngredientes(token, payload);
+  }
+
+  redirect(`/employeeApp/comandas`);
 }
-export default OrderAction
+
+export default OrderAction;

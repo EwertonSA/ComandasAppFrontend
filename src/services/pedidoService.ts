@@ -18,7 +18,9 @@ try {
   const res=await api.get('/api/pedidos',{
     headers
   })
+  console.log("Resposata no service:",res.data.pedidos)
   return res.data?.pedidos || [];
+
 } catch (error) {
    return []
 }
@@ -166,7 +168,7 @@ registerAll: async ({
       return { status: 400, message: "Erro ao vincular produto ao pedido." };
     }
 
-    return { status: 200, message: "Pedido com produto cadastrado com sucesso." };
+    return {pedidosProdutos, status: 200, message: "Pedido com produto cadastrado com sucesso." };
   } catch (error) {
     if (error instanceof Error) {
       console.error("Erro no registerAll:", {

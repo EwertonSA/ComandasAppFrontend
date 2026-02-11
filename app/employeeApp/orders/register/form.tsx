@@ -2,18 +2,26 @@
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
 import styles from '../../../../styles/register.module.scss'
 
-
 import OrderAction from "./action"
-
 import { usePedidosForm } from "./usePedidoForm"
 import { useEffect, useState } from "react"
+import produtService from "@/src/services/productService"
 
 const OrderForm = () => {
   const [comandaId, setComandaId] = useState('');
+  const [ingredientes, setIngredientes] = useState<any[]>([]);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setComandaId(params.get('comandaId') || '');
+    
+    // Aqui você pode buscar o token do cookie se estiver disponível no client
+    const cookieToken = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('comandas-token='))
+      ?.split('=')[1] || '';
+    setToken(cookieToken);
   }, []);
 
   const {
@@ -29,6 +37,21 @@ const OrderForm = () => {
     highlightIndex,
     itemRefs
   } = usePedidosForm();
+
+  const handleProdutoSelecionado = async (produto: any) => {
+    handleSuggestionClick(produto); // mantém lógica de sugestão selecionada
+    try {
+      const data = await produtService.getProductById(token, produto.id);
+      if (data.ingredients && data.ingredients.length > 0) {
+        setIngredientes(data.ingredients);
+      } else {
+        setIngredientes([]);
+      }
+    } catch (err) {
+      console.error("Erro ao buscar ingredientes:", err);
+      setIngredientes([]);
+    }
+  }
 
   return (
     <main>
@@ -59,6 +82,26 @@ const OrderForm = () => {
               autoComplete="off"
               className={styles.input}
             />
+
+            {ingredientes.length > 0 && (
+              <div className="mt-4">
+                <p><strong>Ingredientes opcionais</strong></p>
+                {ingredientes.map((ing:any) => (
+                  <FormGroup key={ing.id} check>
+                    <Label check>
+                      <Input
+                        type="checkbox"
+                        name="ingredientes[]" // <- importante para enviar como array
+                        value={ing.id}
+                        defaultChecked={true} // se quiser pré-selecionado
+                      />{" "}
+                      {ing.name}
+                    </Label>
+                  </FormGroup>
+                ))}
+              </div>
+            )}
+
             <input type="hidden" name="comandaId" value={comandaId} />
 
             {suggestions.length > 0 && (
@@ -66,7 +109,7 @@ const OrderForm = () => {
                 {suggestions.map((produto, index) => (
                   <li key={produto.id}
                     ref={(el) => { itemRefs.current[index] = el }}
-                    onClick={() => handleSuggestionClick(produto)}
+                    onClick={() => handleProdutoSelecionado(produto)}
                     className={highlightIndex === index ? styles.active : ''}>
                     <img
                       src={
@@ -94,4 +137,5 @@ const OrderForm = () => {
     </main>
   )
 }
+
 export default OrderForm

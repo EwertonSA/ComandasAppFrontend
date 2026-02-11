@@ -62,7 +62,7 @@ const FormLogin = () => {
       const userRole = res.data.user.role;
 
       // ✅ Redireciona no client
-      if (userRole === "admin") return router.push("/admin");
+      if (userRole === "admin") return router.push(`${process.env.NEXT_PUBLIC_BASEURL}/admin`);
       if (userRole === "user") return router.push("/employeeApp");
       if (userRole === "cliente") return router.push("/clientApp");
 
@@ -147,7 +147,9 @@ const FormLogin = () => {
     <option value="cliente">Cliente</option>
   </Input>
 </FormGroup>
-
+<Link href={"/login/forgotPassword"}><div className={styles.label}>
+  Esqueceu sua senha?
+  </div></Link>
             {/* Logins sociais */}
  <OauthButton/>
 

@@ -6,6 +6,8 @@ import PedidosList from "./pedidoList"
 import Link from "next/link"
 import { Button } from "reactstrap"
 import styles from '../../../../styles/getStyles.module.scss'
+import PedidosList2 from "./pedidoList2"
+import OrdersList from "./pedidoList2"
 interface Props {
   pedidos: any[]
   onCancelar: (pedido: any) => void
@@ -44,9 +46,9 @@ export default function ClientOrders({ pedidos, onCancelar,id }: Props) {
         ]}
       />
 {abaAtiva === 'pendentes' ? (
-  <PedidosList pedidos={pedidosPendentes} tipo="pendentes" onCancelar={onCancelar} comandaId={id}/>
+  <OrdersList pedidos={pedidosPendentes} tipo="pendentes" onCancelar={onCancelar} comandaId={id}/>
 ) : (
-  <PedidosList pedidos={pedidosEntregues} tipo="entregues" onCancelar={onCancelar}  comandaId={id}/>
+  <OrdersList pedidos={pedidosEntregues} tipo="entregues" onCancelar={onCancelar}  comandaId={id}/>
 )}
  <p className={styles.title}>Valor total entregue: R$ {totalDelivered}</p>
 

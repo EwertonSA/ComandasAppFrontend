@@ -39,6 +39,12 @@
     }
    
 }
+.container2{
+    @extend .container;
+    width: 400px;
+    height: 520px;
+
+}
 .title{
     font-size: 30px;
     text-align: center;
