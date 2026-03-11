@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">fronteste</string>
+    <string name="title_activity_main">fronteste</string>
+    <string name="package_name">com.Ewerton.comandas</string>
+    <string name="custom_url_scheme">com.Ewerton.comandas</string>
+</resources>

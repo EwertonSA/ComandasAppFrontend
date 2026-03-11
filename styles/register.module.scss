@@ -1,0 +1,145 @@
+@use "./colors.module.scss";
+.main{
+    background-color: linear-gradient(to bottom,#151515,black);
+}
+.formTitle{
+    font-size: 40px;
+    font-weight: bold;
+    padding-bottom: 40px;
+}
+.subtitle{
+  text-align: center;
+    font-size: 26px;
+}
+.form{
+    width: 600px;
+    padding: 50px;
+    border:1px solid colors.$lightBlue;
+    border-radius: 5px;
+   margin: 0 auto;
+}
+.label{
+    font-weight: bold;
+    font-size: 14px;
+    padding-top: 20px;
+}
+.input{
+border-color: colors.$darkGray;
+color: white;
+background-color: transparent;
+
+&::placeholder{
+    color: colors.$lightGray;
+    text-transform: none;
+}
+&:focus{
+    background-color: black;
+    border-color: colors.$lightGray;
+    box-shadow: none;
+    color: white
+}}
+.inputName{
+    @extend .input;
+    text-transform: uppercase;
+    &::placeholder{
+        text-transform: none;
+    }
+}
+.formBtn{
+    display: block;
+    margin: 50px auto 0 auto;
+    border-color:colors.$darkGray ;
+    color: white;
+
+&:hover{
+    background-color: transparent;
+    color: colors.$lightGray;
+    border-color:colors.$lightBlue;
+}}
+.searchCardImg{
+    width: 30px;
+    margin: 10px;
+   
+}
+.inputSearch{
+    width: 100vh;
+}
+
+.suggestions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ddd;
+    max-height: 150px;
+    max-width: 500px;
+    overflow-y: auto;
+    background: white;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+    top: 45%;
+  }
+  
+  .suggestions li {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .suggestions li:hover {
+    background-color: #f0f0f0;
+  }
+  .active{
+     background-color: #f0f0f0;
+  }
+ 
+@media(max-width:767px){
+.form{
+    width: 95%;
+}
+.formTitle{
+    font-size: 30px;
+}
+
+.subtitle{
+    font-size: 18px;
+}
+.suggestions{
+    max-width: 365px;
+}
+}
+  .recaptcha {
+     display: flex;
+  justify-content: center; // centraliza horizontalmente
+  margin-bottom: 1rem;
+  transform: scale(1) !important;
+  width: 304px !important;
+  height: 78px !important;
+  margin: auto;
+    z-index: 10;
+}
+.test{
+    background-color: yellow;
+    color: green;
+}
+
+@media(max-width:550px){
+    .form{
+        padding: 50px 10px;
+    }
+    .suggestions{
+        max-width: 300px;
+    }
+    
+}
+@media(max-width:404px){
+    .formTitle{
+        font-size: 24px;
+        text-align: center;
+    }
+    .subtitle{
+        font-size: 16px;
+    }
+    .suggestions{
+        max-width: 220px;
+    }
+}

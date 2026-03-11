@@ -1,0 +1,81 @@
+'use client'
+
+import Link from "next/link"
+import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap"
+import styles from '../../../../styles/register.module.scss'
+import { useParams } from "next/navigation";
+import SearchOrderAction from "./action";
+import { usePedidosForm } from "@/app/employeeApp/orders/register/usePedidoForm";
+
+
+  const {
+    entrada,
+    setEntrada,
+    suggestions,
+    toastOpen,
+    toastColor,
+    toastMessage,
+    handleKeyDown,
+    handleEntradaChange,
+    handleSuggestionClick,
+    highlightIndex,
+    itemRefs
+  } = usePedidosForm();
+export default function SearchProduct(){
+  const { comandaId } = useParams()
+    return(
+        <div>
+            <Container >
+                <p className={styles.formTitle}>Nossos produtos</p>
+                {toastOpen && (
+            <div className={`text-white p-2 rounded ${toastColor}`}>
+              {toastMessage}
+            </div>
+          )}
+    <Form action={SearchOrderAction}>
+        <FormGroup>
+          <Input type="hidden" name="comandaId" value={comandaId}/>
+            <Label for='entrada'  className={styles.title}>Pesquisar</Label>
+          
+          <div className="d-flex align-items-center justify-content-center gap-3"> 
+             <Input   id="entrada"
+                type="text" 
+                placeholder="Ex: cerveja*3"
+                value={entrada}
+                onChange={(e) => handleEntradaChange(e.target.value)}
+                autoComplete="off"
+                className={styles.input}/>
+        <Button outline type="submit"><img src="/iconSearch.svg" alt="" className={styles.searchCardImg} /></Button>
+                   {suggestions.length > 0 && (
+                
+                <ul className={styles.suggestions}>
+                  {suggestions.map((produto) => (
+                    <li key={produto.id} onClick={() => handleSuggestionClick(produto)}>
+                      <Link href={`/produtos/${produto.id}?comandaId=${comandaId}`}>
+                      <img
+          src={
+            produto.thumbnailUrl
+              ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`
+              : "/images/default-thumbnail.jpg"
+          }
+          alt={produto.nome}
+          width={40}
+          height={40}
+          style={{ objectFit: "cover", marginRight: "8px", borderRadius: "4px" }}
+        />
+               {produto.nome} - R$ {produto.preco}
+                 </Link>
+                    </li>
+                  ))}
+                </ul>
+              
+              )}
+      
+              </div>
+        </FormGroup>
+        
+    </Form>
+            </Container>
+        </div>
+    )
+}
