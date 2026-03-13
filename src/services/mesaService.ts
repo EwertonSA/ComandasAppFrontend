@@ -26,6 +26,7 @@ export const mesaService={
              params:{page,perPage},
             headers
           }); 
+          console.log("Resposta do servidor:", response.data);
           return {
                  mesas: response.data.mesas || [],
       total: response.data.total || 0,
