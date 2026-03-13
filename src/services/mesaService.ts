@@ -27,6 +27,7 @@ export const mesaService={
             headers
           }); 
           console.log("Resposta do servidor:", response.data);
+          console.log("BASEURL:", api.defaults.baseURL)
           return {
                  mesas: response.data.mesas || [],
       total: response.data.total || 0,
