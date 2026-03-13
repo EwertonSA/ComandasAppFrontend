@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASEURL,
- 
+  baseURL:"https://api.esadev.com.br"
 });
 
 export default api;
