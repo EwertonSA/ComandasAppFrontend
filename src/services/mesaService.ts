@@ -22,12 +22,10 @@ export const mesaService={
       getMesas: async (token:string|null,page=1,perPage=10) => {
         try {
           const headers = token ? { Authorization: `Bearer ${token}` } : {};
-          const response = await api.get("https://api.esadev.com.br/api/mesas",{
+          const response = await api.get("/api/mesas",{
              params:{page,perPage},
             headers
           }); 
-          console.log("Resposta do servidor:", response.data);
-          console.log("BASEURL:", api.defaults.baseURL)
           return {
                  mesas: response.data.mesas || [],
       total: response.data.total || 0,
