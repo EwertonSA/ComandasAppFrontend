@@ -22,7 +22,7 @@ export const mesaService={
       getMesas: async (token:string|null,page=1,perPage=10) => {
         try {
           const headers = token ? { Authorization: `Bearer ${token}` } : {};
-          const response = await api.get("/api/mesas",{
+          const response = await api.get("api.esadev.com.br/api/mesas",{
              params:{page,perPage},
             headers
           }); 
