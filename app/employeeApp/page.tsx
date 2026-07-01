@@ -11,7 +11,11 @@ import SlidePedidos from "@/src/components/common/slidePedido";
 const HomeAuth = async () => {
   const cookieStore =await cookies();
   const token = cookieStore.get("comandas-token")?.value;
-
+ console.log(
+    "COOKIES NO NEXT:",
+    cookieStore.getAll()
+  );
+  console.log('tokenTest:',token)
   if (!token) {
     redirect("/login/user"); // redireciona no servidor
   }
