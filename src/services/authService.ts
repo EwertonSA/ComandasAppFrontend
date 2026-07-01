@@ -71,7 +71,7 @@ login: async (params: LoginParamsTest) => {
       return { status: error.response.status, data: error.response.data };
     }
 
-    // Retorno garantido mesmo sem error.response
+
     return { status: 500, data: { message: "Erro inesperado no login" } };
   }
 }
@@ -88,12 +88,12 @@ autoLogin: async (params:clienteParams) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASEURL}/api/autoLogin`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    credentials: "include", // 🔑 envia/recebe cookies
+    credentials: "include",
     body: JSON.stringify(params),
   });
 
   if (!res.ok) throw new Error("Falha no login");
-  return await res.json(); // retorna { authenticated, clienteId, email, role, mesaId }
+  return await res.json(); 
 }
 
 
@@ -127,7 +127,7 @@ loginAndRegister : async (email: string, nome: string, mesaId: string) => {
 verify2fa : async ({
   userId,
   token,
- // <- aqui você passa os cookies que vieram do navegador
+
 }: {
   userId: number;
   token: string | null;
@@ -149,7 +149,7 @@ verify2fa : async ({
  setup2faService:async(userId: string) =>{
   try {
     const res = await api.get(`/api/auth/verify-2fa/setup?userId=${userId}`);
-    return res.data; // { qrCodeDataURL, secret? }
+    return res.data;
   } catch (err) {
     console.error(err);
     return { qrCodeDataURL: null };
