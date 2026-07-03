@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import api from "./src/services/api";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -6,7 +7,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   images: {
-    domains: ['localhost', 'esadev.com.br'],
+    domains: ['localhost', 'esadev.com.br','api.esadev.com.br'],
   },
 
 
