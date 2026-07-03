@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
       allowedOrigins: [
         "http://localhost:3000",
         "https://esadev.com.br",
+        "https://api.esadev.com.br"
       ],
     },
   },
