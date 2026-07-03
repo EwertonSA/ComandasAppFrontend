@@ -67,7 +67,6 @@ login: async (params: LoginParamsTest) => {
     console.log("🔎 Função login chamada com:", params);
 
     if (error.response) {
-      console.log("❌ Erro no login:", error.response.status, error.response.data);
       return { status: error.response.status, data: error.response.data };
     }
 

@@ -45,6 +45,7 @@ const AllProducts =async ({searchParams}:OrdersPageProps) => {
        const imgUrl = produto.thumbnailUrl
   ? `${process.env.NEXT_PUBLIC_BASEURL}/${produto.thumbnailUrl}`
   : null;
+  console.log(imgUrl);
 
             return (
             
