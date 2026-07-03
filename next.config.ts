@@ -4,11 +4,15 @@ import api from "./src/services/api";
 const isProd = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
-
-  images: {
-    domains: ['localhost', 'esadev.com.br','api.esadev.com.br'],
-  },
+images: {
+  remotePatterns: [
+    {
+      protocol: "https",
+      hostname: "api.esadev.com.br",
+      pathname: "/**",
+    },
+  ],
+},
 
 
 
