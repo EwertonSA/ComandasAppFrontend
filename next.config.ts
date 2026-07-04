@@ -13,10 +13,6 @@ images: {
     },
   ],
 },
-
-
-
-  // ⚠️ Isso garante que as requisições SSR usem cookies e credenciais corretamente
   experimental: {
     serverActions: {
       bodySizeLimit: "2mb",
