@@ -16,7 +16,7 @@
 }
 .container{
     width: 320px;
-    height: 460px;
+    height: 560px;
     border: 1px solid white;
     border-radius: 8px;
     cursor: pointer;
@@ -24,6 +24,7 @@
     overflow: hidden;
     transition: 0.4s;
     margin: 30px 20px 20px 30px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;

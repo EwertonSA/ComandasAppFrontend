@@ -1,7 +1,6 @@
 
 import { comandaService } from "@/src/services/comandaService"
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime"
-import { NextRouter } from "next/router"
 export async function handleLogout(router: AppRouterInstance) {
 try {
    const res=await fetch('/api/auth/logout',{

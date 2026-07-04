@@ -10,18 +10,8 @@ return(
             Node.js e PostgreSQL.
           </p>
 <p className={styles.content}>
-  Sou um desenvolvedor Full Stack em transição do ambiente acadêmico para o mercado profissional,
-   com quatro anos de estudo focado em aplicações reais. Atualmente, curso o último semestre de 
-   Gestão da Tecnologia da Informação, onde aplico meus conhecimentos em projetos próprios voltados para soluções práticas de mercado.
-
-  Tenho experiência no desenvolvimento de uma aplicação completa para bares e restaurantes, 
-  integrando tecnologias como TypeScript, Node.js, Sequelize, Express e AdminJS no backend,
-  além de Next.js, React Bootstrap e Sass no frontend, atendendo tanto colaboradores quanto clientes.
-
-  Também trabalhei com deploys automatizados em plataformas como Vercel e com hospedagem em VPS, o que me proporcionou vivência em ambientes de produção.
-
-  Busco uma oportunidade como Desenvolvedor Júnior, Estagiário ou Trainee, onde eu possa colaborar com o time, aprender continuamente e contribuir com minha dedicação, autonomia e foco na entrega de soluções de qualidade.
-</p>
+  Hi, I'm Ewerton Silva de Abreu, a Full Stack JavaScript/TypeScript Developer. I enjoy turning ideas into modern web applications by building intuitive user interfaces and robust backend services. My main stack includes React, Next.js, Node.js, Express.js, TypeScript, and PostgreSQL. Through personal projects, I've gained hands-on experience with REST APIs, authentication, server-side rendering (SSR), database design, and responsive interfaces. I'm currently seeking opportunities to contribute, learn, and grow as a Full Stack Developer.
+  </p>
 
                 <Link href="mailto:seuemail@email.com">
             <button className={styles.contactButton}>Entrar em contato</button>

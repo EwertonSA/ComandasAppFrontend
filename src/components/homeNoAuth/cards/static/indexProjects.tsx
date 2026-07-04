@@ -31,7 +31,7 @@ const IndexProjects = () => {
           </div>
 
           <Link
-            href="https://esadev.com.br/admin"
+            href="https://api.esadev.com.br/admin"
             target="_blank"
             className={styles.container}
           >
@@ -39,7 +39,7 @@ const IndexProjects = () => {
             <p>
              This is the backend of ComandasApp, a monolithic REST API developed with Node.js, Express.js, TypeScript, PostgreSQL, and AdminJS. It handles authentication, business logic, and data persistence while serving the frontend application. The project also features an AdminJS dashboard for managing application resources through a web interface. Click "View Backend" to explore the project.
             </p>
-            <button className={styles.contactButton}>Ver Back-End</button>
+            <button className={styles.contactButton}>View Back-End</button>
           </Link>
 
           <Link
@@ -49,10 +49,7 @@ const IndexProjects = () => {
           >
             <img src="/vercel.svg" alt="" className={styles.slideImg} />
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam,
-              quas sit eligendi, quis saepe vitae iusto inventore architecto
-              delectus nostrum obcaecati nisi animi consequatur praesentium
-              deserunt explicabo earum incidunt.
+This is a study project built with Next.js and React.js that simulates an e-commerce application. Users can browse products, add them to the shopping cart, and view the total price updated in real time. The project focuses on the shopping experience and does not include checkout or payment features. Click "View Project" below to explore it.
             </p>
             <button className={styles.contactButton}>Ver na Vercel</button>
           </Link>

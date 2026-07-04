@@ -18,24 +18,24 @@ const SlideComponent = ({ children, itemsLength }: SlideComponentProps) => {
           type: "loop",
           perPage: slideCount,
           perMove: 1,
-          width: slideCount * 300,
+          width: slideCount * 400,
           pagination: false,
           arrows: itemsLength > 4,
           drag: itemsLength > 4,
           breakpoints: {
-            1200: {
+            1600: {
               perPage: slideCount >= 2 ? 2 : 1,
               arrows: itemsLength > 2,
               drag: itemsLength > 2,
-              width: slideCount >= 2 ? 600 : 300,
+              width: slideCount >= 2 ? 800 : 400,
             },
-            600: {
+            800: {
               perPage: 1,
               arrows: itemsLength > 1,
               drag: itemsLength > 1,
-              width: 300,
+              width: 400,
             },
-            300: {
+            400: {
               perPage: 1,
               width: 230,
             },

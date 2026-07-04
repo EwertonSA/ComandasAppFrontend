@@ -10,7 +10,6 @@ import Image from 'next/image';
 import LogoutAction from '@/app/login/user/logoutAction';
 
 const HeaderAuth = ({ logoUrl }: { logoUrl: string }) => {
-  const router = useRouter();
   const pathname = usePathname();
   const [modalOpen, setModalOpen] = useState(false);
 
