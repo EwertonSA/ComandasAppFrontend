@@ -115,7 +115,7 @@ margin-bottom: 12px;
 .main4{
     @extend .main;
     max-width: 100%;
-    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/imgFrontend.png");
+    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/home2.jpg");
     overflow-x: hidden;
     background-size: cover;
     background-repeat: no-repeat;
@@ -127,7 +127,7 @@ margin-bottom: 12px;
   @extend .main;
   width: 100%;
   overflow-x: hidden;
-  background-image: linear-gradient(to bottom, #8b8b8b1a, #151515), url("/2.png");
+  background-image: linear-gradient(to bottom, #8b8b8b1a, #151515), url("/home2.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -142,6 +142,19 @@ margin-bottom: 12px;
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
+}
+.main7{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+     max-width: 100%;
+    overflow-x: hidden;
+    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/aboutme.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+
 }
 .hero {
   text-align: center;
@@ -160,7 +173,7 @@ margin-bottom: 12px;
 .content{
   margin: 20px 20px;
     max-width: 800px;
-    font-size: 20px;
+    font-size: 24px;
 }
 .projects{
     display: flex;
