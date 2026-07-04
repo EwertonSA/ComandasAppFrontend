@@ -19,10 +19,7 @@ const IndexProjects = () => {
           <div className={styles.container}>
             <img src="/ComandasApp.jpg" alt="" className={styles.slideImg} />
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam,
-              quas sit eligendi, quis saepe vitae iusto inventore architecto
-              delectus nostrum obcaecati nisi animi consequatur praesentium
-              deserunt explicabo earum incidunt.
+           This is the frontend of ComandasApp, a restaurant management application built with HTML, Bootstrap, React.js, and Next.js. The application uses a hybrid rendering approach, combining Server-Side Rendering (SSR) with client-side React features to provide fast initial page loads and a smooth, interactive user experience. Click "View Front-end" to explore the application. 
             </p>
 
             <button
@@ -40,10 +37,7 @@ const IndexProjects = () => {
           >
             <img src="/ComandasApp.jpg" alt="" className={styles.slideImg} />
             <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam,
-              quas sit eligendi, quis saepe vitae iusto inventore architecto
-              delectus nostrum obcaecati nisi animi consequatur praesentium
-              deserunt explicabo earum incidunt.
+             This is the backend of ComandasApp, a monolithic REST API developed with Node.js, Express.js, TypeScript, PostgreSQL, and AdminJS. It handles authentication, business logic, and data persistence while serving the frontend application. The project also features an AdminJS dashboard for managing application resources through a web interface. Click "View Backend" to explore the project.
             </p>
             <button className={styles.contactButton}>Ver Back-End</button>
           </Link>
