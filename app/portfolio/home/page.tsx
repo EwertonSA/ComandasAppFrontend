@@ -13,8 +13,8 @@ const PortfolioHome=async()=>{
 
   
     return(
-          <>  
-<HeaderPort logoUrl="teste"/>
+          <main>  
+<HeaderPort logoUrl="/portfolio/home"/>
 <Container className={styles.main7}>
     <h1 className={styles.title}>WELCOME TO EWERTON SILVA DE ABREU PORTFOLIO</h1>
     <h3 className={styles.subtitle}>FullStack JavaScript/TypeSctipt Web Developer | Software Engineering | Prompt Engineering</h3>
@@ -24,7 +24,7 @@ const PortfolioHome=async()=>{
   <Link href={"/portfolio/projects"}>See here</Link>
 </Container>
        <Footer />
-</>
+</main>
     )
 }
 export default  PortfolioHome

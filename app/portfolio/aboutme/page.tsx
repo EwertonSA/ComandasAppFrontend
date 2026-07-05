@@ -6,12 +6,12 @@ import { HeaderPort } from "../home/modal"
 
  const AboutMe=()=>{
     return(
-        <>
-       <HeaderPort logoUrl="teste"/>
+        <main>
+       <HeaderPort logoUrl="/portfolio/home"/>
         <IndexDescription/>
-         <IndexCertifications />
+       
          <Footer/>
-         </>
+         </main>
     )
 } 
 export default  AboutMe

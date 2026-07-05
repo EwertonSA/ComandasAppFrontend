@@ -16,11 +16,12 @@ export default function HomeNoAuth() {
       >
         <HeaderNoAuth />
         <PresentationSection />
-      </div>
-      <div data-aos="fade-right" data-aos-duration="1200">
+         <div data-aos="fade-right" data-aos-duration="1200">
         <CardSection />
       </div>
       <Footer />
+      </div>
+     
     </main>
   );
 }

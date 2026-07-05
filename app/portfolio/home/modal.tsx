@@ -62,7 +62,9 @@ export const HeaderPort=({ logoUrl }: { logoUrl: string })=>{
         <Link href="/portfolio/projects">
           <p className={styles.modalLink}>Projects</p>
         </Link>
-       
+          <Link href="/portfolio/certifications">
+          <p className={styles.modalLink}>Certifications</p>
+        </Link>
       </Modal>
     </Container>
     )

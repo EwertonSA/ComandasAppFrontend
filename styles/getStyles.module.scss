@@ -11,6 +11,7 @@
     width: 100%;
     align-items: center;
     background-color: black;
+    color: #f7f7f7;
   
    
 }
@@ -98,7 +99,7 @@ margin-bottom: 12px;
 .main2{
     @extend .main;
       min-height: 90vh;
-    background-image: linear-gradient(to bottom, #8b8b8b1a, #151515),url("/ComandasApp.jpg");
+    background-image: linear-gradient(to bottom, #8b8b8b1a, #151515),url("/comand.jpg");
     overflow-x: hidden;
     background-size: cover;
     background-repeat: no-repeat;
@@ -175,6 +176,19 @@ margin-bottom: 12px;
     max-width: 800px;
     font-size: 24px;
 }
+.acc{
+  width: 100%;
+
+  overflow: hidden;
+  width: 100%;
+
+  
+
+  
+  
+
+}
+
 .projects{
     display: flex;
    flex-wrap: wrap;
