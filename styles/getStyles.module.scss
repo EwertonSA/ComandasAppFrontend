@@ -116,7 +116,7 @@ margin-bottom: 12px;
 .main4{
     @extend .main;
     max-width: 100%;
-    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/home2.jpg");
+    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/aboutmeDesk.jpg");
     overflow-x: hidden;
     background-size: cover;
     background-repeat: no-repeat;
@@ -128,7 +128,7 @@ margin-bottom: 12px;
   @extend .main;
   width: 100%;
   overflow-x: hidden;
-  background-image: linear-gradient(to bottom, #8b8b8b1a, #151515), url("/home2.jpg");
+  background-image: linear-gradient(to bottom, #8b8b8b1a, #151515), url("/projectsDesk.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -139,7 +139,7 @@ margin-bottom: 12px;
     @extend .main;
     max-width: 100%;
     overflow-x: hidden;
-    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/1.png");
+    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/certificationsDesk.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
@@ -151,11 +151,16 @@ margin-bottom: 12px;
     align-items: center;
      max-width: 100%;
     overflow-x: hidden;
-    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/aboutme.jpg");
+    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/home.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
 
+}
+.sectionBack{
+    background-image: linear-gradient(to bottom, #8b8b8b1a, #151515),url("/comandasDesk.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .hero {
   text-align: center;
@@ -210,9 +215,11 @@ margin-bottom: 12px;
 }
 
 .contactButton {
+    font-size: 24px;
+    margin-bottom: 10px;
   background-color: #34d399;
+  padding: 10px 8px;
   color: white;
-  padding: 0.8rem 1.5rem;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -373,7 +380,14 @@ margin-bottom: 8px;
     color: colors.$lightGray;
     text-transform: none;
 }}
+
 @media(max-width:766px){
+    .main7{
+         background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/homeMobile.jpg");
+    }
+    .contactButton{
+          font-size: 18px;
+    }
     .row{
         font-size: 10px;
         padding: 0px;
@@ -382,7 +396,18 @@ margin-bottom: 8px;
     .Img{
         width: 100%;
     }
- 
+ .main4{
+     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/aboutmeMobile.jpg");
+}
+ .main5{
+     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/projectsMobile.jpg");
+}
+ .main6{
+     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/certMobile.jpg");
+}
+.sectionBack{
+    background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/comandasMobile.jpg");
+}
 }
 @media(max-width:380px){
   .row{
@@ -394,6 +419,9 @@ margin-bottom: 8px;
      width: 250px;
  
   }
+  .contactButton{
+          font-size: 14px;
+    }
 }
 @media(max-width:1200px){
     .projects{
@@ -406,12 +434,27 @@ margin-bottom: 8px;
 font-size: 14px;
 max-width: 600px
     };
+    .main7{
+     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/homeTablet.jpg");
+}
+.main4{
+     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/aboutmeTablet.jpg");
+}
+ .main4{
+     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/aboutmeTablet.jpg");
+}
+.sectionBack{
+    background-image: linear-gradient(to bottom, #8b8b8b1a, #151515),url("/comandasTablet.jpg");
+}
+ .main6{
+     background-image: linear-gradient(to bottom,  #8b8b8b1a, #151515),url("/certTablet.jpg");
+}
 }
 @media(max-width:520px){
     .title{
         font-size: 20px;
     }
     .subtitle{
-        font-size: 14px;
+        font-size: 12px;
     }
 }

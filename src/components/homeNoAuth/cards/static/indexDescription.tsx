@@ -13,7 +13,7 @@ const IndexDescription=()=>{
 
 return(
     <main className={styles.main4} >
-        <div className="d-flex flex-wrap flex-column justify-content-center align-items-center py-10">
+        <div className={styles.center}>
        
           <p className={styles.title}>
             Desenvolvedor Full Stack focado em soluções com JavaScript, React,

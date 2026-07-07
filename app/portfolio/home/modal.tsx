@@ -19,26 +19,21 @@ export const HeaderPort=({ logoUrl }: { logoUrl: string })=>{
               if (modalRoot) {
                 Modal.setAppElement('#modal-root');
               } else {
-                // Se não existe ainda, tenta novamente em 50ms
-                setTimeout(checkAndSetAppElement, 50);
+                         setTimeout(checkAndSetAppElement, 50);
               }
             };
-        
-            checkAndSetAppElement();
+                    checkAndSetAppElement();
           }, []);
-        
-          const getBtn = () => {
+                  const getBtn = () => {
             switch (pathname) {
-           
-              default:
+                      default:
                 return "Menu";
             }
           };
-        
-    return(
+            return(
            <Container className={styles.nav}>
              <Link href={logoUrl}>
-        <Image src="/2.jpg" alt="comandasLogo" className={styles.imgLogoNav} width={100} height={50} />
+        <Image src="/test.png" alt="comandasLogo" className={styles.imgLogoNav} width={200} height={50} />
       </Link>
       <div className="d-flex align-items-center">
         <p className={styles.user} onClick={() => handleOpenModal(setModalOpen)}>

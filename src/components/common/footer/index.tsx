@@ -8,7 +8,7 @@ const Footer=()=>{
     return(
         <>
         <Container className={styles.footer}>
-            <Image src="/2.jpg" alt="ComandasLogo" className={styles.footerLogo} width={100} height={50}/>
+            <Image src="/test.png" alt="ComandasLogo" className={styles.footerLogo} width={200} height={50}/>
             <Link   className={styles.footerLink} href='/'>Home</Link>
           
         </Container>

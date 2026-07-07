@@ -5,7 +5,7 @@ const PresentationSection=()=>{
 return<> 
 <Container className="py-4">
     <Row>
-        <Col md className="d-flex flex-column justify-content-center align-items-start">
+        <Col md className={styles.content}>
         <p className={styles.title}>Bem vindo ao Sitema de comandas para bares e restaurantes</p>
         <p className={styles.subtitle}>Acesse agora como colaborador usando o login 
           usuario@example.com e senha 123123 para ter tenha acesso a aplicação completa.

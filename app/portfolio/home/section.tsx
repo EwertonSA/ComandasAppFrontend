@@ -7,9 +7,9 @@ const Section=()=>{
 const router= useRouter()
     return(
         <div className={styles.section}>
-  <Button className={styles.contactButton} onClick={()=>router.push("/portfolio/projects")}>See Projects</Button>
-  <Button className={styles.contactButton} onClick={()=>router.push("/portfolio/aboutme")}>See About me</Button>
-  <Button className={styles.contactButton} onClick={()=>router.push("/portfolio/aboutme")}>See Certifications</Button>
+  <Button className={styles.contactButton} onClick={()=>router.push("/portfolio/projects")}>Projects</Button>
+  <Button className={styles.contactButton} onClick={()=>router.push("/portfolio/aboutme")}>About me</Button>
+  <Button className={styles.contactButton} onClick={()=>router.push("/portfolio/aboutme")}>Certifications</Button>
   </div>
     )
 }

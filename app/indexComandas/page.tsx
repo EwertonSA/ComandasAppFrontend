@@ -4,11 +4,11 @@ import HeaderNoAuth from "@/src/components/homeNoAuth/headerNoAuth";
 import PresentationSection from "@/src/components/homeNoAuth/presentationSection";
 import CardSection from "@/src/components/homeNoAuth/cardSection";
 import Footer from "@/src/components/common/footer";
-import styles from "@/styles/HomeNoAuth.module.scss";
+import styles from "@/styles/getStyles.module.scss"
 
 export default function HomeNoAuth() {
   return (
-    <main>
+
       <div
         className={styles.sectionBack}
         data-aos="fade-zoom-in"
@@ -21,7 +21,6 @@ export default function HomeNoAuth() {
       </div>
       <Footer />
       </div>
-     
-    </main>
+
   );
 }

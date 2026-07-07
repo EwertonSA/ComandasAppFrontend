@@ -34,6 +34,13 @@
     background-color: transparent;
 }
 }
+.content{
+  //  "d-flex flex-column justify-content-center align-items-start"
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
 .arrowDown{
     width: 30px;
     
@@ -51,6 +58,9 @@
     .imgPresentation{
         display: flex;
         margin: 50px auto;
+    }
+    .content{
+        align-items: center;
     }
 }
 @media(max-width:690px){
