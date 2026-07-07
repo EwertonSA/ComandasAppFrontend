@@ -4,7 +4,7 @@ const IndexCertifications=()=>{
 return(
     <main className={styles.main6} data-aos="fade-zoom-out" data-aos-duration="2000">
         <div className=" pt-5">
-<p className={styles.title}>Certificações</p>
+<p className={styles.title}>Certifications</p>
 <div className={styles.certifications}> 
 <Link href={"/certificado_HTML5.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"} className={styles.Img}></img>HTML5</p></Link>
 <Link href={"/certificado_CSS3.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>CSS</p></Link>
@@ -23,7 +23,7 @@ return(
 <Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>Banco de dados SQL</p></Link>
 <Link href={"/certificate.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>SQL no Node e Prisma ORM</p></Link>
 <Link href={"/certificado_PhpMysql.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>PhpMySQL</p></Link>
-
+<Link href={"/php_laravel.pdf"} target="blank"><p className={styles.tech}><img src={"/logoCta.png"}className={styles.Img}></img>PHP Laravel Vue.js</p></Link>
 </div>
 <p></p>
 </div>

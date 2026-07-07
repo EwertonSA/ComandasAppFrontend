@@ -16,8 +16,8 @@ return(
         <div className={styles.center}>
        
           <p className={styles.title}>
-            Desenvolvedor Full Stack focado em soluções com JavaScript, React,
-            Node.js e PostgreSQL.
+            Full Stack Web Developer focus on JavaScript/TypeScript, React,
+            Node.js and PostgreSQL.
           </p>
 <Container className={styles.content}>
   {Sections.map((section, index) => (
@@ -40,8 +40,8 @@ return(
   ))}
 </Container>
 
-                <Link href="mailto:seuemail@email.com">
-            <button className={styles.contactButton}>Entrar em contato</button>
+                <Link href="mailto:ewerton.60@hotmail.com">
+            <button className={styles.contactButton}>Contact me</button>
           </Link>
           </div>
     </main>

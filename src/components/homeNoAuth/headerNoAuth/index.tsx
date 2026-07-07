@@ -14,12 +14,8 @@ const HeaderNoAuth = () => {
       <Container className={styles.nav}>
         <img src="/2.jpg" alt="logo" className={styles.imgNav} />
         <div>
-          <Link href="/indexLogin" className={`${styles.navBtn} btn btn-outline-secondary`}>
+          <Link href="/login/index" className={`${styles.navBtn} btn btn-outline-secondary`}>
             Login
-          </Link>
-
-          <Link href="/userRegister" className={`${styles.navBtn} btn btn-outline-secondary`}>
-            Cadastre
           </Link>
         </div>
       </Container>

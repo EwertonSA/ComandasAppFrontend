@@ -1,13 +1,13 @@
 
 import Footer from "@/src/components/common/footer"
-import HeaderGeneric from "@/src/components/common/headerGeneric"
 import IndexLogin from "."
+import HeaderNoAuth from "@/src/components/homeNoAuth/headerNoAuth"
 
 const indexPage=()=>{
     return <>
    
     <main >
- <HeaderGeneric  logoUrl="/"/>
+<HeaderNoAuth />
    <IndexLogin/>
       <Footer/>
     </main>

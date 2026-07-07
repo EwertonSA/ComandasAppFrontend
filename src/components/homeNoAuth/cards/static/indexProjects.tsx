@@ -15,9 +15,9 @@ const IndexProjects = (  ) => {
     <main className={styles.main5} data-aos="fade-left" data-aos-duration="2000">
       <div className="d-flex flex-wrap flex-column justify-content-center align-items-center mt-10 mb-10">
         <h1 className={styles.title}>
-          Bem-vindo(a) ao portfólio de Ewerton Silva de Abreu
+          Welcome to Ewerton Silva de Abreu Portfolio
         </h1>
-        <p className={styles.subtitle}>Projetos FullStack com JS</p>
+        <p className={styles.title}>Projects using JavaScript/TypeScript Technologies</p>
 
         <div className={styles.projects}>
   <SlideComponent itemsLength={projects.length}>
