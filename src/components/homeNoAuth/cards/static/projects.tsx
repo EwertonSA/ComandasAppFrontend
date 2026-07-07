@@ -28,12 +28,20 @@ const projects:Project[]=[
   {
       id:3,
     type:'external',
-    image:"/vercel.svg",
+    image:"/black.png",
     title:"Black Js",
     description:`This is a study project built with Next.js and React.js that simulates an e-commerce application. Users can browse products, add them to the shopping cart, and view the total price updated in real time. The project focuses on the shopping experience and does not include checkout or payment features. Click "View Project" below to explore it.`
  ,
     href:"https://blackjs-six.vercel.app"
   },
-  
+  {
+    id:4,
+    type:"external",
+    image:"/download.png",
+    title:"eCommerce frontend",
+description: `This is a prototype e-commerce frontend built with Vanilla JavaScript, HTML, and CSS. The project focuses on fundamental web development concepts, including DOM manipulation, asynchronous data fetching, shopping cart management, and responsive user interface design. It currently uses a static JSON file as a mock data source.`,
+    href:"https://fake-api-xi-two.vercel.app/"
+
+  }
 ]
 export default projects

@@ -311,6 +311,11 @@ color: white;
     color: colors.$lightBlue;
     }
 }
+.section{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
 .oauth{
     display: flex;
     flex-direction: column;
