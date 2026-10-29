@@ -1,40 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# ComandasApp Frontend
 
-## Getting Started
+Frontend do sistema de pedidos e gestão de restaurantes da plataforma ComandasApp. A aplicação foi desenvolvida em Next.js com React e TypeScript e oferece duas experiências principais:
 
-First, run the development server:
+- cliente/consumidor: navega pelo cardápio, seleciona itens, acompanha a comanda e realiza o pedido sem autenticação
+- colaborador: acessa o painel interno para gerenciar produtos, pedidos, pagamentos e atendimento do restaurante
+
+## Visão geral
+
+Este projeto é o frontend de um sistema para restaurantes que centraliza o atendimento digital, permitindo:
+
+- visualização do cardápio por categoria
+- criação e acompanhamento de pedidos
+- pagamento e fechamento de pedidos
+- gerenciamento de produtos e fluxo operacional
+- experiência mobile-first com suporte a empacotamento via Capacitor
+
+## Stack utilizada
+
+- Next.js 15
+- React 19
+- TypeScript
+- Bootstrap 5
+- Sass
+- Axios
+- SWR
+- FontAwesome
+- Capacitor
+
+## Estrutura principal
+
+```text
+app/
+├── employeeApp/          # painel interno do restaurante
+├── homeNoAuth/           # fluxo do cliente sem autenticação
+├── login/                # autenticação
+├── portfolio/            # landing page / apresentação do projeto
+├── layout.tsx            # layout global
+├── page.tsx              # rota inicial
+src/
+├── components/
+├── services/
+├── types/
+styles/
+├── globals.scss
+public/
+android/
+capacitor.config.ts
+next.config.ts
+package.json
+```
+
+## Funcionalidades
+
+- cardápio por categorias (bebidas, entradas, pratos, sobremesas)
+- seleção de itens por comanda
+- fluxo de pedidos para clientes
+- painel de colaboradores para atendimento
+- gestão de pagamentos
+- visualização de produtos e categorias
+- interface responsiva para desktop e mobile
+
+## Requisitos
+
+- Node.js 18+
+- npm
+
+## Instalação
+
+```bash
+npm install
+```
+
+## Executando localmente
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A aplicação ficará disponível em:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Build de produção
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+```bash
+npm run build
+npm run start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Lint
 
-## Learn More
+```bash
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Observações
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+- O projeto foi estruturado para funcionar como frontend de um ambiente de restaurante com fluxo de pedido digital.
+- Há suporte para execução em dispositivos móveis por meio do Capacitor, com configuração na pasta `android/`.
+- O projeto usa as rotas App Router do Next.js (`app/`).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Licença
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+Este projeto não possui uma licença definida no repositório.
