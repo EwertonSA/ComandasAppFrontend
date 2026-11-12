@@ -16,7 +16,7 @@ return(
         <div className={styles.center}>
        
           <p className={styles.title}>
-            Full Stack Web Developer focus on JavaScript/TypeScript, React,
+            Full Stack Web Developer JavaScript/TypeScript, React,
             Node.js and PostgreSQL.
           </p>
 <Container className={styles.content}>
