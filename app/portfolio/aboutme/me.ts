@@ -7,7 +7,7 @@ content:string
 const Sections:AccProps[]=[
 {
 "title": "Who I am",
-"content": "I am a Full Stack Engineer focused on solving real business problems through software. I build end-to-end web applications using TypeScript, React, Next.js (App Router), Node.js, and PostgreSQL, while managing real production infrastructure with VPS Linux, Docker, NGINX, and PM2. My work spans from production systems—like ComandasApp, a real-time order management platform—to international freelance roles involving 3D WebGL (Three.js) and generative AI benchmarks (TerminalBench)."
+"content": "I am a Full Stack developer who builds custom software for clients starting or structuring new businesses, each with its own unique set of business rules. I work across the entire development lifecycle—from designing database schemas in PostgreSQL and building secure REST APIs to deploying and managing Linux VPS environments with Docker, NGINX, and PM2. My experience ranges from production systems like ComandasApp, a real-time order management platform, to international freelance work involving 3D WebGL (Three.js) and generative AI benchmarks (TerminalBench)."
 },
 {
 "title": "My Journey",
@@ -23,7 +23,7 @@ const Sections:AccProps[]=[
 },
 {
 "title": "Project Experience",
-"content": "Beyond my personal portfolio, I have gained hands-on professional experience contributing to diverse development projects via Revelo. My scope of work has ranged from full-stack web applications and Figma UI design to specialized technical tasks, such as resolving long-horizon issues and oracle tests for TerminalBench 2.0, as well as developing immersive 3D web experiences with Three.js. These opportunities allowed me to collaborate on real-world engineering tasks, master modern tech stacks, and sharpen my problem-solving skills in professional development environments."
+"content": "Beyond my personal portfolio, I have gained professional experience contributing to diverse development projects via Revelo. My scope of work has ranged from full-stack web applications and Figma UI design to specialized technical tasks, such as resolving long-horizon issues and oracle tests for TerminalBench 2.0, as well as developing immersive 3D web experiences with Three.js. These opportunities allowed me to collaborate on real-world engineering tasks, master modern tech stacks, and sharpen my problem-solving skills in professional development environments."
 }
 ]
 
