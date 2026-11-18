@@ -21,7 +21,7 @@ if(!disableInternalNavigation){
 router.push(`/employeeApp/products/${product.id}`)
 }
 }
-console.log(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/${process.env.SUPABASE_BUCKET}/${correctedPath}`  )
+console.log(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/${process.env.NEXT_PUBLIC_SUPABASE_BUCKET}/${correctedPath}`  )
 return <>
 <div className={styles.slide} onClick={handleClick}>
 <img src={imageUrl} alt={product.nome} className={styles.slideImg}/>
