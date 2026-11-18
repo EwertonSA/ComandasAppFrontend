@@ -5,24 +5,19 @@ const isProd = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
 images: {
-  remotePatterns: [
-    {
-      protocol: "https",
-      hostname: "api.esadev.com.br",
-      pathname: "/**",
-    },
-  ],
+remotePatterns: [
+{protocol: "https", hostname: "api.esadev.com.br", pathname: "/**",},
+{protocol: "https", hostname: "comandasapp.onrender.com", pathname: "/**",},
+{protocol: "https", hostname: "dnhwowzyjrxsprknofhu.supabase.co", pathname: "/storage/v1/**"}]},
+experimental: {
+serverActions: {
+bodySizeLimit: "2mb",
+allowedOrigins: [
+"http://localhost:3000",
+"https://esadev.com.br",
+"https://api.esadev.com.br"
+],
 },
-  experimental: {
-    serverActions: {
-      bodySizeLimit: "2mb",
-      allowedOrigins: [
-        "http://localhost:3000",
-        "https://esadev.com.br",
-        "https://api.esadev.com.br"
-      ],
-    },
-  },
-};
-
-export default nextConfig;
+},
+}
+export default nextConfig
