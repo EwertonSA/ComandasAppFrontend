@@ -13,7 +13,7 @@ const defaultImage = "/images/default-thumbnail.jpg";
 const correctedPath = product.thumbnailUrl.replace(/\\/g, "/");
 const imageUrl = product.thumbnailUrl 
 
-? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/${correctedPath}` 
+? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/${process.env.SUPABASE_BUCKET}/${correctedPath}` 
 : defaultImage;
 
 const handleClick=()=>{
@@ -21,7 +21,7 @@ if(!disableInternalNavigation){
 router.push(`/employeeApp/products/${product.id}`)
 }
 }
-console.log(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/${correctedPath}` )
+console.log(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/${process.env.SUPABASE_BUCKET}/${correctedPath}`  )
 return <>
 <div className={styles.slide} onClick={handleClick}>
 <img src={imageUrl} alt={product.nome} className={styles.slideImg}/>
