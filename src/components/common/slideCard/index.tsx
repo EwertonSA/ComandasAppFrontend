@@ -13,7 +13,7 @@ const defaultImage = "/images/default-thumbnail.jpg";
 const correctedPath = product.thumbnailUrl.replace(/\\/g, "/");
 const imageUrl = product.thumbnailUrl 
 
-? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/${process.env.SUPABASE_BUCKET}/${correctedPath}` 
+? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/${process.env.NEXT_PUBLIC_SUPABASE_BUCKET}/${correctedPath}` 
 : defaultImage;
 
 const handleClick=()=>{
