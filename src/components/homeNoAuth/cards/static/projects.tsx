@@ -39,8 +39,17 @@ image:"/download.png",
 title:"E-commerce frontend",
 description: `This is a prototype e-commerce frontend built with Vanilla JavaScript, HTML, and CSS. The project focuses on fundamental web development concepts, including DOM manipulation, asynchronous data fetching, shopping cart management, and responsive user interface design. It currently uses a static JSON file as a mock data source.`,
 href:"https://fake-api-xi-two.vercel.app/"
-},{
+},
+{
 id:5,
+type:"external",
+image:"/onebitflix.png",
+title:"OnebitFlix",
+description:"This is an e-learning (EAD) project built during the OneBitCode course, featuring video streaming and mock presentation sections such as slide components and a featured section.",
+href:"https://onebit-frontend-eight.vercel.app/"
+},
+{
+id:7,
 type:'external',
 image:"/black.png",
 title:"Black Js",
